@@ -1429,6 +1429,50 @@ header {
 .sector-card.phase-warm { border-color: rgba(167,139,250,0.2); }
 .sector-card.phase-warm::before { background: var(--purple); }
 
+/* SECTOR DETAIL PANEL */
+.sector-detail-panel {
+  display: none;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin-top: 24px;
+  animation: fadeSlideIn 0.3s ease;
+}
+.sector-detail-panel.show { display: block; }
+@keyframes fadeSlideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+.sdp-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.sdp-title { font-size: 18px; font-weight: 800; color: var(--text); }
+.sdp-close { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text3); font-size: 16px; transition: all 0.2s; }
+.sdp-close:hover { background: var(--red-dim); color: var(--red); border-color: rgba(255,61,90,0.3); }
+.sdp-meta { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+.sdp-meta-item { background: var(--bg3); border-radius: 8px; padding: 8px 14px; font-size: 12px; color: var(--text2); line-height: 1.4; }
+.sdp-meta-item strong { color: var(--text); }
+.sdp-stocks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.sdp-stock-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+.sdp-stock-card:hover { border-color: var(--border2); transform: translateY(-1px); background: var(--bg2); }
+.sdp-stock-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.sdp-stock-ticker { font-family: var(--mono); font-size: 14px; font-weight: 800; color: var(--text); }
+.sdp-stock-price { font-family: var(--mono); font-size: 13px; color: var(--text2); }
+.sdp-stock-name { font-size: 11px; color: var(--text3); margin-bottom: 10px; }
+.sdp-stock-signal { font-family: var(--mono); font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 6px; display: inline-block; }
+.sdp-stock-signal.sig-buy { background: var(--green-dim); color: var(--green); }
+.sdp-stock-signal.sig-wait { background: var(--amber-dim); color: var(--amber); }
+.sdp-stock-signal.sig-avoid { background: var(--red-dim); color: var(--red); }
+.sdp-stock-signal.sig-fetch { background: rgba(77,171,255,0.1); color: var(--blue); }
+.sdp-stock-change { font-family: var(--mono); font-size: 11px; }
+.sdp-analyse-btn { margin-top: 10px; width: 100%; padding: 7px 0; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--text2); font-family: var(--mono); font-size: 10px; font-weight: 700; cursor: pointer; letter-spacing: 0.5px; transition: all 0.2s; }
+.sdp-analyse-btn:hover { background: var(--green-dim); color: var(--green); border-color: rgba(0,229,153,0.3); }
+.sdp-top-pick-badge { position: absolute; top: 8px; right: 8px; font-family: var(--mono); font-size: 8px; padding: 2px 8px; border-radius: 4px; background: var(--green-dim); color: var(--green); letter-spacing: 1px; font-weight: 700; }
+
 /* CYCLE TIMELINE */
 .cycle-viz {
   background: var(--card);
@@ -2089,6 +2133,7 @@ select.si-input {
       </div>
     </div>
     <div class="heat-grid" id="heatGrid"></div>
+    <div class="sector-detail-panel" id="sectorDetailPanel"></div>
     <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-top:24px;">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
         <span style="padding:5px 12px;border-radius:20px;background:var(--green-dim);border:1px solid rgba(0,229,153,0.2);font-family:var(--mono);font-size:10px;color:var(--green);letter-spacing:1px;">✦ AI MACRO ANALYSIS</span>
@@ -9285,12 +9330,75 @@ function closeToast() {
 }
 
 function showSectorDetail(s) {
-  showPage('stocks');
-  document.querySelectorAll('.nav-btn')[1].classList.add('active');
-  document.querySelectorAll('.nav-btn')[0].classList.remove('active');
-  if (beginnerMode) {
-    showToast(`📊 ${s.name}`, `${s.timing} Entry window: ${s.entryWindow}. Rotate into: ${s.topPicks.join(', ')}`);
-  }
+  const panel = document.getElementById('sectorDetailPanel');
+  const sectorStocks = ALL_NGX_STOCKS.filter(st => s.stocks.includes(st.ticker));
+
+  const signalMap = {
+    buy: { cls: 'sig-buy', label: '● BUY' },
+    wait: { cls: 'sig-wait', label: '◐ WAIT' },
+    avoid: { cls: 'sig-avoid', label: '○ AVOID' },
+    hold: { cls: 'sig-buy', label: '◆ HOLD' },
+    fetch: { cls: 'sig-fetch', label: '◇ TAP TO ANALYSE' }
+  };
+
+  const stockCards = sectorStocks.map(st => {
+    const sig = signalMap[st.signal] || signalMap.fetch;
+    const isTop = s.topPicks.includes(st.ticker);
+    const pctClass = st.changePct > 0 ? 'change-up' : st.changePct < 0 ? 'change-down' : 'change-flat';
+    const pctSign = st.changePct > 0 ? '+' : '';
+    return `
+      <div class="sdp-stock-card" onclick="navigateToStock('${st.ticker}')">
+        ${isTop ? '<div class="sdp-top-pick-badge">★ TOP PICK</div>' : ''}
+        <div class="sdp-stock-top">
+          <span class="sdp-stock-ticker">${st.ticker}</span>
+          <span class="sdp-stock-price">₦${st.price.toLocaleString()}</span>
+        </div>
+        <div class="sdp-stock-name">${st.name} <span class="sdp-stock-change ${pctClass}" style="margin-left:6px">${pctSign}${st.changePct.toFixed(2)}%</span></div>
+        <div class="sdp-stock-signal ${sig.cls}">${sig.label}</div>
+        <button class="sdp-analyse-btn">ANALYSE THIS STOCK →</button>
+      </div>
+    `;
+  }).join('');
+
+  const dotColor = s.phase === 'early' || s.phase === 'warm' ? 'var(--green)' :
+                   s.phase === 'mid' ? 'var(--blue)' :
+                   s.phase === 'late' ? 'var(--amber)' :
+                   s.phase === 'exit' ? 'var(--red)' :
+                   s.phase === 'cool' ? 'var(--text3)' : 'var(--purple)';
+
+  panel.innerHTML = `
+    <div class="sdp-header">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="sc-phase-dot" style="background:${dotColor};width:10px;height:10px;border-radius:50%;"></div>
+        <div>
+          <div class="sdp-title">${s.name} — ${s.count} Stocks</div>
+          <div style="font-family:var(--mono);font-size:10px;color:${dotColor};letter-spacing:1px;margin-top:2px;">${s.phaseLabel} · SCORE ${s.composite}</div>
+        </div>
+      </div>
+      <button class="sdp-close" onclick="closeSectorDetail()" title="Close">✕</button>
+    </div>
+    <div class="sdp-meta">
+      <div class="sdp-meta-item"><strong>Signal:</strong> ${s.signal}</div>
+      <div class="sdp-meta-item"><strong>Entry Window:</strong> ${s.entryWindow}</div>
+      <div class="sdp-meta-item"><strong>Exit Target:</strong> ${s.exitTarget}</div>
+      <div class="sdp-meta-item"><strong>Macro Driver:</strong> ${s.macroDriver}</div>
+    </div>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:1px;margin-bottom:12px;">INDIVIDUAL STOCKS — CLICK TO ANALYSE</div>
+    <div class="sdp-stocks-grid">${stockCards}</div>
+  `;
+
+  panel.classList.add('show');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function closeSectorDetail() {
+  document.getElementById('sectorDetailPanel').classList.remove('show');
+}
+
+function navigateToStock(ticker) {
+  closeSectorDetail();
+  switchModule('stocks');
+  selectStock(ticker);
 }
 
 // ============================================
