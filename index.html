@@ -1797,25 +1797,27 @@ select.si-input {
 }
 
 .beginner-toggle {
-  display: flex; align-items: center; gap: 8px;
+  display: flex; align-items: center; gap: 10px;
   font-family: var(--mono); font-size: 10px; color: var(--text3);
-  cursor: pointer; padding: 6px 10px; border-radius: 6px;
+  cursor: pointer; padding: 6px 14px; border-radius: 8px;
   border: 1px solid var(--border); transition: all 0.2s;
+  letter-spacing: 1.5px; user-select: none;
 }
 .beginner-toggle:hover { color: var(--green); border-color: rgba(0,245,160,0.3); }
 .beginner-toggle.on { color: var(--green); border-color: rgba(0,245,160,0.3); background: var(--green-dim); }
 
-.toggle-dot {
+.toggle-track {
   width: 24px; height: 13px; border-radius: 7px;
-  background: var(--text3); position: relative; transition: background 0.2s;
+  background: var(--bg3); border: 1px solid var(--border);
+  position: relative; transition: all 0.3s; flex-shrink: 0;
 }
-.toggle-dot::after {
+.toggle-track::after {
   content: ''; position: absolute; left: 2px; top: 2px;
-  width: 9px; height: 9px; border-radius: 50%;
-  background: #fff; transition: left 0.2s;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--text3); transition: all 0.3s;
 }
-.beginner-toggle.on .toggle-dot { background: var(--green); }
-.beginner-toggle.on .toggle-dot::after { left: 13px; }
+.beginner-toggle.on .toggle-track { background: var(--green); border-color: var(--green); }
+.beginner-toggle.on .toggle-track::after { left: 13px; background: #fff; }
 
 .beginner-tip {
   background: var(--blue-dim);
@@ -1888,9 +1890,9 @@ select.si-input {
   </div>
 
   <div class="header-right">
-    <div class="beginner-toggle" id="beginnerToggle" onclick="toggleBeginner()" style="font-family:var(--mono);font-size:10px;color:var(--text3);cursor:pointer;padding:5px 10px;border-radius:6px;border:1px solid var(--border);display:flex;align-items:center;gap:6px;transition:all 0.2s;">
-      <span id="beginnerDot" style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;"></span>
-      <span id="beginnerLabel">EXPLAIN ON</span>
+    <div class="beginner-toggle on" id="beginnerToggle" onclick="toggleBeginner()">
+      <div class="toggle-track"></div>
+      <span id="beginnerLabel">EXPLAIN MODE</span>
     </div>
     <div class="market-status">
       <span class="status-dot" id="statusDot"></span>
@@ -8612,11 +8614,9 @@ function switchModule(id) {
 
 function toggleBeginner() {
   beginnerModeOn = !beginnerModeOn;
-  const dot = document.getElementById('beginnerDot');
-  const label = document.getElementById('beginnerLabel');
+  const toggle = document.getElementById('beginnerToggle');
+  toggle.classList.toggle('on', beginnerModeOn);
   if (beginnerModeOn) {
-    dot.style.background = 'var(--green)';
-    label.textContent = 'EXPLAIN ON';
     // Show tip for currently active module
     const activeModule = document.querySelector('.module-panel.active');
     if (activeModule) {
@@ -8624,10 +8624,10 @@ function toggleBeginner() {
       const tip = document.getElementById('tip-' + id);
       if (tip) tip.classList.add('show');
     }
+    showToast('🎓 Explain Mode ON', 'I will now explain what each section means in plain English, so you always know what to do — even with zero investing experience.');
   } else {
-    dot.style.background = 'var(--text3)';
-    label.textContent = 'EXPLAIN OFF';
     document.querySelectorAll('.beginner-tip-bar').forEach(t => t.classList.remove('show'));
+    closeToast();
   }
 }
 
@@ -8728,7 +8728,6 @@ async function refreshCurrentPrice() {
 // Institutional-grade system adapted for NGX
 // ============================================
 
-let beginnerMode = true;
 let currentFilter = 'all';
 
 // ============================================
@@ -9201,7 +9200,7 @@ function calculateAllocation() {
 
   document.getElementById('allocResult').classList.add('visible');
 
-  if (beginnerMode) showToast('💡 Position Sizing Tip', 'The system used Kelly Criterion — a mathematical formula that calculates the optimal bet size based on your win probability and expected return. This is the same formula used by Renaissance Technologies, the most successful hedge fund in history.');
+  if (beginnerModeOn) showToast('💡 Position Sizing Tip', 'The system used Kelly Criterion — a mathematical formula that calculates the optimal bet size based on your win probability and expected return. This is the same formula used by Renaissance Technologies, the most successful hedge fund in history.');
 }
 
 // ============================================
@@ -9261,7 +9260,7 @@ Format as clean paragraphs. Be specific with naira prices. Be honest — if some
     const now = new Date().toLocaleTimeString('en-NG', { hour:'2-digit', minute:'2-digit' });
     document.getElementById('lastScanTime').textContent = `Last scan: ${now}`;
 
-    if (beginnerMode) showToast('✅ Scan Complete', 'The AI just searched live NGX data and generated your sector rotation intelligence. Scroll down to see the full analysis.');
+    if (beginnerModeOn) showToast('✅ Scan Complete', 'The AI just searched live NGX data and generated your sector rotation intelligence. Scroll down to see the full analysis.');
 
   } catch(err) {
     document.getElementById('macroAnalysis').innerHTML = `<p><strong>Scan using stored intelligence</strong> (live search unavailable): Based on our analysis through March 2026, Banking (GTCO, UBA, ACCESSCORP) at PE ratios of 2.6–6x represents the highest-conviction rotation play on NGX. The Oil & Gas sector (SEPLAT, Aradel) is in late expansion — profitable to hold but not to enter. Agriculture (PRESCO, OKOMU) remains mid-cycle with strong earnings. The single best entry right now is UBA at ₦42–46 with a 12-month target of ₦70–76.</p>`;
@@ -9281,7 +9280,7 @@ function showPage(id) {
   document.getElementById('page-' + id).classList.add('active');
   event.target.classList.add('active');
 
-  if (beginnerMode) {
+  if (beginnerModeOn) {
     const tips = { radar: 'tip-radar', stocks: 'tip-stocks', sizer: 'tip-sizer', exit: 'tip-exit' };
     document.querySelectorAll('.beginner-tip').forEach(t => t.classList.remove('show'));
     const tip = document.getElementById(tips[id]);
@@ -9297,27 +9296,8 @@ function filterStockTable(filter, btn) {
 }
 
 // ============================================
-// BEGINNER MODE
+// BEGINNER MODE (legacy showPage support)
 // ============================================
-function toggleBeginner() {
-  beginnerMode = !beginnerMode;
-  const toggle = document.getElementById('beginnerToggle');
-  toggle.classList.toggle('on', beginnerMode);
-
-  document.querySelectorAll('.beginner-tip').forEach(t => {
-    if (beginnerMode) {
-      // Only show current page's tip
-    } else {
-      t.classList.remove('show');
-    }
-  });
-
-  if (beginnerMode) {
-    showToast('🎓 Explain Mode ON', 'I will now explain what each section means in plain English, so you always know what to do — even with zero investing experience.');
-  } else {
-    closeToast();
-  }
-}
 
 function showToast(title, text) {
   document.getElementById('toastTitle').textContent = title;
@@ -9428,8 +9408,7 @@ renderHeatGrid();
 renderStockTable();
 renderExitCards();
 
-// Start with beginner toggle ON
-document.getElementById('beginnerToggle').classList.add('on');
+// Beginner toggle is already set to 'on' in HTML
 
 // ============================================
 // INIT — add beginner tip to stocks module
