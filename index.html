@@ -60,6 +60,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
   }
 
   .logo-mark {
@@ -1869,7 +1870,7 @@ select.si-input {
 </div>
 
 <header>
-  <div class="logo">
+  <div class="logo" onclick="goHome()">
     <div class="logo-mark">NGX</div>
     <div>
       <div class="logo-text">NGX Intel Pro</div>
@@ -9393,6 +9394,25 @@ function showSectorDetail(s) {
 
 function closeSectorDetail() {
   document.getElementById('sectorDetailPanel').classList.remove('show');
+}
+
+function goHome() {
+  // Reset to Stock Analysis module
+  switchModule('stocks');
+  // Hide stock detail, show welcome state
+  const detail = document.getElementById('stockDetail');
+  if (detail) detail.classList.remove('visible');
+  const welcome = document.getElementById('welcomeState');
+  if (welcome) welcome.style.display = '';
+  // Clear search
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) searchInput.value = '';
+  // Deselect any active stock
+  currentStock = null;
+  document.querySelectorAll('.stock-item').forEach(el => el.classList.remove('active'));
+  renderSidebar(ALL_NGX_STOCKS);
+  // Close sector detail if open
+  closeSectorDetail();
 }
 
 function navigateToStock(ticker) {
