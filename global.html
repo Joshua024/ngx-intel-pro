@@ -1360,6 +1360,664 @@ const GLOBAL_STOCKS = [
       { icon: "🏛️", color: "cata-blue", event: "US government AI contracts expanding", date: "2026" }
     ],
     thesis: "<p><strong>Palantir's technology is elite — the stock price is not.</strong> At 224x earnings, every bit of AI optimism is already baked in. If revenue growth slows even slightly, a 40–60% correction is likely. The right entry is $35–$50, not $85.</p><p><strong>Target:</strong> Could reach $130 in euphoria, but fair value is $50–$60.</p>"
+  },
+  // ========== MORE FINANCE ==========
+  {
+    ticker: "MA", name: "Mastercard Inc.", sector: "Finance", type: "stock", currency: "$",
+    price: 525.00, change: 3.80, changePct: 0.73, eps: 14.32, pe: 36.7, peForward: 30.0,
+    low52: 420.00, high52: 578.80, divYield: 0.55, roe: 185.0, volume: 3200000,
+    marketCap: "$500B", revenue25: "$28B revenue", debtEquity: 5.2,
+    signal: "wait", signalText: "BUY ON PULLBACK",
+    entryZone: "$480 – $520", entryIdeal: [480, 520], entryAcceptable: [520, 550], entryAvoid: [550, 600],
+    reasoning: "<strong>Mastercard is Visa's twin</strong> — same tollbooth model on global payments. 185% ROE is extraordinary. At 36.7x PE, slightly expensive but deserved for a duopoly with 60%+ margins.",
+    factors: [
+      { label: "Valuation", score: 50, color: "amber", note: "36.7x PE — premium" },
+      { label: "Earnings", score: 85, color: "green", note: "Consistent 15%+ EPS growth" },
+      { label: "Price Pos.", score: 58, color: "amber", note: "9% below ATH" },
+      { label: "Catalyst", score: 70, color: "green", note: "Cross-border recovery" },
+      { label: "Low Risk", score: 90, color: "green", note: "Duopoly, asset-light" }
+    ],
+    catalysts: [
+      { icon: "✈️", color: "cata-green", event: "Cross-border volume surging", date: "Ongoing" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>Mastercard processes trillions in annual payments.</strong> Identical moat to Visa — digital payment adoption is secular. Near-zero marginal cost = 55%+ operating margins. The shift from cash to digital is a 15-year trend.</p><p><strong>Target:</strong> $580–$620 within 12 months.</p>"
+  },
+  {
+    ticker: "BAC", name: "Bank of America", sector: "Finance", type: "stock", currency: "$",
+    price: 39.50, change: 0.35, changePct: 0.89, eps: 3.21, pe: 12.3, peForward: 11.0,
+    low52: 32.38, high52: 48.08, divYield: 2.50, roe: 10.5, volume: 35000000,
+    marketCap: "$308B", revenue25: "$102B revenue", debtEquity: 1.12,
+    signal: "wait", signalText: "HOLD — RATE PLAY",
+    entryZone: "$36 – $40", entryIdeal: [36, 40], entryAcceptable: [40, 44], entryAvoid: [44, 50],
+    reasoning: "<strong>BAC is the most rate-sensitive big bank.</strong> Net interest income surges when rates stay high. At 12.3x PE with a 2.5% yield, it's cheap. But limited upside compared to JPM's quality.",
+    factors: [
+      { label: "Valuation", score: 78, color: "green", note: "12.3x PE — cheap" },
+      { label: "Earnings", score: 65, color: "amber", note: "Rate dependent" },
+      { label: "Price Pos.", score: 55, color: "amber", note: "18% below ATH" },
+      { label: "Catalyst", score: 55, color: "amber", note: "Rate environment" },
+      { label: "Low Risk", score: 72, color: "green", note: "Systemically important" }
+    ],
+    catalysts: [
+      { icon: "🏦", color: "cata-blue", event: "Higher-for-longer rates benefit NII", date: "Ongoing" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>BAC is a bet on the US economy.</strong> 68M consumer clients, largest US consumer bank. If rates stay high, NII benefits. If rates drop, mortgage volume picks up. Either way, BAC earns.</p><p><strong>Target:</strong> $46–$50 within 12 months.</p>"
+  },
+  {
+    ticker: "BRK.B", name: "Berkshire Hathaway B", sector: "Finance", type: "stock", currency: "$",
+    price: 495.00, change: 2.10, changePct: 0.43, eps: 42.00, pe: 11.8, peForward: 22.0,
+    low52: 390.00, high52: 502.40, divYield: 0.0, roe: 18.5, volume: 3500000,
+    marketCap: "$1.1T", revenue25: "$370B revenue", debtEquity: 0.22,
+    signal: "buy", signalText: "BUY — BUFFETT'S FORTRESS",
+    entryZone: "$450 – $500", entryIdeal: [450, 500], entryAcceptable: [500, 530], entryAvoid: [530, 560],
+    reasoning: "<strong>Berkshire is Warren Buffett's $1T empire.</strong> $300B+ cash pile, owns GEICO, BNSF railway, half of Apple, and vast insurance operations. At 11.8x PE, you're buying America's best conglomerate at a discount.",
+    factors: [
+      { label: "Valuation", score: 80, color: "green", note: "11.8x PE — cheap for quality" },
+      { label: "Earnings", score: 78, color: "green", note: "$300B+ cash to deploy" },
+      { label: "Price Pos.", score: 50, color: "amber", note: "Near ATH" },
+      { label: "Catalyst", score: 65, color: "amber", note: "Massive cash deployment" },
+      { label: "Low Risk", score: 92, color: "green", note: "Fortress balance sheet" }
+    ],
+    catalysts: [
+      { icon: "💰", color: "cata-green", event: "$300B+ cash — acquisition imminent?", date: "2026" },
+      { icon: "📊", color: "cata-green", event: "Berkshire annual meeting", date: "May 2026" }
+    ],
+    thesis: "<p><strong>Berkshire is the safest large-cap stock in the world.</strong> $300B cash, zero net debt, insurance float generating billions. Even post-Buffett, the business is self-sustaining. Own this forever.</p><p><strong>Target:</strong> $530–$560 within 12 months.</p>"
+  },
+  {
+    ticker: "COIN", name: "Coinbase Global", sector: "Finance", type: "stock", currency: "$",
+    price: 195.00, change: 8.50, changePct: 4.56, eps: 7.65, pe: 25.5, peForward: 20.0,
+    low52: 145.00, high52: 349.75, divYield: 0.0, roe: 22.0, volume: 12000000,
+    marketCap: "$49B", revenue25: "$6.5B revenue", debtEquity: 0.82,
+    signal: "watch", signalText: "SPECULATIVE — CRYPTO PROXY",
+    entryZone: "$160 – $200", entryIdeal: [160, 200], entryAcceptable: [200, 240], entryAvoid: [240, 360],
+    reasoning: "<strong>Coinbase is the largest US crypto exchange</strong> — de facto regulated gateway to crypto. Revenue is highly correlated with crypto trading volume. Good in bull markets, terrible in bear markets.",
+    factors: [
+      { label: "Valuation", score: 60, color: "amber", note: "25.5x PE — fair if cycle holds" },
+      { label: "Earnings", score: 62, color: "amber", note: "Cyclical, volume dependent" },
+      { label: "Price Pos.", score: 70, color: "green", note: "44% below ATH" },
+      { label: "Catalyst", score: 68, color: "green", note: "Crypto bull cycle" },
+      { label: "Low Risk", score: 30, color: "red", note: "Crypto correlation = volatile" }
+    ],
+    catalysts: [
+      { icon: "₿", color: "cata-green", event: "Crypto bull market volume surge", date: "Ongoing" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "May 2026" }
+    ],
+    thesis: "<p><strong>Coinbase is a leveraged bet on the crypto market.</strong> When BTC pumps, COIN pumps harder. Base chain (L2) adds recurring revenue. But in bear markets, revenue drops 60–70%. Only buy if you're bullish on crypto.</p><p><strong>Target:</strong> $300+ in bull cycle; $120 in bear case.</p>"
+  },
+  // ========== MORE TECHNOLOGY ==========
+  {
+    ticker: "ORCL", name: "Oracle Corporation", sector: "Technology", type: "stock", currency: "$",
+    price: 155.00, change: 2.40, changePct: 1.57, eps: 5.60, pe: 27.7, peForward: 23.0,
+    low52: 112.00, high52: 198.31, divYield: 0.82, roe: 120.0, volume: 9500000,
+    marketCap: "$430B", revenue25: "$57B revenue", debtEquity: 7.5,
+    signal: "buy", signalText: "BUY — CLOUD + AI INFRA",
+    entryZone: "$140 – $160", entryIdeal: [140, 160], entryAcceptable: [160, 175], entryAvoid: [175, 200],
+    reasoning: "<strong>Oracle Cloud Infrastructure (OCI) is the fastest-growing cloud.</strong> Multi-cloud partnerships with AWS and Google. AI training demand filling data centres. At $155, 22% below ATH, Oracle is reasonably priced at 23x forward.",
+    factors: [
+      { label: "Valuation", score: 62, color: "amber", note: "27.7x PE — reasonable" },
+      { label: "Earnings", score: 80, color: "green", note: "OCI growing 50%+ YoY" },
+      { label: "Price Pos.", score: 70, color: "green", note: "22% below ATH" },
+      { label: "Catalyst", score: 78, color: "green", note: "Multi-cloud AI deals" },
+      { label: "Low Risk", score: 65, color: "amber", note: "High debt but stable" }
+    ],
+    catalysts: [
+      { icon: "☁️", color: "cata-green", event: "OCI cloud growth accelerating", date: "Ongoing" },
+      { icon: "📊", color: "cata-green", event: "Q4 FY2026 earnings", date: "June 2026" }
+    ],
+    thesis: "<p><strong>Oracle is the dark horse of cloud computing.</strong> OCI is cheaper than AWS/Azure and growing faster. Multi-cloud partnerships mean Oracle doesn't need to win alone — it partners with everyone. $57B revenue with massive recurring database licensing.</p><p><strong>Target:</strong> $190–$210 within 12 months.</p>"
+  },
+  {
+    ticker: "UBER", name: "Uber Technologies", sector: "Technology", type: "stock", currency: "$",
+    price: 68.50, change: 1.20, changePct: 1.78, eps: 1.84, pe: 37.2, peForward: 25.0,
+    low52: 54.00, high52: 87.00, divYield: 0.0, roe: 22.5, volume: 15000000,
+    marketCap: "$142B", revenue25: "$44B revenue", debtEquity: 1.1,
+    signal: "buy", signalText: "BUY — MOBILITY PLATFORM",
+    entryZone: "$62 – $72", entryIdeal: [62, 72], entryAcceptable: [72, 80], entryAvoid: [80, 90],
+    reasoning: "<strong>Uber is the global mobility + delivery platform.</strong> 150M+ monthly active users, present in 70+ countries. Finally profitable with expanding margins. Autonomous vehicle partnerships (Waymo) de-risk the self-driving threat.",
+    factors: [
+      { label: "Valuation", score: 55, color: "amber", note: "37x trailing, 25x forward" },
+      { label: "Earnings", score: 75, color: "green", note: "Free cash flow positive" },
+      { label: "Price Pos.", score: 68, color: "green", note: "21% below ATH" },
+      { label: "Catalyst", score: 72, color: "green", note: "AV partnerships" },
+      { label: "Low Risk", score: 55, color: "amber", note: "Regulatory risks globally" }
+    ],
+    catalysts: [
+      { icon: "🚗", color: "cata-green", event: "Waymo AV partnership expansion", date: "2026" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "May 2026" }
+    ],
+    thesis: "<p><strong>Uber is a verb — that's the moat.</strong> Ride-hailing + delivery + freight in 70+ countries. Margins expanding as the platform scales. AV integration makes Uber the platform operator, not the disruptee.</p><p><strong>Target:</strong> $85–$95 within 12 months.</p>"
+  },
+  {
+    ticker: "SHOP", name: "Shopify Inc.", sector: "Technology", type: "stock", currency: "$",
+    price: 95.00, change: 2.80, changePct: 3.04, eps: 1.45, pe: 65.5, peForward: 45.0,
+    low52: 49.50, high52: 129.37, divYield: 0.0, roe: 18.5, volume: 8500000,
+    marketCap: "$123B", revenue25: "$9.5B revenue", debtEquity: 0.11,
+    signal: "wait", signalText: "BUY ON DIP",
+    entryZone: "$75 – $95", entryIdeal: [75, 95], entryAcceptable: [95, 110], entryAvoid: [110, 135],
+    reasoning: "<strong>Shopify powers 10%+ of US e-commerce.</strong> The platform of choice for SMBs going online. Revenue growing 25%+ with improving margins. At 65x PE, expensive — but growth justifies premium if you buy pullbacks.",
+    factors: [
+      { label: "Valuation", score: 30, color: "red", note: "65.5x PE — expensive" },
+      { label: "Earnings", score: 78, color: "green", note: "Revenue growth 25%+" },
+      { label: "Price Pos.", score: 62, color: "amber", note: "27% below ATH" },
+      { label: "Catalyst", score: 72, color: "green", note: "AI commerce tools" },
+      { label: "Low Risk", score: 60, color: "amber", note: "SMB exposure to recession" }
+    ],
+    catalysts: [
+      { icon: "🛍️", color: "cata-green", event: "Shopify AI commerce assistant launch", date: "2026" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "May 2026" }
+    ],
+    thesis: "<p><strong>Shopify is the anti-Amazon.</strong> Every brand that wants to own their customer relationship uses Shopify. 10%+ of US e-commerce, $9.5B revenue. AI-powered tools for merchants are the next growth driver.</p><p><strong>Target:</strong> $125–$140 within 12 months.</p>"
+  },
+  {
+    ticker: "PYPL", name: "PayPal Holdings", sector: "Finance", type: "stock", currency: "$",
+    price: 72.00, change: 0.90, changePct: 1.27, eps: 4.65, pe: 15.5, peForward: 13.0,
+    low52: 56.50, high52: 93.66, divYield: 0.0, roe: 21.0, volume: 11000000,
+    marketCap: "$75B", revenue25: "$32B revenue", debtEquity: 0.48,
+    signal: "buy", signalText: "BUY — VALUE TURNAROUND",
+    entryZone: "$65 – $75", entryIdeal: [65, 75], entryAcceptable: [75, 85], entryAvoid: [85, 100],
+    reasoning: "<strong>PayPal at 15.5x PE is absurdly cheap for a fintech with $32B revenue.</strong> New CEO Alex Chriss is refocusing on Venmo monetisation and checkout acceleration. Down 75% from 2021 ATH — a deep value play.",
+    factors: [
+      { label: "Valuation", score: 85, color: "green", note: "15.5x PE — extremely cheap" },
+      { label: "Earnings", score: 70, color: "green", note: "Turnaround in progress" },
+      { label: "Price Pos.", score: 82, color: "green", note: "75% below ATH" },
+      { label: "Catalyst", score: 65, color: "amber", note: "New CEO turnaround" },
+      { label: "Low Risk", score: 60, color: "amber", note: "Competitive threats (Apple Pay)" }
+    ],
+    catalysts: [
+      { icon: "💳", color: "cata-green", event: "Venmo monetisation acceleration", date: "2026" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>PayPal at $72 is a deep value fintech.</strong> 400M+ accounts, $32B revenue, 15x PE. The new CEO is cutting costs, accelerating checkout, and monetising Venmo. If the turnaround works, this doubles. If not, downside is limited at this valuation.</p><p><strong>Target:</strong> $95–$110 within 12 months.</p>"
+  },
+  {
+    ticker: "SQ", name: "Block Inc. (Square)", sector: "Finance", type: "stock", currency: "$",
+    price: 62.00, change: 1.50, changePct: 2.48, eps: 2.95, pe: 21.0, peForward: 16.0,
+    low52: 45.00, high52: 94.51, divYield: 0.0, roe: 8.5, volume: 8000000,
+    marketCap: "$37B", revenue25: "$24B revenue", debtEquity: 0.65,
+    signal: "buy", signalText: "BUY — FINTECH VALUE",
+    entryZone: "$55 – $65", entryIdeal: [55, 65], entryAcceptable: [65, 75], entryAvoid: [75, 100],
+    reasoning: "<strong>Block (Square + Cash App) at 21x PE is cheap fintech.</strong> Cash App has 55M+ active users and is becoming a digital bank. Square serves millions of SMBs. BTC holdings add crypto upside. Down 75% from ATH.",
+    factors: [
+      { label: "Valuation", score: 72, color: "green", note: "21x PE — cheap for fintech" },
+      { label: "Earnings", score: 68, color: "green", note: "Cash App growing 20%+" },
+      { label: "Price Pos.", score: 80, color: "green", note: "75% below ATH" },
+      { label: "Catalyst", score: 62, color: "amber", note: "Cash App monetisation" },
+      { label: "Low Risk", score: 50, color: "amber", note: "Execution risk" }
+    ],
+    catalysts: [
+      { icon: "📱", color: "cata-green", event: "Cash App lending + banking expansion", date: "2026" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "May 2026" }
+    ],
+    thesis: "<p><strong>Block is two businesses in one.</strong> Square (SMB payments) and Cash App (consumer fintech). Cash App alone is worth $25B+. At $62, you're essentially getting Square for free. BTC holdings add crypto market correlation.</p><p><strong>Target:</strong> $90–$100 within 12 months.</p>"
+  },
+  {
+    ticker: "ARM", name: "ARM Holdings", sector: "Semiconductors", type: "stock", currency: "$",
+    price: 118.00, change: 4.50, changePct: 3.96, eps: 1.55, pe: 76.1, peForward: 55.0,
+    low52: 75.00, high52: 188.75, divYield: 0.0, roe: 20.5, volume: 12000000,
+    marketCap: "$122B", revenue25: "$3.8B revenue", debtEquity: 0.21,
+    signal: "wait", signalText: "EXPENSIVE — WAIT",
+    entryZone: "$90 – $115", entryIdeal: [90, 115], entryAcceptable: [115, 140], entryAvoid: [140, 200],
+    reasoning: "<strong>ARM designs the chip architecture used in 99% of smartphones</strong> and increasingly in data centres. Royalty model = high margins. But at 76x PE, the stock is priced for perfection. Wait for pullbacks.",
+    factors: [
+      { label: "Valuation", score: 20, color: "red", note: "76x PE — very expensive" },
+      { label: "Earnings", score: 72, color: "green", note: "Royalty model growing" },
+      { label: "Price Pos.", score: 72, color: "green", note: "37% below ATH" },
+      { label: "Catalyst", score: 75, color: "green", note: "Data centre ARM adoption" },
+      { label: "Low Risk", score: 55, color: "amber", note: "Customer concentration" }
+    ],
+    catalysts: [
+      { icon: "📱", color: "cata-green", event: "v9 architecture royalty uplift", date: "Ongoing" },
+      { icon: "☁️", color: "cata-blue", event: "AWS Graviton/NVIDIA Grace ARM data centre", date: "2026" }
+    ],
+    thesis: "<p><strong>ARM is a royalty on every compute device.</strong> 99% of smartphones, growing in data centres (AWS Graviton, NVIDIA Grace). The shift from x86 to ARM in servers is structural. But at 76x PE, you need a better entry.</p><p><strong>Target:</strong> $160–$190 on momentum, but wait for $90–$115 entry.</p>"
+  },
+  {
+    ticker: "PANW", name: "Palo Alto Networks", sector: "Technology", type: "stock", currency: "$",
+    price: 172.00, change: 3.20, changePct: 1.90, eps: 2.20, pe: 78.2, peForward: 55.0,
+    low52: 148.00, high52: 213.16, divYield: 0.0, roe: 55.0, volume: 5500000,
+    marketCap: "$56B", revenue25: "$8.5B revenue", debtEquity: 1.8,
+    signal: "wait", signalText: "HOLD — CYBERSECURITY LEADER",
+    entryZone: "$150 – $170", entryIdeal: [150, 170], entryAcceptable: [170, 190], entryAvoid: [190, 220],
+    reasoning: "<strong>Palo Alto is the #1 cybersecurity platform.</strong> Platformisation strategy is consolidating security spend. AI-driven security is the next growth vector. But at 78x PE, valuation is stretched.",
+    factors: [
+      { label: "Valuation", score: 25, color: "red", note: "78x PE — expensive" },
+      { label: "Earnings", score: 75, color: "green", note: "Platform consolidation" },
+      { label: "Price Pos.", score: 60, color: "amber", note: "19% below ATH" },
+      { label: "Catalyst", score: 72, color: "green", note: "AI security demand" },
+      { label: "Low Risk", score: 75, color: "green", note: "Secular cybersecurity growth" }
+    ],
+    catalysts: [
+      { icon: "🔒", color: "cata-green", event: "Platformisation driving upsell", date: "Ongoing" },
+      { icon: "📊", color: "cata-green", event: "Q3 FY2026 earnings", date: "May 2026" }
+    ],
+    thesis: "<p><strong>Cybersecurity is non-discretionary.</strong> Every company must spend on security. Palo Alto is consolidating 30+ security tools into one platform. If platformisation works, margins expand significantly. Premium valuation for premium business.</p><p><strong>Target:</strong> $210–$230 within 12 months.</p>"
+  },
+  {
+    ticker: "CRWD", name: "CrowdStrike Holdings", sector: "Technology", type: "stock", currency: "$",
+    price: 335.00, change: 5.80, changePct: 1.76, eps: 3.40, pe: 98.5, peForward: 62.0,
+    low52: 215.00, high52: 398.33, divYield: 0.0, roe: 12.8, volume: 4200000,
+    marketCap: "$81B", revenue25: "$4.3B revenue", debtEquity: 0.28,
+    signal: "wait", signalText: "HOLD — POST-OUTAGE RECOVERY",
+    entryZone: "$280 – $330", entryIdeal: [280, 330], entryAcceptable: [330, 360], entryAvoid: [360, 410],
+    reasoning: "<strong>CrowdStrike is the #1 endpoint security company.</strong> The July 2024 outage was a setback, but the company retained 97%+ of customers. Falcon platform expanding into identity, cloud, and SIEM. At 98x PE, expensive but recovering.",
+    factors: [
+      { label: "Valuation", score: 15, color: "red", note: "98x PE — very expensive" },
+      { label: "Earnings", score: 72, color: "green", note: "ARR $4B+, growing 28%" },
+      { label: "Price Pos.", score: 60, color: "amber", note: "16% below ATH" },
+      { label: "Catalyst", score: 68, color: "green", note: "Platform expansion" },
+      { label: "Low Risk", score: 55, color: "amber", note: "Outage reputation risk" }
+    ],
+    catalysts: [
+      { icon: "🛡️", color: "cata-green", event: "Falcon platform expansion modules", date: "2026" },
+      { icon: "📊", color: "cata-green", event: "Q1 FY2027 earnings", date: "June 2026" }
+    ],
+    thesis: "<p><strong>CrowdStrike's moat is real — the outage was a one-time event.</strong> 97%+ customer retention post-outage proves the product is essential. Expanding from endpoint to full security platform. Expensive but best-in-class.</p><p><strong>Target:</strong> $380–$410 within 12 months.</p>"
+  },
+  // ========== MORE CONSUMER ==========
+  {
+    ticker: "HD", name: "The Home Depot", sector: "Consumer", type: "stock", currency: "$",
+    price: 365.00, change: 2.10, changePct: 0.58, eps: 15.10, pe: 24.2, peForward: 22.0,
+    low52: 316.00, high52: 439.37, divYield: 2.38, roe: 1200.0, volume: 4500000,
+    marketCap: "$365B", revenue25: "$157B revenue", debtEquity: null,
+    signal: "wait", signalText: "BUY ON DIP — HOUSING PLAY",
+    entryZone: "$330 – $370", entryIdeal: [330, 370], entryAcceptable: [370, 400], entryAvoid: [400, 450],
+    reasoning: "<strong>Home Depot is the undisputed king of home improvement.</strong> $157B revenue, 2.4% dividend. Housing turnover recovery is the key catalyst — when mortgage rates drop, renovation spending surges. Waiting for rate cuts.",
+    factors: [
+      { label: "Valuation", score: 60, color: "amber", note: "24.2x PE — fair" },
+      { label: "Earnings", score: 72, color: "green", note: "Stable but rate dependent" },
+      { label: "Price Pos.", score: 62, color: "amber", note: "17% below ATH" },
+      { label: "Catalyst", score: 70, color: "green", note: "Mortgage rate drops" },
+      { label: "Low Risk", score: 80, color: "green", note: "Duopoly with Lowe's" }
+    ],
+    catalysts: [
+      { icon: "🏠", color: "cata-green", event: "Housing turnover recovery on rate cuts", date: "H2 2026" },
+      { icon: "📊", color: "cata-green", event: "Q1 FY2026 earnings", date: "May 2026" }
+    ],
+    thesis: "<p><strong>Home Depot benefits from America's aging housing stock.</strong> 60% of US homes are 40+ years old — they need renovation. When mortgage rates drop, housing turnover surges and HD benefits. 2.4% dividend pays you to wait.</p><p><strong>Target:</strong> $420–$450 within 12 months.</p>"
+  },
+  {
+    ticker: "NKE", name: "Nike Inc.", sector: "Consumer", type: "stock", currency: "$",
+    price: 68.00, change: -0.50, changePct: -0.73, eps: 3.00, pe: 22.7, peForward: 25.0,
+    low52: 54.00, high52: 108.00, divYield: 1.92, roe: 33.5, volume: 9000000,
+    marketCap: "$101B", revenue25: "$50B revenue", debtEquity: 0.89,
+    signal: "buy", signalText: "BUY — TURNAROUND",
+    entryZone: "$60 – $72", entryIdeal: [60, 72], entryAcceptable: [72, 82], entryAvoid: [82, 110],
+    reasoning: "<strong>Nike at $68 is 37% below its ATH</strong> — a rare discount on the world's #1 sports brand. New CEO Elliott Hill is returning to wholesale and innovation. The brand is iconic and the turnaround is underway.",
+    factors: [
+      { label: "Valuation", score: 68, color: "green", note: "22.7x PE — below historical" },
+      { label: "Earnings", score: 50, color: "amber", note: "Revenue declining short-term" },
+      { label: "Price Pos.", score: 78, color: "green", note: "37% below ATH" },
+      { label: "Catalyst", score: 72, color: "green", note: "New CEO turnaround" },
+      { label: "Low Risk", score: 72, color: "green", note: "Iconic brand, dividend" }
+    ],
+    catalysts: [
+      { icon: "👟", color: "cata-green", event: "New CEO product innovation cycle", date: "2026" },
+      { icon: "📊", color: "cata-green", event: "Q4 FY2026 earnings", date: "June 2026" }
+    ],
+    thesis: "<p><strong>Nike's brand is worth more than any balance sheet metric.</strong> New CEO Elliott Hill (a Nike lifer) is fixing the DTC strategy and restoring wholesale relationships. Every athlete on earth wears Nike. At $68 with a 1.9% dividend, this is a turnaround buy.</p><p><strong>Target:</strong> $90–$100 within 12 months.</p>"
+  },
+  {
+    ticker: "MCD", name: "McDonald's Corp.", sector: "Consumer", type: "stock", currency: "$",
+    price: 298.00, change: 1.20, changePct: 0.40, eps: 11.72, pe: 25.4, peForward: 23.0,
+    low52: 243.53, high52: 317.90, divYield: 2.35, roe: null, volume: 3200000,
+    marketCap: "$214B", revenue25: "$26B revenue", debtEquity: null,
+    signal: "wait", signalText: "HOLD — DEFENSIVE DIVIDEND",
+    entryZone: "$275 – $300", entryIdeal: [275, 300], entryAcceptable: [300, 315], entryAvoid: [315, 330],
+    reasoning: "<strong>McDonald's is the world's largest restaurant company</strong> — 40K+ locations globally, 2.35% dividend. Defensive play during recessions. Value menu strategy driving traffic. Fair value at current levels.",
+    factors: [
+      { label: "Valuation", score: 58, color: "amber", note: "25.4x PE — fair" },
+      { label: "Earnings", score: 72, color: "green", note: "Consistent EPS growth" },
+      { label: "Price Pos.", score: 55, color: "amber", note: "6% below ATH" },
+      { label: "Catalyst", score: 55, color: "amber", note: "Value menu driving traffic" },
+      { label: "Low Risk", score: 88, color: "green", note: "Recession-proof franchise" }
+    ],
+    catalysts: [
+      { icon: "🍔", color: "cata-green", event: "$5 value meal driving traffic", date: "Ongoing" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>McDonald's is the ultimate recession stock.</strong> When the economy struggles, people trade down to McDonald's. 40K+ franchise locations globally with 2.35% dividend. This is portfolio insurance, not a growth stock.</p><p><strong>Target:</strong> $315–$330 within 12 months.</p>"
+  },
+  // ========== MORE HEALTHCARE ==========
+  {
+    ticker: "JNJ", name: "Johnson & Johnson", sector: "Healthcare", type: "stock", currency: "$",
+    price: 155.00, change: 0.80, changePct: 0.52, eps: 9.80, pe: 15.8, peForward: 14.0,
+    low52: 140.00, high52: 168.85, divYield: 3.32, roe: 36.0, volume: 7000000,
+    marketCap: "$373B", revenue25: "$56B revenue", debtEquity: 0.45,
+    signal: "wait", signalText: "HOLD — DIVIDEND KING",
+    entryZone: "$145 – $155", entryIdeal: [145, 155], entryAcceptable: [155, 165], entryAvoid: [165, 175],
+    reasoning: "<strong>J&J is the most defensive healthcare stock.</strong> 62 consecutive years of dividend increases. MedTech + Pharma portfolio. At 15.8x PE with 3.3% yield, it's cheap income. But growth is limited post-consumer health spinoff (Kenvue).",
+    factors: [
+      { label: "Valuation", score: 75, color: "green", note: "15.8x PE — cheap" },
+      { label: "Earnings", score: 65, color: "amber", note: "Stable but slow growth" },
+      { label: "Price Pos.", score: 55, color: "amber", note: "8% below ATH" },
+      { label: "Catalyst", score: 50, color: "amber", note: "Pipeline drugs" },
+      { label: "Low Risk", score: 90, color: "green", note: "Dividend King, AAA credit" }
+    ],
+    catalysts: [
+      { icon: "💊", color: "cata-blue", event: "Oncology pipeline readouts", date: "2026" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>J&J is the ultimate defensive stock.</strong> AAA credit rating (higher than the US government), 62 years of dividend increases. You buy J&J for income and stability, not growth. 3.3% dividend yield is safe.</p><p><strong>Target:</strong> $165–$175 within 12 months.</p>"
+  },
+  {
+    ticker: "ABBV", name: "AbbVie Inc.", sector: "Healthcare", type: "stock", currency: "$",
+    price: 182.00, change: 1.10, changePct: 0.61, eps: 7.21, pe: 25.2, peForward: 14.5,
+    low52: 147.57, high52: 207.87, divYield: 3.42, roe: null, volume: 6000000,
+    marketCap: "$322B", revenue25: "$57B revenue", debtEquity: 8.6,
+    signal: "buy", signalText: "BUY — POST-HUMIRA GROWTH",
+    entryZone: "$170 – $185", entryIdeal: [170, 185], entryAcceptable: [185, 200], entryAvoid: [200, 215],
+    reasoning: "<strong>AbbVie survived the Humira patent cliff.</strong> Skyrizi + Rinvoq are replacing lost Humira revenue faster than expected. At 14.5x forward PE with 3.4% dividend, AbbVie is a value healthcare name with growth resuming.",
+    factors: [
+      { label: "Valuation", score: 72, color: "green", note: "14.5x forward — cheap" },
+      { label: "Earnings", score: 78, color: "green", note: "Skyrizi/Rinvoq replacing Humira" },
+      { label: "Price Pos.", score: 58, color: "amber", note: "12% below ATH" },
+      { label: "Catalyst", score: 72, color: "green", note: "New drug pipeline" },
+      { label: "Low Risk", score: 65, color: "amber", note: "High debt from Allergan" }
+    ],
+    catalysts: [
+      { icon: "💊", color: "cata-green", event: "Skyrizi + Rinvoq sales acceleration", date: "Ongoing" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>AbbVie's post-Humira era is better than expected.</strong> Skyrizi ($12B+) and Rinvoq ($6B+) are blockbusters. The Allergan acquisition brought Botox ($5B+). At 14.5x forward, AbbVie is a cheap dividend grower.</p><p><strong>Target:</strong> $210–$225 within 12 months.</p>"
+  },
+  {
+    ticker: "MRK", name: "Merck & Co.", sector: "Healthcare", type: "stock", currency: "$",
+    price: 102.00, change: 0.60, changePct: 0.59, eps: 7.44, pe: 13.7, peForward: 11.0,
+    low52: 85.50, high52: 134.63, divYield: 3.06, roe: 48.0, volume: 9500000,
+    marketCap: "$258B", revenue25: "$64B revenue", debtEquity: 0.85,
+    signal: "buy", signalText: "BUY — KEYTRUDA VALUE",
+    entryZone: "$95 – $105", entryIdeal: [95, 105], entryAcceptable: [105, 115], entryAvoid: [115, 140],
+    reasoning: "<strong>Merck at 13.7x PE is the cheapest big pharma.</strong> Keytruda is the world's best-selling drug ($27B+). Yes, patent cliff in 2028 is a concern — but the pipeline (Winrevair for PAH) and price are attractive. The market has overpriced the cliff.",
+    factors: [
+      { label: "Valuation", score: 82, color: "green", note: "13.7x PE — very cheap" },
+      { label: "Earnings", score: 70, color: "green", note: "Keytruda + pipeline growth" },
+      { label: "Price Pos.", score: 75, color: "green", note: "24% below ATH" },
+      { label: "Catalyst", score: 60, color: "amber", note: "Pipeline diversification" },
+      { label: "Low Risk", score: 55, color: "amber", note: "Keytruda cliff 2028" }
+    ],
+    catalysts: [
+      { icon: "💊", color: "cata-green", event: "Winrevair $5B+ peak sales potential", date: "Ongoing" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>Merck is too cheap for a company with the world's best-selling drug.</strong> Keytruda's patent cliff in 2028 is real, but the subcutaneous formulation extends protection. Winrevair for PAH is a $5B+ drug. At 13.7x PE with 3% dividend, the risk is priced in.</p><p><strong>Target:</strong> $125–$135 within 12 months.</p>"
+  },
+  {
+    ticker: "PFE", name: "Pfizer Inc.", sector: "Healthcare", type: "stock", currency: "$",
+    price: 25.50, change: 0.20, changePct: 0.79, eps: 1.41, pe: 18.1, peForward: 9.5,
+    low52: 24.48, high52: 31.54, divYield: 6.58, roe: 5.8, volume: 28000000,
+    marketCap: "$145B", revenue25: "$63B revenue", debtEquity: 0.75,
+    signal: "watch", signalText: "SPECULATIVE — HIGH DIVIDEND",
+    entryZone: "$24 – $27", entryIdeal: [24, 27], entryAcceptable: [27, 30], entryAvoid: [30, 35],
+    reasoning: "<strong>Pfizer at $25.50 pays a 6.6% dividend</strong> — one of the highest yields in pharma. Post-COVID revenue has collapsed, but Seagen oncology acquisition ($43B) provides a growth pipeline. High risk, high yield.",
+    factors: [
+      { label: "Valuation", score: 72, color: "green", note: "9.5x forward — very cheap" },
+      { label: "Earnings", score: 45, color: "amber", note: "Post-COVID decline" },
+      { label: "Price Pos.", score: 78, color: "green", note: "50%+ below COVID highs" },
+      { label: "Catalyst", score: 55, color: "amber", note: "Oncology pipeline ramp" },
+      { label: "Low Risk", score: 62, color: "amber", note: "Dividend may be at risk" }
+    ],
+    catalysts: [
+      { icon: "💊", color: "cata-green", event: "Seagen oncology drugs ramping", date: "2026" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>Pfizer is a contrarian bet.</strong> At 9.5x forward PE with 6.6% yield, the stock is priced for disaster. But $43B Seagen acquisition brings 10+ oncology drugs. If even 2–3 become blockbusters, the stock re-rates significantly. But dividend safety is a concern.</p><p><strong>Target:</strong> $32–$36 within 12 months if pipeline delivers.</p>"
+  },
+  // ========== MORE ETFS ==========
+  {
+    ticker: "VOO", name: "Vanguard S&P 500 ETF", sector: "Index Fund", type: "stock", currency: "$",
+    price: 510.00, change: 3.50, changePct: 0.69, eps: null, pe: null, peForward: null,
+    low52: 448.00, high52: 564.00, divYield: 1.30, roe: null, volume: 5000000,
+    marketCap: "ETF — $530B AUM", revenue25: "Tracks S&P 500", debtEquity: null,
+    signal: "buy", signalText: "BUY — CORE HOLDING",
+    entryZone: "$485 – $515", entryIdeal: [485, 515], entryAcceptable: [515, 540], entryAvoid: [540, 570],
+    reasoning: "<strong>VOO is the Vanguard version of SPY</strong> — same S&P 500 index but with lower expense ratio (0.03% vs 0.09%). Down 10% from ATH, VOO is in a good entry zone. The single best long-term investment for most people.",
+    factors: [
+      { label: "Valuation", score: 58, color: "amber", note: "Blended PE ~22x" },
+      { label: "Earnings", score: 75, color: "green", note: "US corporate earnings strong" },
+      { label: "Price Pos.", score: 65, color: "green", note: "10% below ATH" },
+      { label: "Catalyst", score: 70, color: "green", note: "Fed rate cuts, earnings growth" },
+      { label: "Low Risk", score: 92, color: "green", note: "Cheapest S&P 500 ETF" }
+    ],
+    catalysts: [
+      { icon: "🏛️", color: "cata-green", event: "Fed rate cut expectations 2026", date: "Ongoing" },
+      { icon: "📈", color: "cata-green", event: "S&P 500 earnings growth 10%+ expected", date: "2026" }
+    ],
+    thesis: "<p><strong>VOO is SPY's cheaper, superior sibling.</strong> Same S&P 500 index, but Vanguard charges 0.03% vs SPDR's 0.09%. Over 30 years, that difference compounds to thousands of dollars. Dollar-cost average monthly. This is Buffett's recommendation for 99% of investors.</p><p><strong>Target:</strong> $560–$580 within 12 months.</p>"
+  },
+  {
+    ticker: "IWM", name: "iShares Russell 2000 ETF", sector: "Index Fund", type: "stock", currency: "$",
+    price: 198.00, change: 2.10, changePct: 1.07, eps: null, pe: null, peForward: null,
+    low52: 170.00, high52: 244.98, divYield: 1.28, roe: null, volume: 25000000,
+    marketCap: "ETF — $72B AUM", revenue25: "Small-cap US stocks", debtEquity: null,
+    signal: "buy", signalText: "BUY — SMALL-CAP VALUE",
+    entryZone: "$185 – $205", entryIdeal: [185, 205], entryAcceptable: [205, 220], entryAvoid: [220, 250],
+    reasoning: "<strong>IWM tracks 2,000 small-cap US stocks.</strong> Small caps are historically cheap vs. large caps. When rates drop and the economy improves, small caps outperform. At $198, 19% below ATH — good entry for rate cut play.",
+    factors: [
+      { label: "Valuation", score: 72, color: "green", note: "Small caps historically cheap" },
+      { label: "Earnings", score: 60, color: "amber", note: "Earnings recovery needed" },
+      { label: "Price Pos.", score: 70, color: "green", note: "19% below ATH" },
+      { label: "Catalyst", score: 72, color: "green", note: "Rate cuts benefit small caps" },
+      { label: "Low Risk", score: 55, color: "amber", note: "Higher volatility than large cap" }
+    ],
+    catalysts: [
+      { icon: "🏛️", color: "cata-green", event: "Fed rate cuts bullish for small caps", date: "2026" },
+      { icon: "📈", color: "cata-green", event: "Small cap earnings recovery cycle", date: "2026" }
+    ],
+    thesis: "<p><strong>Small caps are the forgotten trade.</strong> While everyone chases Mag7, small-cap stocks trade at the cheapest relative valuation in 25 years. When rates drop, small caps historically outperform large caps by 10-20% over the following 18 months.</p><p><strong>Target:</strong> $240–$260 within 12 months.</p>"
+  },
+  {
+    ticker: "DIA", name: "SPDR Dow Jones ETF", sector: "Index Fund", type: "stock", currency: "$",
+    price: 408.00, change: 2.30, changePct: 0.57, eps: null, pe: null, peForward: null,
+    low52: 367.00, high52: 450.22, divYield: 1.62, roe: null, volume: 4000000,
+    marketCap: "ETF — $36B AUM", revenue25: "Tracks Dow Jones 30", debtEquity: null,
+    signal: "wait", signalText: "HOLD — BLUE CHIPS",
+    entryZone: "$385 – $410", entryIdeal: [385, 410], entryAcceptable: [410, 430], entryAvoid: [430, 460],
+    reasoning: "<strong>DIA tracks the Dow Jones 30 blue-chip stocks.</strong> More value-oriented than QQQ. Includes JPM, UNH, AMGN, Goldman, Caterpillar. Good for conservative investors who want blue-chip quality with dividends.",
+    factors: [
+      { label: "Valuation", score: 62, color: "amber", note: "Blue-chip PE ~20x" },
+      { label: "Earnings", score: 70, color: "green", note: "Stable blue-chip earnings" },
+      { label: "Price Pos.", score: 62, color: "amber", note: "9% below ATH" },
+      { label: "Catalyst", score: 60, color: "amber", note: "Value rotation potential" },
+      { label: "Low Risk", score: 85, color: "green", note: "Blue-chip quality" }
+    ],
+    catalysts: [
+      { icon: "📈", color: "cata-green", event: "Value rotation from growth to quality", date: "Ongoing" },
+      { icon: "💰", color: "cata-blue", event: "Dividend yield 1.6% — income play", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>DIA is for conservative investors.</strong> The Dow Jones 30 are America's most established companies. More dividend-focused than QQQ. Good core holding for retirees or conservative portfolios.</p><p><strong>Target:</strong> $445–$460 within 12 months.</p>"
+  },
+  {
+    ticker: "VGT", name: "Vanguard Info Tech ETF", sector: "Technology", type: "stock", currency: "$",
+    price: 525.00, change: 6.50, changePct: 1.25, eps: null, pe: null, peForward: null,
+    low52: 440.00, high52: 630.00, divYield: 0.55, roe: null, volume: 800000,
+    marketCap: "ETF — $82B AUM", revenue25: "Pure tech sector ETF", debtEquity: null,
+    signal: "buy", signalText: "BUY — TECH SECTOR",
+    entryZone: "$490 – $530", entryIdeal: [490, 530], entryAcceptable: [530, 560], entryAvoid: [560, 640],
+    reasoning: "<strong>VGT is a pure tech sector ETF</strong> — heavier Apple/MSFT/NVDA weighting than QQQ. Lower expense ratio (0.10%). If you want concentrated tech exposure, VGT is the play. 17% below ATH.",
+    factors: [
+      { label: "Valuation", score: 55, color: "amber", note: "Tech PE ~30x" },
+      { label: "Earnings", score: 82, color: "green", note: "AI-driven tech earnings" },
+      { label: "Price Pos.", score: 68, color: "green", note: "17% below ATH" },
+      { label: "Catalyst", score: 78, color: "green", note: "AI capex supercycle" },
+      { label: "Low Risk", score: 72, color: "green", note: "Diversified tech basket" }
+    ],
+    catalysts: [
+      { icon: "🤖", color: "cata-green", event: "AI capex spending acceleration", date: "Ongoing" },
+      { icon: "📈", color: "cata-green", event: "Tech earnings season Q1 2026", date: "April 2026" }
+    ],
+    thesis: "<p><strong>VGT is QQQ but purer tech.</strong> No consumer or healthcare names — just technology companies. Top 3 holdings: AAPL 17%, MSFT 15%, NVDA 14%. If you're bullish on tech and want one ETF, VGT.</p><p><strong>Target:</strong> $620–$650 within 12 months.</p>"
+  },
+  {
+    ticker: "ARKK", name: "ARK Innovation ETF", sector: "Technology", type: "stock", currency: "$",
+    price: 42.00, change: 1.80, changePct: 4.48, eps: null, pe: null, peForward: null,
+    low52: 33.50, high52: 58.14, divYield: 0.0, roe: null, volume: 8000000,
+    marketCap: "ETF — $6B AUM", revenue25: "Cathie Wood's disruptive tech", debtEquity: null,
+    signal: "avoid", signalText: "AVOID — HIGH RISK",
+    entryZone: "$30 – $40", entryIdeal: [30, 40], entryAcceptable: [40, 48], entryAvoid: [48, 60],
+    reasoning: "<strong>ARKK is Cathie Wood's flagship disruptive innovation ETF.</strong> Heavy TSLA, COIN, ROKU, PLTR exposure. Down 75% from 2021 ATH of $159. High risk — ARKK underperforms QQQ consistently. Only for aggressive speculators.",
+    factors: [
+      { label: "Valuation", score: 30, color: "red", note: "High-multiple holdings" },
+      { label: "Earnings", score: 35, color: "red", note: "Most holdings unprofitable" },
+      { label: "Price Pos.", score: 82, color: "green", note: "75% below ATH" },
+      { label: "Catalyst", score: 50, color: "amber", note: "Disruptive tech thesis" },
+      { label: "Low Risk", score: 15, color: "red", note: "Extreme volatility" }
+    ],
+    catalysts: [
+      { icon: "🚀", color: "cata-amber", event: "Speculative rally in growth stocks", date: "Unknown" },
+      { icon: "📉", color: "cata-red", event: "Consistent underperformance vs QQQ", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>ARKK is for true believers in disruptive innovation.</strong> Cathie Wood bets on genomics, AI, robotics, blockchain, and electric vehicles. The problem: she's been wrong for 4 years straight. ARKK has underperformed QQQ by 80%+ since 2021. Only buy if you love risk.</p><p><strong>Target:</strong> $55–$60 in a melt-up; $30 in a correction.</p>"
+  },
+  // ========== MORE ENERGY / INDUSTRIALS ==========
+  {
+    ticker: "CVX", name: "Chevron Corp.", sector: "Energy", type: "stock", currency: "$",
+    price: 155.00, change: -0.60, changePct: -0.39, eps: 11.36, pe: 13.6, peForward: 12.0,
+    low52: 135.00, high52: 168.96, divYield: 4.19, roe: 14.5, volume: 6500000,
+    marketCap: "$288B", revenue25: "$195B revenue", debtEquity: 0.15,
+    signal: "wait", signalText: "HOLD — DIVIDEND PLAY",
+    entryZone: "$145 – $155", entryIdeal: [145, 155], entryAcceptable: [155, 165], entryAvoid: [165, 175],
+    reasoning: "<strong>Chevron is the #2 US energy major.</strong> 4.2% dividend yield, ultra-low debt. Hess acquisition ($53B) adds Guyana oil assets. Income investors' pick, not a growth play.",
+    factors: [
+      { label: "Valuation", score: 72, color: "green", note: "13.6x PE — cheap" },
+      { label: "Earnings", score: 60, color: "amber", note: "Oil price dependent" },
+      { label: "Price Pos.", score: 55, color: "amber", note: "8% below ATH" },
+      { label: "Catalyst", score: 50, color: "amber", note: "Hess/Guyana production" },
+      { label: "Low Risk", score: 78, color: "green", note: "Low debt, dividend aristocrat" }
+    ],
+    catalysts: [
+      { icon: "⛽", color: "cata-blue", event: "Hess acquisition — Guyana oil assets", date: "2026" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "May 2026" }
+    ],
+    thesis: "<p><strong>Chevron is a dividend machine.</strong> 4.2% yield, 37 consecutive years of dividend increases. Ultra-low 0.15 debt-to-equity. Guyana oil assets from Hess deal add decades of low-cost production.</p><p><strong>Target:</strong> $170–$180 within 12 months.</p>"
+  },
+  {
+    ticker: "CAT", name: "Caterpillar Inc.", sector: "Industrials", type: "stock", currency: "$",
+    price: 335.00, change: 2.50, changePct: 0.75, eps: 22.05, pe: 15.2, peForward: 14.0,
+    low52: 299.00, high52: 418.49, divYield: 1.85, roe: 55.0, volume: 2800000,
+    marketCap: "$162B", revenue25: "$67B revenue", debtEquity: 1.78,
+    signal: "wait", signalText: "BUY ON DIP — INFRA PLAY",
+    entryZone: "$310 – $340", entryIdeal: [310, 340], entryAcceptable: [340, 370], entryAvoid: [370, 420],
+    reasoning: "<strong>Caterpillar is the world's largest construction equipment maker.</strong> Benefits from US infrastructure spending (CHIPS Act, IRA). At 15.2x PE with 1.85% dividend, it's a quality cyclical. Global infrastructure demand supports earnings.",
+    factors: [
+      { label: "Valuation", score: 72, color: "green", note: "15.2x PE — reasonable" },
+      { label: "Earnings", score: 75, color: "green", note: "Infrastructure demand strong" },
+      { label: "Price Pos.", score: 62, color: "amber", note: "20% below ATH" },
+      { label: "Catalyst", score: 68, color: "green", note: "US infrastructure spending" },
+      { label: "Low Risk", score: 68, color: "green", note: "Cyclical but market leader" }
+    ],
+    catalysts: [
+      { icon: "🏗️", color: "cata-green", event: "US infrastructure spending ramp", date: "2026" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>Caterpillar is a play on global infrastructure.</strong> US CHIPS Act + IRA = trillions in construction spending. Every data centre, every factory, every highway needs CAT equipment. Cyclical risk exists but the current cycle has years to run.</p><p><strong>Target:</strong> $400–$420 within 12 months.</p>"
+  },
+  // ========== TELECOM / UTILITY / OTHERS ==========
+  {
+    ticker: "DIS", name: "Walt Disney Co.", sector: "Media", type: "stock", currency: "$",
+    price: 96.00, change: 1.10, changePct: 1.16, eps: 5.14, pe: 18.7, peForward: 16.0,
+    low52: 83.91, high52: 123.74, divYield: 0.93, roe: 5.8, volume: 11000000,
+    marketCap: "$175B", revenue25: "$93B revenue", debtEquity: 0.42,
+    signal: "buy", signalText: "BUY — TURNAROUND",
+    entryZone: "$88 – $100", entryIdeal: [88, 100], entryAcceptable: [100, 110], entryAvoid: [110, 130],
+    reasoning: "<strong>Disney at $96 is 22% below ATH</strong> — theme parks are record-profitable, Disney+ is nearing breakeven, and ESPN streaming launches in 2025. The brand is iconic and the turnaround is gaining momentum.",
+    factors: [
+      { label: "Valuation", score: 68, color: "green", note: "18.7x PE — reasonable" },
+      { label: "Earnings", score: 65, color: "amber", note: "Streaming losses narrowing" },
+      { label: "Price Pos.", score: 72, color: "green", note: "22% below ATH" },
+      { label: "Catalyst", score: 75, color: "green", note: "ESPN streaming, parks expansion" },
+      { label: "Low Risk", score: 60, color: "amber", note: "Parks + IP = moat" }
+    ],
+    catalysts: [
+      { icon: "📺", color: "cata-green", event: "ESPN standalone streaming launch", date: "2025" },
+      { icon: "🏰", color: "cata-blue", event: "$60B theme park expansion plan", date: "2026–2034" }
+    ],
+    thesis: "<p><strong>Disney's IP is irreplaceable.</strong> Marvel, Star Wars, Pixar, ESPN — no other media company has this portfolio. Theme parks set revenue records. Disney+ streaming losses are narrowing. At $96, the pessimism is overdone.</p><p><strong>Target:</strong> $120–$130 within 12 months.</p>"
+  },
+  {
+    ticker: "PG", name: "Procter & Gamble", sector: "Consumer", type: "stock", currency: "$",
+    price: 165.00, change: 0.50, changePct: 0.30, eps: 6.46, pe: 25.5, peForward: 24.0,
+    low52: 151.20, high52: 180.43, divYield: 2.44, roe: 30.5, volume: 5500000,
+    marketCap: "$390B", revenue25: "$84B revenue", debtEquity: 0.65,
+    signal: "wait", signalText: "HOLD — DEFENSIVE DIVIDEND",
+    entryZone: "$155 – $165", entryIdeal: [155, 165], entryAcceptable: [165, 175], entryAvoid: [175, 185],
+    reasoning: "<strong>P&G owns Tide, Pampers, Gillette, Crest, Oral-B</strong> — brands you use every day. 68 consecutive years of dividend increases. At 25.5x PE, fairly valued. Buy during market panics for defensive portfolio anchor.",
+    factors: [
+      { label: "Valuation", score: 50, color: "amber", note: "25.5x PE — fair" },
+      { label: "Earnings", score: 72, color: "green", note: "Consistent 5-7% EPS growth" },
+      { label: "Price Pos.", score: 55, color: "amber", note: "9% below ATH" },
+      { label: "Catalyst", score: 50, color: "amber", note: "Stable, not exciting" },
+      { label: "Low Risk", score: 92, color: "green", note: "Dividend King, consumer staple" }
+    ],
+    catalysts: [
+      { icon: "🧴", color: "cata-blue", event: "Pricing power in inflationary environment", date: "Ongoing" },
+      { icon: "📊", color: "cata-green", event: "Q3 FY2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>P&G is the ultimate consumer defensive stock.</strong> People buy Tide, Pampers, and Gillette in any economy. 68 years of dividend increases. You buy P&G for stability and sleep-at-night quality, not capital gains.</p><p><strong>Target:</strong> $180–$190 within 12 months.</p>"
+  },
+  {
+    ticker: "KO", name: "Coca-Cola Co.", sector: "Consumer", type: "stock", currency: "$",
+    price: 62.50, change: 0.30, changePct: 0.48, eps: 2.48, pe: 25.2, peForward: 23.0,
+    low52: 56.48, high52: 73.53, divYield: 3.09, roe: 40.0, volume: 11000000,
+    marketCap: "$268B", revenue25: "$47B revenue", debtEquity: 1.48,
+    signal: "wait", signalText: "HOLD — BUFFETT'S FAVOURITE",
+    entryZone: "$58 – $63", entryIdeal: [58, 63], entryAcceptable: [63, 68], entryAvoid: [68, 75],
+    reasoning: "<strong>Coca-Cola is Warren Buffett's longest-held stock.</strong> 62 consecutive years of dividend increases, 3.1% yield. Sold in 200+ countries. At 25.2x PE, fully valued. Use as portfolio ballast during downturns.",
+    factors: [
+      { label: "Valuation", score: 50, color: "amber", note: "25.2x PE — fair" },
+      { label: "Earnings", score: 68, color: "green", note: "Stable EPS growth" },
+      { label: "Price Pos.", score: 58, color: "amber", note: "15% below ATH" },
+      { label: "Catalyst", score: 45, color: "amber", note: "Steady, not exciting" },
+      { label: "Low Risk", score: 95, color: "green", note: "Most defensive stock on earth" }
+    ],
+    catalysts: [
+      { icon: "🥤", color: "cata-blue", event: "Emerging market volume growth", date: "Ongoing" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>Coca-Cola is the most recession-proof stock in history.</strong> People drink Coke in booms and busts. 200+ countries, 62 years of dividend increases, Warren Buffett's largest holding. You buy KO and never sell. 3.1% yield compounds for decades.</p><p><strong>Target:</strong> $70–$75 within 12 months.</p>"
+  },
+  {
+    ticker: "INTC", name: "Intel Corporation", sector: "Semiconductors", type: "stock", currency: "$",
+    price: 22.50, change: 0.60, changePct: 2.74, eps: -0.55, pe: null, peForward: 35.0,
+    low52: 18.51, high52: 38.47, divYield: 0.0, roe: -3.0, volume: 42000000,
+    marketCap: "$97B", revenue25: "$55B revenue", debtEquity: 0.47,
+    signal: "avoid", signalText: "AVOID — TURNAROUND RISK",
+    entryZone: "$18 – $23", entryIdeal: [18, 23], entryAcceptable: [23, 28], entryAvoid: [28, 40],
+    reasoning: "<strong>Intel is losing the chip wars.</strong> AMD, NVIDIA, and ARM are taking market share. The foundry business is burning cash. CHIPS Act subsidies help but execution is unproven. Speculative contrarian play only.",
+    factors: [
+      { label: "Valuation", score: 40, color: "amber", note: "No earnings — losses" },
+      { label: "Earnings", score: 20, color: "red", note: "Losing money" },
+      { label: "Price Pos.", score: 80, color: "green", note: "42% below ATH" },
+      { label: "Catalyst", score: 45, color: "amber", note: "CHIPS Act funding" },
+      { label: "Low Risk", score: 25, color: "red", note: "Existential risk" }
+    ],
+    catalysts: [
+      { icon: "🏭", color: "cata-amber", event: "18A process node — make or break", date: "2026" },
+      { icon: "🏛️", color: "cata-blue", event: "CHIPS Act $8.5B subsidy", date: "2026" }
+    ],
+    thesis: "<p><strong>Intel is the most controversial stock in tech.</strong> Bulls say CHIPS Act subsidies + 18A node will restore competitiveness. Bears say Intel is 5 years behind TSMC and the foundry strategy will fail. At $22.50, it's priced for disaster — could be a 3x comeback or go to $10.</p><p><strong>Target:</strong> $35+ on successful 18A launch; $15 on failure.</p>"
+  },
+  {
+    ticker: "MSTR", name: "MicroStrategy (Strategy)", sector: "Technology", type: "stock", currency: "$",
+    price: 285.00, change: 15.00, changePct: 5.56, eps: null, pe: null, peForward: null,
+    low52: 101.00, high52: 543.00, divYield: 0.0, roe: null, volume: 18000000,
+    marketCap: "$75B", revenue25: "Software + 500K+ BTC", debtEquity: 2.5,
+    signal: "watch", signalText: "SPECULATIVE — LEVERAGED BTC",
+    entryZone: "$200 – $280", entryIdeal: [200, 280], entryAcceptable: [280, 350], entryAvoid: [350, 550],
+    reasoning: "<strong>MicroStrategy holds 500K+ Bitcoin</strong> — it's essentially a leveraged BTC play. When BTC goes up, MSTR goes up 2–3x. When BTC goes down, MSTR goes down 2–3x. Pure crypto speculation via a stock.",
+    factors: [
+      { label: "Valuation", score: 10, color: "red", note: "No valid metric — BTC proxy" },
+      { label: "Earnings", score: 15, color: "red", note: "Software business irrelevant" },
+      { label: "Price Pos.", score: 65, color: "amber", note: "48% below ATH" },
+      { label: "Catalyst", score: 72, color: "green", note: "BTC bull cycle" },
+      { label: "Low Risk", score: 10, color: "red", note: "Extreme volatility" }
+    ],
+    catalysts: [
+      { icon: "₿", color: "cata-green", event: "BTC price appreciation", date: "Ongoing" },
+      { icon: "📊", color: "cata-amber", event: "Ongoing BTC purchases via debt/equity", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>MSTR is for people who want leveraged Bitcoin exposure in a brokerage account.</strong> Saylor keeps buying BTC with convertible bonds. If BTC hits $150K, MSTR could be $500+. If BTC crashes, MSTR goes to $100. Understand the leverage before buying.</p><p><strong>Target:</strong> $450–$550 if BTC hits $150K; $120 if BTC drops to $50K.</p>"
   }
 ];
 
@@ -1583,6 +2241,154 @@ const GLOBAL_CRYPTO = [
       { icon: "📱", color: "cata-amber", event: "Parachain ecosystem adoption", date: "Ongoing" }
     ],
     thesis: "<p><strong>Polkadot's thesis is multi-chain interoperability.</strong> If the future is 100+ blockchains needing to communicate, Polkadot wins. But Ethereum L2s and Cosmos are strong competitors. At $4.20, it's a cheap lottery ticket on the multi-chain thesis.</p>"
+  },
+  // ========== MORE CRYPTO ==========
+  {
+    ticker: "SHIB", name: "Shiba Inu", sector: "Memecoins", type: "crypto", currency: "$",
+    price: 0.0000145, change: 0.0000008, changePct: 5.84, eps: null, pe: null, peForward: null,
+    low52: 0.0000067, high52: 0.0000459, divYield: null, roe: null, volume: null,
+    marketCap: "$8.6B", revenue25: "Memecoin + Shibarium L2", debtEquity: null,
+    signal: "avoid", signalText: "EXTREME RISK — MEME",
+    entryZone: "$0.000010 – $0.000015", entryIdeal: [0.00001, 0.000015], entryAcceptable: [0.000015, 0.000025], entryAvoid: [0.000025, 0.00005],
+    reasoning: "<strong>SHIB is the #2 memecoin.</strong> Shibarium L2 chain tries to add utility. Massive community, but no fundamentals. Pure speculation — lottery ticket only.",
+    factors: [
+      { label: "Momentum", score: 45, color: "amber", note: "Community driven" },
+      { label: "Adoption", score: 30, color: "red", note: "Shibarium low usage" },
+      { label: "Price Pos.", score: 72, color: "green", note: "68% below ATH" },
+      { label: "Macro", score: 40, color: "amber", note: "Meme season required" },
+      { label: "Risk", score: 10, color: "red", note: "Can go to zero" }
+    ],
+    catalysts: [
+      { icon: "🐕", color: "cata-amber", event: "Shibarium ecosystem growth", date: "Ongoing" },
+      { icon: "🔥", color: "cata-green", event: "Token burn mechanism reducing supply", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>SHIB is a lottery ticket.</strong> No fundamentals, no revenue, no earnings. It moves on memes and hype. If you buy it, know that you could lose 90%+. Max 1% of portfolio.</p>"
+  },
+  {
+    ticker: "UNI", name: "Uniswap", sector: "DeFi & L1s", type: "crypto", currency: "$",
+    price: 7.20, change: 0.30, changePct: 4.35, eps: null, pe: null, peForward: null,
+    low52: 4.70, high52: 19.47, divYield: null, roe: null, volume: null,
+    marketCap: "$4.3B", revenue25: "Decentralised exchange protocol", debtEquity: null,
+    signal: "watch", signalText: "SPECULATIVE — DEFI LEADER",
+    entryZone: "$5.50 – $7.50", entryIdeal: [5.50, 7.50], entryAcceptable: [7.50, 10.00], entryAvoid: [10.00, 20.00],
+    reasoning: "<strong>Uniswap is the largest decentralised exchange (DEX)</strong> — $1T+ total volume processed. Fee switch (revenue sharing with UNI holders) is the key catalyst. At $7.20, 63% below ATH.",
+    factors: [
+      { label: "Momentum", score: 50, color: "amber", note: "DEX volume recovering" },
+      { label: "Adoption", score: 72, color: "green", note: "#1 DEX by volume" },
+      { label: "Price Pos.", score: 75, color: "green", note: "63% below ATH" },
+      { label: "Macro", score: 55, color: "amber", note: "DeFi revival needed" },
+      { label: "Risk", score: 40, color: "amber", note: "Regulatory risk for DEXs" }
+    ],
+    catalysts: [
+      { icon: "🔄", color: "cata-green", event: "Fee switch activation for UNI holders", date: "2026" },
+      { icon: "⛓️", color: "cata-blue", event: "Uniswap v4 hooks ecosystem", date: "2026" }
+    ],
+    thesis: "<p><strong>Uniswap is the marketplace of DeFi.</strong> $1T+ cumulative volume, deployed on 10+ chains. If the fee switch activates, UNI becomes a revenue-generating asset. Without it, UNI is just a governance token with limited value.</p>"
+  },
+  {
+    ticker: "NEAR", name: "NEAR Protocol", sector: "DeFi & L1s", type: "crypto", currency: "$",
+    price: 3.50, change: 0.15, changePct: 4.48, eps: null, pe: null, peForward: null,
+    low52: 2.80, high52: 9.01, divYield: null, roe: null, volume: null,
+    marketCap: "$4.0B", revenue25: "AI + blockchain platform", debtEquity: null,
+    signal: "watch", signalText: "SPECULATIVE — AI BLOCKCHAIN",
+    entryZone: "$2.80 – $3.80", entryIdeal: [2.80, 3.80], entryAcceptable: [3.80, 5.00], entryAvoid: [5.00, 10.00],
+    reasoning: "<strong>NEAR is positioning as the AI + blockchain platform.</strong> Chain abstraction makes it easy for users to interact across blockchains. AI integrations are a narrative catalyst. High risk, early stage.",
+    factors: [
+      { label: "Momentum", score: 55, color: "amber", note: "AI narrative growing" },
+      { label: "Adoption", score: 45, color: "amber", note: "Growing but early" },
+      { label: "Price Pos.", score: 72, color: "green", note: "61% below ATH" },
+      { label: "Macro", score: 55, color: "amber", note: "Alt-season dependent" },
+      { label: "Risk", score: 35, color: "red", note: "Competitive L1 market" }
+    ],
+    catalysts: [
+      { icon: "🤖", color: "cata-green", event: "NEAR AI agent integrations", date: "2026" },
+      { icon: "🔗", color: "cata-blue", event: "Chain abstraction user growth", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>NEAR's bet is on abstracting blockchain complexity.</strong> Users don't need to know they're using blockchain — just one account, all chains. The AI angle is early but promising. High risk, potentially high reward.</p>"
+  },
+  {
+    ticker: "SUI", name: "Sui Network", sector: "DeFi & L1s", type: "crypto", currency: "$",
+    price: 2.65, change: 0.12, changePct: 4.74, eps: null, pe: null, peForward: null,
+    low52: 0.50, high52: 5.35, divYield: null, roe: null, volume: null,
+    marketCap: "$8.3B", revenue25: "Move-based L1 blockchain", debtEquity: null,
+    signal: "watch", signalText: "SPECULATIVE — HIGH GROWTH",
+    entryZone: "$2.00 – $2.80", entryIdeal: [2.00, 2.80], entryAcceptable: [2.80, 3.50], entryAvoid: [3.50, 6.00],
+    reasoning: "<strong>Sui is the fastest-growing new L1 blockchain</strong> — built by ex-Meta (Diem) engineers using the Move language. TVL has grown from $0 to $1.5B+ in 18 months. High risk but strong momentum.",
+    factors: [
+      { label: "Momentum", score: 72, color: "green", note: "TVL growing rapidly" },
+      { label: "Adoption", score: 62, color: "amber", note: "DeFi + gaming ecosystem" },
+      { label: "Price Pos.", score: 60, color: "amber", note: "50% below ATH" },
+      { label: "Macro", score: 55, color: "amber", note: "Alt-season dependent" },
+      { label: "Risk", score: 30, color: "red", note: "New chain, unproven at scale" }
+    ],
+    catalysts: [
+      { icon: "🎮", color: "cata-green", event: "Gaming + DeFi ecosystem expansion", date: "2026" },
+      { icon: "📊", color: "cata-blue", event: "TVL and user growth metrics", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>Sui is the Solana of this cycle.</strong> Move-based smart contracts, sub-second finality, and ex-Meta engineering talent. If the ecosystem keeps growing, SUI could 3–5x. But new L1s are risky — most fail within 2 years.</p>"
+  },
+  {
+    ticker: "ATOM", name: "Cosmos", sector: "DeFi & L1s", type: "crypto", currency: "$",
+    price: 5.80, change: 0.22, changePct: 3.94, eps: null, pe: null, peForward: null,
+    low52: 3.80, high52: 15.38, divYield: null, roe: null, volume: null,
+    marketCap: "$2.3B", revenue25: "Interchain hub", debtEquity: null,
+    signal: "watch", signalText: "SPECULATIVE — INTERCHAIN",
+    entryZone: "$4.50 – $6.00", entryIdeal: [4.50, 6.00], entryAcceptable: [6.00, 8.00], entryAvoid: [8.00, 16.00],
+    reasoning: "<strong>Cosmos pioneered the multi-chain thesis.</strong> IBC (Inter-Blockchain Communication) connects 50+ sovereign chains. dYdX, Celestia, and others chose Cosmos SDK. At $5.80, 62% below ATH — cheap if multi-chain wins.",
+    factors: [
+      { label: "Momentum", score: 42, color: "amber", note: "Ecosystem fragmented" },
+      { label: "Adoption", score: 58, color: "amber", note: "IBC ecosystem growing" },
+      { label: "Price Pos.", score: 75, color: "green", note: "62% below ATH" },
+      { label: "Macro", score: 50, color: "amber", note: "Alt-season critical" },
+      { label: "Risk", score: 35, color: "red", note: "ATOM value capture unclear" }
+    ],
+    catalysts: [
+      { icon: "🌐", color: "cata-blue", event: "IBC ecosystem expansion", date: "Ongoing" },
+      { icon: "⚛️", color: "cata-amber", event: "ATOM value accrual mechanism", date: "TBD" }
+    ],
+    thesis: "<p><strong>Cosmos built the interchain — but ATOM struggles to capture value.</strong> dYdX, Celestia, and Injective all used Cosmos SDK but don't need the ATOM token. The technology is great; the tokenomics are questionable. Buy only if you believe in multi-chain future AND improved value capture.</p>"
+  },
+  {
+    ticker: "HBAR", name: "Hedera", sector: "DeFi & L1s", type: "crypto", currency: "$",
+    price: 0.19, change: 0.008, changePct: 4.40, eps: null, pe: null, peForward: null,
+    low52: 0.045, high52: 0.40, divYield: null, roe: null, volume: null,
+    marketCap: "$7.2B", revenue25: "Enterprise DLT network", debtEquity: null,
+    signal: "watch", signalText: "SPECULATIVE — ENTERPRISE",
+    entryZone: "$0.14 – $0.20", entryIdeal: [0.14, 0.20], entryAcceptable: [0.20, 0.28], entryAvoid: [0.28, 0.45],
+    reasoning: "<strong>Hedera's governing council includes Google, IBM, Boeing, LG.</strong> Enterprise-focused hashgraph consensus. Very fast (10K+ TPS) and cheap. At $0.19, 52% below ATH. The enterprise adoption narrative gives HBAR a unique angle vs. other L1s.",
+    factors: [
+      { label: "Momentum", score: 58, color: "amber", note: "Enterprise partnerships" },
+      { label: "Adoption", score: 52, color: "amber", note: "Enterprise focus, retail lagging" },
+      { label: "Price Pos.", score: 72, color: "green", note: "52% below ATH" },
+      { label: "Macro", score: 55, color: "amber", note: "Alt-season needed" },
+      { label: "Risk", score: 42, color: "amber", note: "Centralisation concerns" }
+    ],
+    catalysts: [
+      { icon: "🏢", color: "cata-green", event: "Enterprise tokenisation use cases", date: "2026" },
+      { icon: "📊", color: "cata-blue", event: "RWA tokenisation partnerships", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>Hedera's enterprise angle is unique in crypto.</strong> Google, IBM, and Boeing on the governing council gives institutional credibility. If RWA tokenisation goes mainstream on Hedera, HBAR could be a 5–10x play. But retail adoption and DeFi ecosystem are lagging.</p>"
+  },
+  {
+    ticker: "RENDER", name: "Render Network", sector: "DeFi & L1s", type: "crypto", currency: "$",
+    price: 4.80, change: 0.25, changePct: 5.49, eps: null, pe: null, peForward: null,
+    low52: 2.86, high52: 13.60, divYield: null, roe: null, volume: null,
+    marketCap: "$2.5B", revenue25: "Decentralised GPU rendering", debtEquity: null,
+    signal: "buy", signalText: "BUY — AI INFRASTRUCTURE",
+    entryZone: "$3.50 – $5.00", entryIdeal: [3.50, 5.00], entryAcceptable: [5.00, 7.00], entryAvoid: [7.00, 14.00],
+    reasoning: "<strong>Render is a decentralised GPU network</strong> — AI and 3D rendering jobs distributed to idle GPUs. The intersection of AI + crypto. At $4.80, 65% below ATH. If AI compute demand grows (it will), Render benefits.",
+    factors: [
+      { label: "Momentum", score: 68, color: "green", note: "AI narrative strong" },
+      { label: "Adoption", score: 55, color: "amber", note: "Growing GPU network" },
+      { label: "Price Pos.", score: 78, color: "green", note: "65% below ATH" },
+      { label: "Macro", score: 65, color: "amber", note: "AI + crypto intersection" },
+      { label: "Risk", score: 40, color: "amber", note: "Early stage protocol" }
+    ],
+    catalysts: [
+      { icon: "🤖", color: "cata-green", event: "AI compute demand explosion", date: "Ongoing" },
+      { icon: "🎮", color: "cata-blue", event: "3D rendering/metaverse demand", date: "2026" }
+    ],
+    thesis: "<p><strong>Render is the picks-and-shovels play for AI + crypto.</strong> Decentralised GPU rendering for AI training, 3D rendering, and video production. If compute demand keeps growing (it's growing 10x every 18 months), Render's network becomes increasingly valuable.</p>"
   }
 ];
 
@@ -1875,7 +2681,9 @@ async function callGemini(prompt, model) {
 
 const COINGECKO_IDS = {
   BTC: 'bitcoin', ETH: 'ethereum', SOL: 'solana', XRP: 'ripple', BNB: 'binancecoin',
-  DOGE: 'dogecoin', ADA: 'cardano', AVAX: 'avalanche-2', LINK: 'chainlink', DOT: 'polkadot'
+  DOGE: 'dogecoin', ADA: 'cardano', AVAX: 'avalanche-2', LINK: 'chainlink', DOT: 'polkadot',
+  SHIB: 'shiba-inu', UNI: 'uniswap', NEAR: 'near', SUI: 'sui', ATOM: 'cosmos',
+  HBAR: 'hedera-hashgraph', RENDER: 'render-token'
 };
 
 async function fetchCryptoPrices() {
@@ -2125,24 +2933,24 @@ function renderAlerts() {
 
 const GLOBAL_SECTORS = [
   {
-    name: "Technology", icon: "💻", tickers: ["AAPL","MSFT","NVDA","GOOGL","META","CRM","NFLX","PLTR"],
+    name: "Technology", icon: "💻", tickers: ["AAPL","MSFT","NVDA","GOOGL","META","CRM","NFLX","PLTR","ORCL","UBER","SHOP","PANW","CRWD"],
     score: 88, signal: "Strong Buy", color: "green",
     thesis: "AI infrastructure spending is creating a once-in-a-decade capex supercycle. Mag7 tech companies are spending $300B+ on AI in 2026. Cloud revenue is accelerating."
   },
   {
-    name: "Semiconductors", icon: "🔬", tickers: ["AMD","AVGO","TSM","ASML","SMH"],
+    name: "Semiconductors", icon: "🔬", tickers: ["AMD","AVGO","TSM","ASML","SMH","INTC","ARM"],
     score: 85, signal: "Strong Buy", color: "green",
     thesis: "AI chip demand is insatiable. NVIDIA leads but AMD, Broadcom, and TSMC all benefit. ASML's monopoly on EUV lithography is the deepest moat in tech. SMH ETF gives broad exposure."
   },
   {
-    name: "Healthcare", icon: "🏥", tickers: ["UNH","LLY","JNJ","ABBV","MRK"],
+    name: "Healthcare", icon: "🏥", tickers: ["UNH","LLY","JNJ","ABBV","MRK","PFE"],
     score: 68, signal: "Selective Buy", color: "amber",
     thesis: "GLP-1 drugs (Ozempic, Mounjaro) are a $100B+ market opportunity. Outside of GLP-1, healthcare faces Medicare pricing pressure and patent cliffs."
   },
   {
-    name: "Finance", icon: "🏦", tickers: ["JPM","V","GS","MA","BAC"],
+    name: "Finance", icon: "🏦", tickers: ["JPM","V","GS","MA","BAC","BRK.B","PYPL","SQ","COIN"],
     score: 72, signal: "Buy on Dips", color: "green",
-    thesis: "Banks benefit from higher-for-longer rates. Visa/Mastercard are toll roads on global spending. Asset managers benefit from ETF inflows."
+    thesis: "Banks benefit from higher-for-longer rates. Visa/Mastercard are toll roads on global spending. Fintech valuations are recovering from 2022 lows."
   },
   {
     name: "Energy", icon: "⛽", tickers: ["XOM","CVX","COP","SLB","EOG"],
@@ -2150,12 +2958,22 @@ const GLOBAL_SECTORS = [
     thesis: "Oil prices range-bound ($65–$85/barrel). Natural gas better positioned on AI data centre power demand. Energy is a dividend play, not a growth play."
   },
   {
-    name: "Consumer", icon: "🛒", tickers: ["AMZN","COST","WMT","HD","NKE"],
+    name: "Consumer", icon: "🛒", tickers: ["AMZN","COST","WMT","HD","NKE","MCD","KO","PG"],
     score: 65, signal: "Quality Names Only", color: "amber",
     thesis: "Consumer spending slowing but resilient. Premium brands gaining share. Own Costco, Amazon, Walmart — avoid discretionary names exposed to tariffs."
   },
   {
-    name: "DeFi & L1s", icon: "⛓️", tickers: ["ETH","SOL","AVAX","DOT","ADA","LINK"],
+    name: "Industrials", icon: "🏭", tickers: ["CAT","DE","LMT","RTX","BA"],
+    score: 70, signal: "Infrastructure Play", color: "green",
+    thesis: "US infrastructure spending (CHIPS Act, IRA) is a multi-year tailwind. Data centre construction, reshoring, and defence spending all benefit industrials."
+  },
+  {
+    name: "Media", icon: "📺", tickers: ["DIS","NFLX","WBD","PARA","CMCSA"],
+    score: 55, signal: "Selective — Netflix Only", color: "amber",
+    thesis: "Streaming wars are consolidating. Netflix won. Disney is turnaround play. Most legacy media is struggling. Be very selective — own Netflix and maybe Disney."
+  },
+  {
+    name: "DeFi & L1s", icon: "⛓️", tickers: ["ETH","SOL","AVAX","DOT","ADA","LINK","UNI","NEAR","SUI","ATOM","HBAR","RENDER"],
     score: 78, signal: "Accumulate", color: "green",
     thesis: "Layer 1 blockchains are the infrastructure of crypto. ETH dominates DeFi. SOL is fastest-growing for retail. Chainlink powers 80% of oracles. L1s historically outperform BTC 2–5x in late bull market."
   },
@@ -2170,9 +2988,9 @@ const GLOBAL_SECTORS = [
     thesis: "Gold at all-time highs as central banks diversify. Bitcoin emerging as digital gold. Data centre REITs benefit from AI infrastructure demand."
   },
   {
-    name: "ETFs & Index", icon: "📊", tickers: ["QQQ","SPY","SMH"],
+    name: "ETFs & Index", icon: "📊", tickers: ["QQQ","SPY","VOO","SMH","IWM","DIA","VGT","ARKK"],
     score: 80, signal: "Core Holdings", color: "green",
-    thesis: "If you can't pick individual stocks, ETFs are the answer. SPY gives broad US exposure, QQQ gives tech-heavy growth, SMH gives semiconductor leverage. Dollar-cost average into these."
+    thesis: "If you can't pick individual stocks, ETFs are the answer. VOO/SPY gives broad US exposure, QQQ gives tech-heavy growth, SMH gives semiconductor leverage. Dollar-cost average into these."
   }
 ];
 
@@ -2181,22 +2999,32 @@ const GLOBAL_STOCK_PICKS = [
   { ticker:"GOOGL", name:"Alphabet", sector:"Technology", signal:"explode", momentum:88, allocation:"8–10%", horizon:"6–12mo", why:"Cheapest Mag7 at 20x PE, $95B cash" },
   { ticker:"ASML", name:"ASML", sector:"Semiconductors", signal:"explode", momentum:88, allocation:"5–7%", horizon:"6–12mo", why:"EUV monopoly, 39% below ATH, €40B backlog" },
   { ticker:"TSM", name:"TSMC", sector:"Semiconductors", signal:"explode", momentum:85, allocation:"5–8%", horizon:"6–12mo", why:"Makes 92% of advanced chips, 20x fwd PE" },
+  { ticker:"VOO", name:"Vanguard S&P 500", sector:"ETFs", signal:"building", momentum:80, allocation:"15–25%", horizon:"12mo+", why:"Cheapest S&P 500 ETF, Buffett's pick" },
   { ticker:"MSFT", name:"Microsoft", sector:"Technology", signal:"building", momentum:82, allocation:"6–8%", horizon:"6–12mo", why:"Azure + Copilot AI, 17% below ATH" },
   { ticker:"META", name:"Meta", sector:"Technology", signal:"building", momentum:80, allocation:"5–7%", horizon:"6–12mo", why:"3.9B users, 22% ad revenue growth" },
   { ticker:"ETH", name:"Ethereum", sector:"Crypto", signal:"explode", momentum:85, allocation:"7–10%", horizon:"6–18mo", why:"53% below ATH, DeFi backbone, 3.5% yield" },
   { ticker:"UNH", name:"UnitedHealth", sector:"Healthcare", signal:"building", momentum:80, allocation:"4–6%", horizon:"6–12mo", why:"17x PE, 25% below ATH — rare entry" },
+  { ticker:"BRK.B", name:"Berkshire B", sector:"Finance", signal:"building", momentum:78, allocation:"5–8%", horizon:"12mo+", why:"Buffett's fortress, 11.8x PE, $300B cash" },
   { ticker:"AMD", name:"AMD", sector:"Semiconductors", signal:"building", momentum:78, allocation:"4–6%", horizon:"6–12mo", why:"#2 AI GPU, 55% below ATH, 22x fwd PE" },
   { ticker:"BTC", name:"Bitcoin", sector:"Crypto", signal:"building", momentum:78, allocation:"10–15%", horizon:"12–18mo", why:"Post-halving cycle, ETF inflows" },
   { ticker:"AMZN", name:"Amazon", sector:"Technology", signal:"building", momentum:76, allocation:"5–7%", horizon:"6–12mo", why:"AWS $100B+, margin expansion" },
   { ticker:"JPM", name:"JPMorgan", sector:"Finance", signal:"building", momentum:75, allocation:"4–6%", horizon:"6–12mo", why:"12x PE, 17% ROE, banking king" },
-  { ticker:"LINK", name:"Chainlink", sector:"Crypto", signal:"building", momentum:72, allocation:"3–5%", horizon:"6–12mo", why:"80% oracle market share, CCIP adoption" },
-  { ticker:"CRM", name:"Salesforce", sector:"Technology", signal:"building", momentum:72, allocation:"3–5%", horizon:"6–12mo", why:"#1 CRM, Agentforce AI launch, 29% off ATH" },
-  { ticker:"SOL", name:"Solana", sector:"Crypto", signal:"watch", momentum:70, allocation:"3–5%", horizon:"6–12mo", why:"Fastest blockchain, ETF pending" },
   { ticker:"QQQ", name:"NASDAQ-100 ETF", sector:"ETFs", signal:"building", momentum:75, allocation:"10–20%", horizon:"12mo+", why:"Core holding — own all big tech" },
+  { ticker:"MRK", name:"Merck", sector:"Healthcare", signal:"building", momentum:74, allocation:"3–5%", horizon:"6–12mo", why:"13.7x PE, Keytruda king, 3% dividend" },
+  { ticker:"PYPL", name:"PayPal", sector:"Finance", signal:"building", momentum:73, allocation:"3–5%", horizon:"6–12mo", why:"15x PE, 75% off ATH — deep value fintech" },
+  { ticker:"ORCL", name:"Oracle", sector:"Technology", signal:"building", momentum:73, allocation:"3–5%", horizon:"6–12mo", why:"OCI cloud growth 50%+, AI infrastructure" },
+  { ticker:"LINK", name:"Chainlink", sector:"Crypto", signal:"building", momentum:72, allocation:"3–5%", horizon:"6–12mo", why:"80% oracle market share, CCIP adoption" },
+  { ticker:"CRM", name:"Salesforce", sector:"Technology", signal:"building", momentum:72, allocation:"3–5%", horizon:"6–12mo", why:"#1 CRM, Agentforce AI, 29% off ATH" },
+  { ticker:"NKE", name:"Nike", sector:"Consumer", signal:"building", momentum:72, allocation:"3–5%", horizon:"6–12mo", why:"37% off ATH, new CEO turnaround" },
+  { ticker:"DIS", name:"Disney", sector:"Media", signal:"building", momentum:70, allocation:"3–5%", horizon:"6–12mo", why:"Parks record-profit, streaming near breakeven" },
+  { ticker:"SOL", name:"Solana", sector:"Crypto", signal:"watch", momentum:70, allocation:"3–5%", horizon:"6–12mo", why:"Fastest blockchain, ETF pending" },
   { ticker:"SPY", name:"S&P 500 ETF", sector:"ETFs", signal:"building", momentum:70, allocation:"15–25%", horizon:"12mo+", why:"Warren Buffett's recommendation" },
+  { ticker:"RENDER", name:"Render", sector:"Crypto", signal:"building", momentum:68, allocation:"2–3%", horizon:"6–12mo", why:"AI + crypto intersection, decentralised GPU" },
+  { ticker:"UBER", name:"Uber", sector:"Technology", signal:"building", momentum:68, allocation:"3–5%", horizon:"6–12mo", why:"150M+ users, Waymo AV partnership" },
   { ticker:"AAPL", name:"Apple", sector:"Technology", signal:"hold", momentum:65, allocation:"3–5%", horizon:"12mo+", why:"Quality compounder but 32x PE — wait" },
   { ticker:"TSLA", name:"Tesla", sector:"Autos", signal:"exit", momentum:30, allocation:"0%", horizon:"N/A", why:"105x PE, declining deliveries" },
-  { ticker:"PLTR", name:"Palantir", sector:"Technology", signal:"exit", momentum:25, allocation:"0%", horizon:"N/A", why:"224x PE — great company, terrible price" }
+  { ticker:"PLTR", name:"Palantir", sector:"Technology", signal:"exit", momentum:25, allocation:"0%", horizon:"N/A", why:"224x PE — great company, terrible price" },
+  { ticker:"INTC", name:"Intel", sector:"Semiconductors", signal:"exit", momentum:20, allocation:"0%", horizon:"N/A", why:"Losing money, existential risk" }
 ];
 
 const GLOBAL_EXIT_SIGNALS = [
