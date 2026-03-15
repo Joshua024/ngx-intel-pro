@@ -1,0 +1,1958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Intel Pro — Stocks & Crypto Intelligence Suite</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0e1a;
+  --bg2: #0f1525;
+  --bg3: #151d30;
+  --card: #111827;
+  --card2: #1a2338;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --green: #00e599;
+  --green2: #00b374;
+  --green-dim: rgba(0,229,153,0.08);
+  --red: #ff4d6a;
+  --red-dim: rgba(255,77,106,0.08);
+  --amber: #f5a623;
+  --amber-dim: rgba(245,166,35,0.08);
+  --blue: #4d9fff;
+  --blue-dim: rgba(77,159,255,0.08);
+  --purple: #a78bfa;
+  --purple-dim: rgba(167,139,250,0.08);
+  --text: #e8ecf4;
+  --text2: #8a9bb5;
+  --text3: #5a6b84;
+  --gold: #f5c842;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Syne', sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:var(--sans); min-height:100vh; overflow-x:hidden; }
+
+/* HEADER */
+header { background:var(--bg2); border-bottom:1px solid var(--border); padding:0 24px; display:flex; align-items:center; justify-content:space-between; height:64px; position:sticky; top:0; z-index:100; }
+.logo { display:flex; align-items:center; gap:10px; cursor:pointer; text-decoration:none; }
+.logo-mark { width:36px; height:36px; background:linear-gradient(135deg,var(--blue),var(--purple)); border-radius:8px; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:12px; font-weight:700; color:#fff; flex-shrink:0; }
+.logo-text { font-size:18px; font-weight:800; letter-spacing:-0.5px; color:var(--text); }
+.logo-sub { font-family:var(--mono); font-size:10px; color:var(--blue); letter-spacing:1px; }
+.header-right { display:flex; align-items:center; gap:12px; }
+.market-status { display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11px; color:var(--text2); }
+.status-dot { width:7px; height:7px; border-radius:50%; background:var(--green); animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.5;transform:scale(0.8);} }
+
+/* NAV */
+.module-nav-btn { padding:7px 14px; border-radius:7px; border:none; background:none; color:var(--text3); font-family:var(--sans); font-size:12px; font-weight:700; cursor:pointer; transition:all 0.15s; white-space:nowrap; }
+.module-nav-btn:hover { background:var(--card); color:var(--text); }
+.module-nav-btn.active { background:var(--blue); color:#fff; }
+
+/* BEGINNER TOGGLE */
+.beginner-toggle { display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:10px; color:var(--text3); cursor:pointer; padding:6px 14px; border-radius:8px; border:1px solid var(--border); transition:all 0.2s; letter-spacing:1.5px; user-select:none; }
+.beginner-toggle:hover { color:var(--blue); border-color:rgba(77,159,255,0.3); }
+.beginner-toggle.on { color:var(--blue); border-color:rgba(77,159,255,0.3); background:var(--blue-dim); }
+.toggle-track { width:24px; height:13px; border-radius:7px; background:var(--bg3); border:1px solid var(--border); position:relative; transition:all 0.3s; flex-shrink:0; }
+.toggle-track::after { content:''; position:absolute; left:2px; top:2px; width:7px; height:7px; border-radius:50%; background:var(--text3); transition:all 0.3s; }
+.beginner-toggle.on .toggle-track { background:var(--blue); border-color:var(--blue); }
+.beginner-toggle.on .toggle-track::after { left:13px; background:#fff; }
+
+/* SETTINGS */
+.settings-btn { background:var(--bg3); border:1px solid var(--border); border-radius:6px; padding:5px 10px; cursor:pointer; color:var(--text3); font-size:14px; display:flex; align-items:center; gap:4px; transition:all 0.2s; }
+.settings-btn:hover { border-color:rgba(77,159,255,0.3); color:var(--blue); }
+.settings-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center; }
+.settings-overlay.show { display:flex; }
+.settings-modal { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:28px; width:420px; max-width:90vw; }
+.settings-modal h3 { font-size:16px; font-weight:800; margin-bottom:4px; color:var(--text); }
+.settings-modal .sub { font-size:12px; color:var(--text3); margin-bottom:18px; line-height:1.5; }
+.settings-modal label { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:1px; display:block; margin-bottom:6px; }
+.settings-modal input { width:100%; padding:10px 12px; background:var(--bg3); border:1px solid var(--border); border-radius:8px; color:var(--text); font-family:var(--mono); font-size:12px; outline:none; }
+.settings-modal input:focus { border-color:var(--blue); }
+.settings-modal .btn-row { display:flex; gap:8px; margin-top:18px; }
+.settings-modal .btn-save { flex:1; padding:9px 0; border-radius:8px; border:none; background:var(--blue); color:#fff; font-family:var(--mono); font-size:11px; font-weight:800; cursor:pointer; }
+.settings-modal .btn-cancel { flex:1; padding:9px 0; border-radius:8px; border:1px solid var(--border); background:transparent; color:var(--text3); font-family:var(--mono); font-size:11px; cursor:pointer; }
+.settings-modal .key-status { font-family:var(--mono); font-size:10px; margin-top:10px; padding:6px 10px; border-radius:6px; }
+.settings-modal .key-status.ok { background:var(--green-dim); color:var(--green); }
+.settings-modal .key-status.none { background:var(--amber-dim); color:var(--amber); }
+
+/* LAYOUT */
+.app-layout { display:grid; grid-template-columns:300px 1fr; min-height:calc(100vh - 64px); }
+
+/* SIDEBAR */
+.sidebar { background:var(--bg2); border-right:1px solid var(--border); padding:20px 0; overflow-y:auto; }
+.sidebar-section { padding:0 16px; margin-bottom:24px; }
+.sidebar-title { font-family:var(--mono); font-size:10px; letter-spacing:1.5px; color:var(--text3); text-transform:uppercase; margin-bottom:10px; padding:0 4px; }
+.search-box { position:relative; margin-bottom:12px; }
+.search-box input { width:100%; background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:9px 12px 9px 34px; color:var(--text); font-family:var(--sans); font-size:13px; outline:none; transition:border-color 0.2s; }
+.search-box input:focus { border-color:var(--blue); }
+.search-box input::placeholder { color:var(--text3); }
+.search-icon { position:absolute; left:10px; top:50%; transform:translateY(-50%); color:var(--text3); font-size:14px; }
+
+/* ASSET TYPE TABS in sidebar */
+.asset-tabs { display:flex; gap:4px; margin-bottom:14px; padding:0 4px; }
+.asset-tab { flex:1; padding:6px 8px; border-radius:6px; border:1px solid var(--border); background:none; color:var(--text3); font-family:var(--mono); font-size:10px; font-weight:700; cursor:pointer; text-align:center; transition:all 0.15s; }
+.asset-tab:hover { color:var(--text); border-color:var(--border2); }
+.asset-tab.active { background:var(--blue); color:#fff; border-color:var(--blue); }
+
+/* STOCK LIST */
+.stock-list { display:flex; flex-direction:column; gap:2px; }
+.stock-item { display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-radius:8px; cursor:pointer; transition:all 0.15s; border:1px solid transparent; }
+.stock-item:hover { background:var(--bg3); border-color:var(--border); }
+.stock-item.active { background:var(--blue-dim); border-color:rgba(77,159,255,0.25); }
+.stock-item-left { display:flex; flex-direction:column; gap:2px; }
+.stock-ticker { font-family:var(--mono); font-size:12px; font-weight:700; color:var(--text); }
+.stock-name { font-size:11px; color:var(--text3); }
+.stock-item-right { text-align:right; }
+.stock-price { font-family:var(--mono); font-size:12px; font-weight:700; color:var(--text); }
+.stock-change { font-family:var(--mono); font-size:10px; }
+.change-up { color:var(--green); }
+.change-down { color:var(--red); }
+.change-flat { color:var(--text3); }
+.signal-pip { width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:4px; }
+.pip-buy { background:var(--green); }
+.pip-wait { background:var(--amber); }
+.pip-avoid { background:var(--red); }
+.pip-watch { background:var(--blue); }
+
+/* MAIN PANEL */
+.main-panel { padding:24px; overflow-y:auto; background:var(--bg); }
+
+/* WELCOME */
+.welcome-state { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:60vh; text-align:center; gap:16px; }
+.welcome-icon { width:80px; height:80px; background:var(--blue-dim); border:1px solid rgba(77,159,255,0.2); border-radius:20px; display:flex; align-items:center; justify-content:center; font-size:36px; margin-bottom:8px; }
+.welcome-state h2 { font-size:26px; font-weight:800; }
+.welcome-state p { font-size:14px; color:var(--text2); max-width:420px; line-height:1.6; }
+
+/* STOCK DETAIL */
+.stock-detail { display:none; }
+.stock-detail.visible { display:block; }
+.detail-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:24px; flex-wrap:wrap; gap:16px; }
+.detail-ticker { font-family:var(--mono); font-size:13px; color:var(--blue); letter-spacing:1px; margin-bottom:4px; }
+.detail-name { font-size:24px; font-weight:800; color:var(--text); margin-bottom:6px; }
+.detail-sector { font-size:12px; color:var(--text3); background:var(--bg3); padding:3px 8px; border-radius:4px; display:inline-block; }
+.detail-price-block { text-align:right; }
+.detail-price { font-family:var(--mono); font-size:32px; font-weight:700; color:var(--text); margin-bottom:4px; }
+.detail-change-row { display:flex; gap:8px; justify-content:flex-end; align-items:center; font-family:var(--mono); font-size:13px; }
+
+/* SIGNAL CARD */
+.signal-card { border-radius:16px; padding:24px; margin-bottom:20px; border:1px solid; position:relative; overflow:hidden; }
+.signal-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+.signal-card.buy { background:linear-gradient(135deg,rgba(0,229,153,0.06) 0%,var(--card) 100%); border-color:rgba(0,229,153,0.25); }
+.signal-card.buy::before { background:var(--green); }
+.signal-card.wait { background:linear-gradient(135deg,rgba(245,166,35,0.06) 0%,var(--card) 100%); border-color:rgba(245,166,35,0.25); }
+.signal-card.wait::before { background:var(--amber); }
+.signal-card.avoid { background:linear-gradient(135deg,rgba(255,77,106,0.06) 0%,var(--card) 100%); border-color:rgba(255,77,106,0.25); }
+.signal-card.avoid::before { background:var(--red); }
+.signal-card.watch { background:linear-gradient(135deg,rgba(77,159,255,0.06) 0%,var(--card) 100%); border-color:rgba(77,159,255,0.25); }
+.signal-card.watch::before { background:var(--blue); }
+.signal-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:16px; gap:12px; flex-wrap:wrap; }
+.signal-badge { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:30px; font-weight:700; font-size:14px; letter-spacing:0.5px; }
+.signal-badge.buy { background:rgba(0,229,153,0.15); color:var(--green); border:1px solid rgba(0,229,153,0.3); }
+.signal-badge.wait { background:rgba(245,166,35,0.15); color:var(--amber); border:1px solid rgba(245,166,35,0.3); }
+.signal-badge.avoid { background:rgba(255,77,106,0.15); color:var(--red); border:1px solid rgba(255,77,106,0.3); }
+.signal-badge.watch { background:rgba(77,159,255,0.15); color:var(--blue); border:1px solid rgba(77,159,255,0.3); }
+.signal-entry-info { text-align:right; }
+.signal-entry-label { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:1px; text-transform:uppercase; margin-bottom:3px; }
+.signal-entry-price { font-family:var(--mono); font-size:18px; font-weight:700; color:var(--green); }
+.signal-reasoning { font-size:14px; line-height:1.7; color:var(--text2); margin-bottom:16px; }
+.signal-reasoning strong { color:var(--text); }
+
+/* FACTORS */
+.factors-section { margin-top:16px; padding-top:16px; border-top:1px solid var(--border); }
+.factors-title { font-family:var(--mono); font-size:10px; letter-spacing:1.5px; color:var(--text3); text-transform:uppercase; margin-bottom:14px; }
+.factor-row { display:grid; grid-template-columns:100px 1fr 60px; align-items:center; gap:12px; margin-bottom:10px; }
+.factor-label { font-size:12px; color:var(--text2); }
+.factor-bar-track { height:6px; background:rgba(255,255,255,0.06); border-radius:3px; overflow:hidden; }
+.factor-bar-fill { height:100%; border-radius:3px; transition:width 0.8s cubic-bezier(0.4,0,0.2,1); }
+.fill-green { background:var(--green); }
+.fill-amber { background:var(--amber); }
+.fill-red { background:var(--red); }
+.fill-blue { background:var(--blue); }
+.factor-score { font-family:var(--mono); font-size:11px; font-weight:700; text-align:right; }
+
+/* METRICS */
+.metrics-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
+.metric-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px 16px; }
+.metric-label { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:1px; text-transform:uppercase; margin-bottom:6px; }
+.metric-value { font-family:var(--mono); font-size:18px; font-weight:700; color:var(--text); margin-bottom:3px; }
+.metric-value.good { color:var(--green); }
+.metric-value.warn { color:var(--amber); }
+.metric-value.bad { color:var(--red); }
+.metric-sub { font-size:11px; color:var(--text3); }
+
+/* SELL PANEL */
+.sell-panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:24px; margin-bottom:20px; }
+.sell-panel h3 { font-size:16px; font-weight:700; margin-bottom:4px; }
+.sell-panel p { font-size:13px; color:var(--text3); margin-bottom:20px; }
+.sell-inputs { display:grid; grid-template-columns:1fr 1fr auto; gap:12px; align-items:end; margin-bottom:16px; }
+.input-group { display:flex; flex-direction:column; gap:6px; }
+.input-group label { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:1px; text-transform:uppercase; }
+.input-group input, .input-group select { background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:10px 12px; color:var(--text); font-family:var(--mono); font-size:14px; outline:none; transition:border-color 0.2s; }
+.input-group input:focus { border-color:var(--blue); }
+.input-group input::placeholder { color:var(--text3); }
+.btn-analyze { background:var(--blue); color:#fff; border:none; border-radius:8px; padding:10px 20px; font-family:var(--sans); font-size:13px; font-weight:700; cursor:pointer; transition:all 0.2s; white-space:nowrap; height:42px; }
+.btn-analyze:hover { opacity:0.9; transform:translateY(-1px); }
+.sell-result { display:none; padding:16px; border-radius:10px; margin-top:8px; }
+.sell-result.visible { display:block; }
+.sell-result.hold { background:var(--green-dim); border:1px solid rgba(0,229,153,0.2); }
+.sell-result.sell { background:var(--red-dim); border:1px solid rgba(255,77,106,0.2); }
+.sell-result.partial { background:var(--amber-dim); border:1px solid rgba(245,166,35,0.2); }
+.sell-verdict { font-size:15px; font-weight:700; margin-bottom:6px; }
+.sell-explanation { font-size:13px; color:var(--text2); line-height:1.6; }
+.sell-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:12px; }
+.sell-stat { background:rgba(0,0,0,0.2); border-radius:8px; padding:10px 12px; }
+.sell-stat-label { font-family:var(--mono); font-size:10px; color:var(--text3); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.5px; }
+.sell-stat-val { font-family:var(--mono); font-size:15px; font-weight:700; color:var(--text); }
+.sell-stat-val.profit { color:var(--green); }
+.sell-stat-val.loss { color:var(--red); }
+
+/* RANGE */
+.range-section { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:20px; }
+.range-title { font-family:var(--mono); font-size:10px; letter-spacing:1.5px; color:var(--text3); text-transform:uppercase; margin-bottom:16px; }
+.range-bar-wrap { position:relative; height:6px; background:rgba(255,255,255,0.06); border-radius:3px; margin:20px 0; }
+.range-fill { position:absolute; left:0; top:0; height:100%; background:linear-gradient(90deg,var(--green),var(--amber)); border-radius:3px; }
+.range-cursor { position:absolute; top:50%; transform:translate(-50%,-50%); width:14px; height:14px; background:var(--text); border-radius:50%; border:2px solid var(--bg); box-shadow:0 0 0 2px var(--amber); }
+.range-labels { display:flex; justify-content:space-between; font-family:var(--mono); font-size:11px; color:var(--text3); margin-top:6px; }
+.range-entry-zones { display:flex; gap:12px; margin-top:16px; flex-wrap:wrap; }
+.entry-zone-pill { padding:6px 12px; border-radius:20px; font-family:var(--mono); font-size:11px; font-weight:700; }
+.ez-ideal { background:var(--green-dim); color:var(--green); border:1px solid rgba(0,229,153,0.2); }
+.ez-acceptable { background:var(--amber-dim); color:var(--amber); border:1px solid rgba(245,166,35,0.2); }
+.ez-avoid { background:var(--red-dim); color:var(--red); border:1px solid rgba(255,77,106,0.2); }
+
+/* CATALYST */
+.catalyst-section { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:20px; }
+.catalyst-title { font-family:var(--mono); font-size:10px; letter-spacing:1.5px; color:var(--text3); text-transform:uppercase; margin-bottom:14px; }
+.catalyst-item { display:flex; align-items:flex-start; gap:12px; padding:12px; border-radius:8px; background:var(--bg3); margin-bottom:8px; }
+.catalyst-icon { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+.cata-green { background:var(--green-dim); }
+.cata-amber { background:var(--amber-dim); }
+.cata-blue { background:var(--blue-dim); }
+.cata-red { background:var(--red-dim); }
+.catalyst-event { font-size:13px; font-weight:600; color:var(--text); margin-bottom:2px; }
+.catalyst-date { font-family:var(--mono); font-size:11px; color:var(--text3); }
+
+/* ALERTS */
+.watchlist-section { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:20px; }
+.watchlist-title { font-family:var(--mono); font-size:10px; letter-spacing:1.5px; color:var(--text3); text-transform:uppercase; margin-bottom:14px; }
+.alert-input-row { display:grid; grid-template-columns:1fr 1fr auto; gap:10px; align-items:end; margin-bottom:12px; }
+.btn-add-alert { background:var(--bg3); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:10px 16px; font-family:var(--sans); font-size:12px; font-weight:600; cursor:pointer; transition:all 0.2s; height:42px; }
+.btn-add-alert:hover { border-color:var(--blue); color:var(--blue); }
+.alerts-list { display:flex; flex-direction:column; gap:6px; }
+.alert-item { display:flex; align-items:center; justify-content:space-between; padding:10px 12px; background:var(--bg3); border-radius:8px; font-family:var(--mono); font-size:12px; }
+.alert-item-left { color:var(--text2); }
+.alert-item-price { color:var(--blue); font-weight:700; }
+.btn-remove-alert { background:none; border:none; color:var(--text3); cursor:pointer; font-size:14px; padding:2px 6px; border-radius:4px; transition:all 0.2s; }
+.btn-remove-alert:hover { color:var(--red); background:var(--red-dim); }
+.empty-alerts { font-family:var(--mono); font-size:12px; color:var(--text3); text-align:center; padding:16px; }
+
+/* AI SECTION */
+.ai-section { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:20px; }
+.ai-header { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.ai-badge { display:flex; align-items:center; gap:6px; background:linear-gradient(135deg,rgba(77,159,255,0.15),rgba(167,139,250,0.15)); border:1px solid rgba(77,159,255,0.2); border-radius:20px; padding:4px 12px; font-family:var(--mono); font-size:10px; color:var(--blue); letter-spacing:1px; }
+.ai-title { font-size:15px; font-weight:700; color:var(--text); }
+.ai-content { font-size:13px; line-height:1.8; color:var(--text2); }
+.ai-content p { margin-bottom:10px; }
+.ai-content p:last-child { margin-bottom:0; }
+.ai-content strong { color:var(--text); }
+
+/* TABS */
+.tab-bar { display:flex; gap:4px; margin-bottom:24px; background:var(--card); padding:4px; border-radius:10px; border:1px solid var(--border); width:fit-content; }
+.tab-btn { padding:7px 16px; border-radius:7px; border:none; background:none; color:var(--text3); font-family:var(--sans); font-size:13px; font-weight:600; cursor:pointer; transition:all 0.2s; }
+.tab-btn.active { background:var(--blue); color:#fff; }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+
+/* PICKER */
+.stock-picker-bar { background:var(--card); border:1px solid var(--border2); border-radius:16px; padding:20px 24px; margin-bottom:24px; }
+.picker-label { font-family:var(--mono); font-size:10px; letter-spacing:1.5px; color:var(--text3); text-transform:uppercase; margin-bottom:12px; }
+.picker-input-row { display:flex; gap:10px; align-items:stretch; }
+.picker-search-wrap { position:relative; flex:1; }
+.picker-search-wrap input { width:100%; background:var(--bg3); border:1.5px solid var(--border2); border-radius:10px; padding:12px 16px 12px 44px; color:var(--text); font-family:var(--mono); font-size:15px; font-weight:700; letter-spacing:1px; outline:none; transition:border-color 0.2s,box-shadow 0.2s; text-transform:uppercase; }
+.picker-search-wrap input:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(77,159,255,0.12); }
+.picker-search-wrap input::placeholder { color:var(--text3); font-size:13px; font-weight:400; text-transform:none; letter-spacing:0; }
+.picker-search-icon { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--text3); font-size:18px; pointer-events:none; }
+.picker-btn { background:var(--blue); color:#fff; border:none; border-radius:10px; padding:12px 24px; font-family:var(--sans); font-size:14px; font-weight:700; cursor:pointer; transition:all 0.2s; white-space:nowrap; flex-shrink:0; }
+.picker-btn:hover { opacity:0.9; transform:translateY(-1px); }
+.picker-dropdown { display:none; position:absolute; top:calc(100% + 6px); left:0; right:0; background:var(--card2); border:1px solid var(--border2); border-radius:10px; z-index:200; max-height:320px; overflow-y:auto; box-shadow:0 16px 40px rgba(0,0,0,0.5); }
+.picker-dropdown.open { display:block; }
+.picker-dropdown-item { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; cursor:pointer; border-bottom:1px solid var(--border); transition:background 0.12s; }
+.picker-dropdown-item:last-child { border-bottom:none; }
+.picker-dropdown-item:hover { background:var(--bg3); }
+.picker-dropdown-item.highlighted { background:var(--blue-dim); }
+.pdi-left { display:flex; align-items:center; gap:12px; }
+.pdi-pip { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.pdi-ticker { font-family:var(--mono); font-size:13px; font-weight:700; color:var(--text); min-width:90px; }
+.pdi-name { font-size:12px; color:var(--text3); }
+.pdi-right { display:flex; align-items:center; gap:12px; }
+.pdi-price { font-family:var(--mono); font-size:13px; font-weight:700; color:var(--text); }
+.pdi-signal { font-family:var(--mono); font-size:10px; padding:3px 8px; border-radius:4px; font-weight:700; }
+.pdi-sig-buy { background:var(--green-dim); color:var(--green); }
+.pdi-sig-wait { background:var(--amber-dim); color:var(--amber); }
+.pdi-sig-avoid { background:var(--red-dim); color:var(--red); }
+.quick-chips { display:flex; gap:6px; flex-wrap:wrap; margin-top:12px; }
+.quick-chip { display:inline-flex; align-items:center; gap:5px; padding:5px 12px; background:var(--bg3); border:1px solid var(--border); border-radius:20px; font-family:var(--mono); font-size:11px; font-weight:700; color:var(--text2); cursor:pointer; transition:all 0.15s; }
+.quick-chip:hover { border-color:var(--blue); color:var(--blue); background:var(--blue-dim); }
+.quick-chip .chip-pip { width:6px; height:6px; border-radius:50%; }
+
+/* MODULE PANELS */
+.module-panel { display:none; }
+.module-panel.active { display:block; }
+
+/* BEGINNER TIPS */
+.beginner-tip-bar { background:var(--blue-dim); border:1px solid rgba(77,159,255,0.2); border-radius:8px; padding:10px 14px; font-size:12px; color:var(--text2); margin-bottom:16px; line-height:1.5; display:none; }
+.beginner-tip-bar.show { display:block; }
+.beginner-tip-bar strong { color:var(--blue); }
+
+/* LOADING */
+.loading-overlay { display:none; position:fixed; inset:0; background:rgba(10,14,26,0.85); z-index:200; align-items:center; justify-content:center; flex-direction:column; gap:16px; }
+.loading-overlay.visible { display:flex; }
+.loader-ring { width:48px; height:48px; border:3px solid var(--border); border-top-color:var(--blue); border-radius:50%; animation:spin 0.8s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.loader-text { font-family:var(--mono); font-size:13px; color:var(--text2); }
+
+/* TOAST */
+.beginner-toast { position:fixed; bottom:24px; right:24px; background:var(--card); border:1px solid rgba(77,159,255,0.3); border-radius:14px; padding:16px 20px; max-width:300px; z-index:500; display:none; animation:slideIn 0.3s ease; }
+.beginner-toast.visible { display:block; }
+@keyframes slideIn { from{transform:translateY(20px);opacity:0;} to{transform:translateY(0);opacity:1;} }
+.bt-title { font-size:13px; font-weight:800; color:var(--blue); margin-bottom:6px; }
+.bt-text { font-size:12px; color:var(--text2); line-height:1.5; margin-bottom:10px; }
+.bt-close { font-family:var(--mono); font-size:10px; color:var(--text3); cursor:pointer; }
+
+/* SECTOR HEAT GRID */
+.heat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:28px; }
+.sector-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:18px 20px; cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+.sector-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; border-radius:14px 14px 0 0; }
+.sector-card:hover { transform:translateY(-2px); border-color:var(--border2); }
+.sc-phase { font-family:var(--mono); font-size:9px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+.sc-phase-dot { width:6px; height:6px; border-radius:50%; }
+.sc-name { font-size:15px; font-weight:800; color:var(--text); margin-bottom:3px; }
+.sc-ticker-count { font-family:var(--mono); font-size:10px; color:var(--text3); margin-bottom:14px; }
+.sc-score-row { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+.sc-score-label { font-family:var(--mono); font-size:9px; color:var(--text3); width:70px; flex-shrink:0; text-transform:uppercase; letter-spacing:0.5px; }
+.sc-score-bar { flex:1; height:4px; background:rgba(255,255,255,0.05); border-radius:2px; }
+.sc-score-fill { height:100%; border-radius:2px; transition:width 1s cubic-bezier(0.4,0,0.2,1); }
+.sc-score-val { font-family:var(--mono); font-size:10px; font-weight:700; width:28px; text-align:right; flex-shrink:0; }
+.sc-signal { margin-top:14px; padding:8px 12px; border-radius:8px; font-family:var(--mono); font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:space-between; }
+.sc-timing { font-size:11px; color:var(--text2); margin-top:8px; font-style:italic; }
+.sector-card.phase-early { border-color:rgba(0,229,153,0.2); }
+.sector-card.phase-early::before { background:var(--green); }
+.sector-card.phase-mid { border-color:rgba(77,159,255,0.2); }
+.sector-card.phase-mid::before { background:var(--blue); }
+.sector-card.phase-late { border-color:rgba(245,166,35,0.2); }
+.sector-card.phase-late::before { background:var(--amber); }
+.sector-card.phase-exit { border-color:rgba(255,77,106,0.25); }
+.sector-card.phase-exit::before { background:var(--red); }
+.sector-card.phase-cool { border-color:var(--border); }
+.sector-card.phase-warm { border-color:rgba(167,139,250,0.2); }
+.sector-card.phase-warm::before { background:var(--purple); }
+
+/* SECTOR DETAIL PANEL */
+.sector-detail-panel { display:none; background:var(--card); border:1px solid var(--border); border-radius:14px; padding:24px; margin-top:24px; animation:fadeSlideIn 0.3s ease; }
+.sector-detail-panel.show { display:block; }
+@keyframes fadeSlideIn { from{opacity:0;transform:translateY(-10px);} to{opacity:1;transform:translateY(0);} }
+.sdp-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
+.sdp-title { font-size:18px; font-weight:800; }
+.sdp-close { background:var(--bg3); border:1px solid var(--border); border-radius:8px; width:32px; height:32px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--text3); font-size:16px; transition:all 0.2s; }
+.sdp-close:hover { background:var(--red-dim); color:var(--red); border-color:rgba(255,77,106,0.3); }
+.sdp-meta { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:18px; }
+.sdp-meta-item { background:var(--bg3); border-radius:8px; padding:8px 14px; font-size:12px; color:var(--text2); line-height:1.4; }
+.sdp-meta-item strong { color:var(--text); }
+.sdp-stocks-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:12px; }
+.sdp-stock-card { background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:16px; cursor:pointer; transition:all 0.2s; position:relative; }
+.sdp-stock-card:hover { border-color:var(--border2); transform:translateY(-1px); }
+.sdp-stock-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.sdp-stock-ticker { font-family:var(--mono); font-size:14px; font-weight:800; }
+.sdp-stock-price { font-family:var(--mono); font-size:13px; color:var(--text2); }
+.sdp-stock-name { font-size:11px; color:var(--text3); margin-bottom:10px; }
+.sdp-stock-signal { font-family:var(--mono); font-size:10px; font-weight:700; padding:4px 10px; border-radius:6px; display:inline-block; }
+.sdp-stock-signal.sig-buy { background:var(--green-dim); color:var(--green); }
+.sdp-stock-signal.sig-wait { background:var(--amber-dim); color:var(--amber); }
+.sdp-stock-signal.sig-avoid { background:var(--red-dim); color:var(--red); }
+.sdp-stock-signal.sig-fetch { background:var(--blue-dim); color:var(--blue); }
+.sdp-analyse-btn { margin-top:10px; width:100%; padding:7px 0; border-radius:6px; border:1px solid var(--border); background:transparent; color:var(--text2); font-family:var(--mono); font-size:10px; font-weight:700; cursor:pointer; letter-spacing:0.5px; transition:all 0.2s; }
+.sdp-analyse-btn:hover { background:var(--blue-dim); color:var(--blue); border-color:rgba(77,159,255,0.3); }
+.sdp-top-pick-badge { position:absolute; top:8px; right:8px; font-family:var(--mono); font-size:8px; padding:2px 8px; border-radius:4px; background:var(--blue-dim); color:var(--blue); letter-spacing:1px; font-weight:700; }
+
+/* STOCK TABLE */
+.filter-chip { padding:4px 10px; border-radius:20px; font-family:var(--mono); font-size:10px; font-weight:700; cursor:pointer; border:1px solid var(--border); background:none; color:var(--text3); transition:all 0.15s; }
+.filter-chip:hover { color:var(--text); border-color:var(--border2); }
+.filter-chip.on { background:var(--blue-dim); color:var(--blue); border-color:rgba(77,159,255,0.3); }
+table { width:100%; border-collapse:collapse; }
+th { padding:10px 16px; text-align:left; font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:1px; text-transform:uppercase; background:var(--bg3); border-bottom:1px solid var(--border); }
+td { padding:12px 16px; border-bottom:1px solid var(--border); font-size:13px; }
+tr:last-child td { border-bottom:none; }
+tr:hover td { background:var(--bg3); }
+.td-ticker { font-family:var(--mono); font-size:12px; font-weight:700; }
+.td-name { color:var(--text2); font-size:12px; }
+.td-price { font-family:var(--mono); font-weight:700; }
+.td-signal { font-family:var(--mono); font-size:10px; font-weight:700; padding:3px 8px; border-radius:4px; display:inline-block; }
+.sig-explode { background:rgba(0,229,153,0.12); color:var(--green); border:1px solid rgba(0,229,153,0.25); }
+.sig-building { background:rgba(77,159,255,0.12); color:var(--blue); border:1px solid rgba(77,159,255,0.25); }
+.sig-hold { background:rgba(245,166,35,0.12); color:var(--amber); border:1px solid rgba(245,166,35,0.25); }
+.sig-exit { background:rgba(255,77,106,0.12); color:var(--red); border:1px solid rgba(255,77,106,0.25); }
+.sig-watch { background:rgba(167,139,250,0.12); color:var(--purple); border:1px solid rgba(167,139,250,0.25); }
+.td-momentum { display:flex; align-items:center; gap:6px; }
+.mom-bar { width:50px; height:4px; background:var(--bg3); border-radius:2px; }
+.mom-fill { height:100%; border-radius:2px; }
+.td-alloc { font-family:var(--mono); font-size:12px; font-weight:700; color:var(--blue); }
+.td-horizon { font-family:var(--mono); font-size:10px; color:var(--text3); }
+
+/* EXIT CARDS */
+.exit-cards { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-bottom:28px; }
+.exit-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:20px; }
+.exit-card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.exit-card-title { font-size:14px; font-weight:800; }
+.exit-badge { font-family:var(--mono); font-size:10px; padding:4px 10px; border-radius:4px; }
+.eb-hold { background:var(--green-dim); color:var(--green); border:1px solid rgba(0,229,153,0.2); }
+.eb-watch { background:var(--amber-dim); color:var(--amber); border:1px solid rgba(245,166,35,0.2); }
+.eb-exit { background:var(--red-dim); color:var(--red); border:1px solid rgba(255,77,106,0.2); }
+.exit-indicators { display:flex; flex-direction:column; gap:8px; }
+.exit-ind { display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:6px; background:var(--bg3); }
+.exit-ind-icon { font-size:14px; flex-shrink:0; }
+.exit-ind-text { font-size:12px; color:var(--text2); flex:1; }
+.exit-ind-status { font-family:var(--mono); font-size:10px; font-weight:700; padding:2px 7px; border-radius:4px; }
+.eis-ok { background:var(--green-dim); color:var(--green); }
+.eis-warn { background:var(--amber-dim); color:var(--amber); }
+.eis-exit { background:var(--red-dim); color:var(--red); }
+
+/* LOADING BAR */
+.loading-bar { width:100%; height:3px; background:var(--bg3); border-radius:2px; overflow:hidden; margin-bottom:20px; display:none; }
+.loading-bar.visible { display:block; }
+.loading-bar-fill { height:100%; background:linear-gradient(90deg,var(--blue),var(--purple)); border-radius:2px; animation:scanFill 2s ease-in-out infinite; }
+@keyframes scanFill { 0%{width:0%;margin-left:0;} 50%{width:60%;margin-left:20%;} 100%{width:0%;margin-left:100%;} }
+
+/* RESPONSIVE */
+@media (max-width:900px) {
+  .app-layout { grid-template-columns:1fr; }
+  .sidebar { display:none; }
+  .metrics-grid { grid-template-columns:repeat(2,1fr); }
+  .sell-inputs { grid-template-columns:1fr 1fr; }
+  .sell-inputs .btn-analyze { grid-column:span 2; }
+  .alert-input-row { grid-template-columns:1fr 1fr; }
+  .alert-input-row .btn-add-alert { grid-column:span 2; }
+  .heat-grid { grid-template-columns:repeat(2,1fr); }
+  .exit-cards { grid-template-columns:1fr; }
+}
+@media (max-width:600px) {
+  .heat-grid { grid-template-columns:1fr; }
+  header { padding:0 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loader-ring"></div>
+  <div class="loader-text" id="loadingText">Analysing asset...</div>
+</div>
+
+<div class="beginner-toast" id="beginnerToast">
+  <div class="bt-title" id="toastTitle"></div>
+  <div class="bt-text" id="toastText"></div>
+  <div class="bt-close" onclick="closeToast()">Got it ✕</div>
+</div>
+
+<header>
+  <a class="logo" href="index.html">
+    <div class="logo-mark">GBL</div>
+    <div>
+      <div class="logo-text">Global Intel Pro</div>
+      <div class="logo-sub">STOCKS & CRYPTO INTELLIGENCE</div>
+    </div>
+  </a>
+
+  <div style="display:flex;gap:4px;background:var(--bg3);padding:4px;border-radius:10px;border:1px solid var(--border);">
+    <button class="module-nav-btn active" id="mnav-analysis" onclick="switchModule('analysis')">📊 Asset Analysis</button>
+    <button class="module-nav-btn" id="mnav-sectors" onclick="switchModule('sectors')">📡 Sector Radar</button>
+    <button class="module-nav-btn" id="mnav-picks" onclick="switchModule('picks')">🚀 Top Picks</button>
+    <button class="module-nav-btn" id="mnav-sizer" onclick="switchModule('sizer')">💰 Position Sizer</button>
+    <button class="module-nav-btn" id="mnav-exit" onclick="switchModule('exit')">🚪 Exit Signals</button>
+  </div>
+
+  <div class="header-right">
+    <a href="index.html" class="module-nav-btn" style="text-decoration:none;background:linear-gradient(135deg,rgba(0,229,153,0.15),rgba(0,229,153,0.05));border:1px solid rgba(0,229,153,0.3);color:var(--green);font-size:11px;padding:6px 14px;">🇳🇬 NGX Intel Pro</a>
+    <div class="beginner-toggle on" id="beginnerToggle" onclick="toggleBeginner()">
+      <div class="toggle-track"></div>
+      <span id="beginnerLabel">EXPLAIN MODE</span>
+    </div>
+    <div class="market-status">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="statusText">READY</span>
+    </div>
+    <div class="settings-btn" onclick="openSettings()" title="API Settings">⚙</div>
+  </div>
+</header>
+
+<!-- SETTINGS MODAL -->
+<div class="settings-overlay" id="settingsOverlay" onclick="if(event.target===this)closeSettings()">
+  <div class="settings-modal">
+    <h3>⚙ API Settings</h3>
+    <div class="sub">Enter your free Google Gemini API key to enable live price fetching and AI analysis.<br>Get one free at <a href="https://aistudio.google.com/apikey" target="_blank" style="color:var(--blue);text-decoration:underline;">aistudio.google.com/apikey</a></div>
+    <label>GEMINI API KEY</label>
+    <input type="password" id="geminiKeyInput" placeholder="AIzaSy..." autocomplete="off">
+    <div id="keyStatus"></div>
+    <div class="btn-row">
+      <button class="btn-cancel" onclick="closeSettings()">Cancel</button>
+      <button class="btn-save" onclick="saveApiKey()">Save Key</button>
+    </div>
+  </div>
+</div>
+
+<div class="app-layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-title">Asset Type</div>
+    <div class="asset-tabs">
+      <button class="asset-tab active" onclick="switchAssetType('stocks',this)">📈 Stocks</button>
+      <button class="asset-tab" onclick="switchAssetType('crypto',this)">₿ Crypto</button>
+    </div>
+    <div class="search-box">
+      <span class="search-icon">⌕</span>
+      <input type="text" placeholder="Search ticker or name..." id="searchInput" oninput="filterAssets()">
+    </div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-title">ASSETS (<span id="assetCount">0</span>)</div>
+    <div class="stock-list" id="assetList"></div>
+  </div>
+</aside>
+
+<!-- MODULE: ASSET ANALYSIS -->
+<div class="module-panel active" id="module-analysis">
+<main class="main-panel">
+  <div class="stock-picker-bar">
+    <div class="picker-label">Analyse any global stock or crypto</div>
+    <div class="picker-input-row">
+      <div class="picker-search-wrap" id="pickerWrap">
+        <span class="picker-search-icon">🔍</span>
+        <input type="text" id="pickerInput" placeholder="Type ticker or name — e.g. AAPL, TSLA, BTC, ETH..." autocomplete="off" oninput="onPickerInput()" onkeydown="onPickerKey(event)" onfocus="openDropdown()">
+        <div class="picker-dropdown" id="pickerDropdown"></div>
+      </div>
+      <button class="picker-btn" onclick="analyseFromPicker()">Analyse →</button>
+    </div>
+    <div class="quick-chips" id="quickChips"></div>
+  </div>
+
+  <div class="welcome-state" id="welcomeState">
+    <div class="welcome-icon">🌍</div>
+    <h2>Global Stocks & Crypto Intelligence</h2>
+    <p>Search any global stock or cryptocurrency above. Get buy/wait/avoid signals, entry zones, hold-or-sell analysis, and AI-powered investment thesis — all in one place.</p>
+    <div style="display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;justify-content:center;">
+      <span style="font-family:var(--mono);font-size:11px;padding:6px 12px;background:var(--green-dim);color:var(--green);border-radius:20px;border:1px solid rgba(0,229,153,0.2);">✓ US, EU, Asia Stocks</span>
+      <span style="font-family:var(--mono);font-size:11px;padding:6px 12px;background:var(--blue-dim);color:var(--blue);border-radius:20px;border:1px solid rgba(77,159,255,0.2);">✓ BTC, ETH, SOL & more</span>
+      <span style="font-family:var(--mono);font-size:11px;padding:6px 12px;background:var(--amber-dim);color:var(--amber);border-radius:20px;border:1px solid rgba(245,166,35,0.2);">✓ Hold or Sell Advisor</span>
+      <span style="font-family:var(--mono);font-size:11px;padding:6px 12px;background:var(--purple-dim);color:var(--purple);border-radius:20px;border:1px solid rgba(167,139,250,0.2);">✓ Entry Zone Calculator</span>
+    </div>
+  </div>
+
+  <div class="stock-detail" id="stockDetail">
+    <div class="detail-header">
+      <div>
+        <div class="detail-ticker" id="dTicker"></div>
+        <div class="detail-name" id="dName"></div>
+        <span class="detail-sector" id="dSector"></span>
+      </div>
+      <div class="detail-price-block">
+        <div class="detail-price" id="dPrice"></div>
+        <div class="detail-change-row">
+          <span id="dChangeAbs"></span>
+          <span id="dChangePct"></span>
+        </div>
+        <div id="priceSourceBadge" style="font-family:var(--mono);font-size:10px;margin-top:4px;text-align:right;"></div>
+      </div>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('buy')">Buy Analysis</button>
+      <button class="tab-btn" onclick="switchTab('sell')">Hold/Sell Advisor</button>
+      <button class="tab-btn" onclick="switchTab('alerts')">Price Alerts</button>
+    </div>
+
+    <!-- BUY TAB -->
+    <div class="tab-panel active" id="tab-buy">
+      <div class="signal-card" id="signalCard">
+        <div class="signal-top">
+          <div><span class="signal-badge" id="signalBadge">— —</span></div>
+          <div class="signal-entry-info">
+            <div class="signal-entry-label">Target Entry</div>
+            <div class="signal-entry-price" id="signalEntryPrice">—</div>
+          </div>
+        </div>
+        <div class="signal-reasoning" id="signalReasoning">Loading analysis...</div>
+        <div class="factors-section">
+          <div class="factors-title">5-Factor Framework Score</div>
+          <div id="factorBars"></div>
+        </div>
+      </div>
+      <div class="metrics-grid" id="metricsGrid"></div>
+      <div class="range-section">
+        <div class="range-title">52-Week Price Range & Entry Zones</div>
+        <div class="range-bar-wrap" id="rangeBar">
+          <div class="range-fill" id="rangeFill"></div>
+          <div class="range-cursor" id="rangeCursor"></div>
+        </div>
+        <div class="range-labels">
+          <span id="rangeLow">—</span>
+          <span style="color:var(--amber);font-weight:700;" id="rangeCurrentLabel">Current $—</span>
+          <span id="rangeHigh">—</span>
+        </div>
+        <div class="range-entry-zones" id="entryZones"></div>
+      </div>
+      <div class="catalyst-section">
+        <div class="catalyst-title">Upcoming Catalysts</div>
+        <div id="catalystList"></div>
+      </div>
+      <div class="ai-section">
+        <div class="ai-header">
+          <div class="ai-badge">✦ AI ANALYSIS</div>
+          <div class="ai-title">Full Investment Thesis</div>
+        </div>
+        <div class="ai-content" id="aiContent">
+          <p>Select an asset to see the full AI-powered analysis.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SELL TAB -->
+    <div class="tab-panel" id="tab-sell">
+      <div class="sell-panel">
+        <h3>Hold or Sell Advisor</h3>
+        <p>Enter your position details and we'll tell you whether to hold for more gains or sell now.</p>
+        <div class="sell-inputs">
+          <div class="input-group">
+            <label>Your Buy Price ($)</label>
+            <input type="number" id="buyPriceInput" placeholder="e.g. 150.00">
+          </div>
+          <div class="input-group">
+            <label>Units / Shares Owned</label>
+            <input type="number" id="sharesInput" placeholder="e.g. 50">
+          </div>
+          <button class="btn-analyze" onclick="analyzeSell()">Analyse Position</button>
+        </div>
+        <div class="sell-result" id="sellResult">
+          <div class="sell-verdict" id="sellVerdict"></div>
+          <div class="sell-explanation" id="sellExplanation"></div>
+          <div class="sell-stats" id="sellStats"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALERTS TAB -->
+    <div class="tab-panel" id="tab-alerts">
+      <div class="watchlist-section">
+        <div class="watchlist-title">Price Alert — <span id="alertTicker2"></span></div>
+        <div class="alert-input-row">
+          <div class="input-group">
+            <label>Alert When Price Reaches ($)</label>
+            <input type="number" id="alertPriceInput" placeholder="Enter target price">
+          </div>
+          <div class="input-group">
+            <label>Alert Type</label>
+            <select id="alertTypeInput" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:var(--sans);font-size:14px;outline:none;height:42px;">
+              <option value="below">Price drops below ↓ (Buy zone)</option>
+              <option value="above">Price rises above ↑ (Take profit)</option>
+            </select>
+          </div>
+          <button class="btn-add-alert" onclick="addAlert()">+ Add Alert</button>
+        </div>
+        <div class="alerts-list" id="alertsList">
+          <div class="empty-alerts">No alerts set yet.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</div>
+
+<!-- MODULE: SECTOR RADAR -->
+<div class="module-panel" id="module-sectors">
+  <div style="padding:24px 32px;">
+    <div class="loading-bar" id="radarLoadingBar"><div class="loading-bar-fill"></div></div>
+    <div class="beginner-tip-bar" id="tip-sectors">
+      <strong>🎓 Sector Radar explained:</strong> This shows global market sectors ranked by momentum score. <strong>Green = buy now.</strong> <strong>Blue = building, enter soon.</strong> <strong>Amber = late phase, hold.</strong> <strong>Red = cooling, avoid or exit.</strong> Stocks and crypto are shown separately because each asset class moves on different cycles.
+    </div>
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px;">
+      <div>
+        <div style="font-size:19px;font-weight:800;">Global Sector Heat Map</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-top:2px;">RANKED BY ROTATION SCORE — CLICK ANY SECTOR TO SEE TOP ASSETS</div>
+      </div>
+      <button class="picker-btn" onclick="runFullScan()" style="font-size:12px;padding:7px 16px;">⟳ Run AI Scan</button>
+    </div>
+    <div class="heat-grid" id="heatGrid"></div>
+    <div class="sector-detail-panel" id="sectorDetailPanel"></div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-top:24px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+        <span class="ai-badge">✦ AI MACRO ANALYSIS</span>
+        <span style="font-size:15px;font-weight:800;">Current Market Intelligence</span>
+      </div>
+      <div id="macroAnalysis" style="font-size:13px;line-height:1.8;color:var(--text2);">
+        <p>Click <strong>⟳ Run AI Scan</strong> above to fetch live global market intelligence.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODULE: TOP PICKS -->
+<div class="module-panel" id="module-picks">
+  <div style="padding:24px 32px;">
+    <div class="beginner-tip-bar" id="tip-picks">
+      <strong>🎓 Top Picks explained:</strong> These are the best stocks and crypto assets positioned for the next move. <strong>🚀 READY TO EXPLODE</strong> = buy now. <strong>📈 BUILDING</strong> = accumulate. <strong>💎 HOLD</strong> = already running. <strong>🚪 EXIT</strong> = start selling.
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+      <div>
+        <div style="font-size:19px;font-weight:800;">Global Top Picks</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-top:2px;">STOCKS & CRYPTO POSITIONED FOR THE NEXT WAVE</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;" id="stockPickFilters">
+        <button class="filter-chip on" onclick="filterPicksTable('all',this)">All</button>
+        <button class="filter-chip" onclick="filterPicksTable('explode',this)">🚀 Explode</button>
+        <button class="filter-chip" onclick="filterPicksTable('building',this)">📈 Building</button>
+        <button class="filter-chip" onclick="filterPicksTable('hold',this)">💎 Hold</button>
+        <button class="filter-chip" onclick="filterPicksTable('exit',this)">🚪 Exit</button>
+        <button class="filter-chip" onclick="filterPicksTable('watch',this)">👀 Watch</button>
+      </div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;">
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr>
+            <th>Asset</th><th>Sector</th><th>Price</th><th>Signal</th><th>Momentum</th><th>Allocation</th><th>Horizon</th><th>Why</th>
+          </tr></thead>
+          <tbody id="picksTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODULE: POSITION SIZER -->
+<div class="module-panel" id="module-sizer">
+  <div style="padding:24px 32px;">
+    <div class="beginner-tip-bar" id="tip-sizer">
+      <strong>🎓 Position Sizer explained:</strong> This calculates exactly how much to allocate per asset. Enter your total capital, risk level, and the system uses the Kelly Criterion to optimise your portfolio split across stocks and crypto.
+    </div>
+    <div style="font-size:19px;font-weight:800;margin-bottom:4px;">Smart Position Sizer</div>
+    <div style="font-size:13px;color:var(--text2);margin-bottom:24px;">Enter your capital and risk level. The system calculates the exact amount per asset.</div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;">
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <label style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:1px;">TOTAL CAPITAL ($)</label>
+          <input class="input-group input" type="number" id="totalCapital" placeholder="e.g. 10000" value="10000" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:11px 14px;color:var(--text);font-family:var(--mono);font-size:14px;outline:none;">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <label style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:1px;">RISK LEVEL</label>
+          <select id="riskLevel" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:11px 14px;color:var(--text);font-family:var(--sans);font-size:13px;outline:none;cursor:pointer;">
+            <option value="conservative">Conservative — stocks only</option>
+            <option value="moderate" selected>Moderate — stocks + crypto</option>
+            <option value="aggressive">Aggressive — high crypto weight</option>
+          </select>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <label style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:1px;">HORIZON</label>
+          <select id="horizon" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:11px 14px;color:var(--text);font-family:var(--sans);font-size:13px;outline:none;cursor:pointer;">
+            <option value="1-3">1–3 months (tactical)</option>
+            <option value="3-6" selected>3–6 months</option>
+            <option value="6-12">6–12 months (full cycle)</option>
+          </select>
+        </div>
+      </div>
+      <button onclick="calculateAllocation()" style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:12px 28px;font-family:var(--sans);font-size:14px;font-weight:800;cursor:pointer;width:100%;margin-bottom:20px;">Calculate My Portfolio Allocation →</button>
+      <div class="allocation-result" id="allocResult" style="display:none;">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;" id="allocSummary"></div>
+        <div style="background:var(--bg3);border-radius:10px;padding:16px;" id="allocBreakdown"></div>
+        <div style="margin-top:14px;padding:14px;background:var(--bg3);border-radius:8px;font-size:12px;color:var(--text2);line-height:1.6;" id="allocExplanation"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODULE: EXIT SIGNALS -->
+<div class="module-panel" id="module-exit">
+  <div style="padding:24px 32px;">
+    <div class="beginner-tip-bar" id="tip-exit">
+      <strong>🎓 Exit Signals explained:</strong> Your early warning system. It tells you BEFORE a sector or crypto starts cooling so you can sell at the top. Crypto exit signals are especially important because crypto corrections can be 30–50% in days.
+    </div>
+    <div style="font-size:19px;font-weight:800;margin-bottom:4px;">Exit & Rotation Signals</div>
+    <div style="font-size:13px;color:var(--text2);margin-bottom:24px;">Early warning system for stocks and crypto — exit before the crowd.</div>
+    <div id="exitCards" class="exit-cards"></div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+        <span class="ai-badge">✦ AI EXIT INTELLIGENCE</span>
+        <span style="font-size:15px;font-weight:800;">Exit Timing Analysis</span>
+      </div>
+      <div id="exitAnalysis" style="font-size:13px;line-height:1.8;color:var(--text2);">
+        <p>Click <strong>⟳ Run AI Scan</strong> in Sector Radar to generate exit signal analysis.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end .app-layout -->
+
+<!-- JAVASCRIPT WILL BE ADDED IN NEXT STEP -->
+<script>
+// ============================================
+// GLOBAL INTEL PRO — DATA LAYER
+// Global stocks + crypto with full analysis
+// ============================================
+
+const GLOBAL_STOCKS = [
+  {
+    ticker: "AAPL", name: "Apple Inc.", sector: "Technology", type: "stock", currency: "$",
+    price: 227.48, change: 3.18, changePct: 1.42, eps: 7.10, pe: 32.0, peForward: 29.5,
+    low52: 164.08, high52: 260.10, divYield: 0.44, roe: 157.0, volume: 54200000,
+    marketCap: "$3.4T", revenue25: "$394B revenue", debtEquity: 1.87,
+    signal: "wait", signalText: "BUY ON PULLBACK",
+    entryZone: "$200 – $215", entryIdeal: [200, 215], entryAcceptable: [215, 230], entryAvoid: [230, 270],
+    reasoning: "<strong>Apple is the gold standard of big tech</strong> — $3.4T market cap, $394B revenue, and the most loyal consumer base in tech. Services revenue (App Store, iCloud, Apple TV+) is growing at 14% and now represents 25% of total revenue with 70%+ margins. However, at $227, the stock trades at 32x earnings — above its 5-year average PE of 28x. <strong>Buy below $215 for better risk-reward.</strong> The iPhone 17 cycle in Sept 2026 will be the next catalyst.",
+    factors: [
+      { label: "Valuation", score: 45, color: "amber", note: "32x PE — slightly above avg" },
+      { label: "Earnings", score: 82, color: "green", note: "EPS $7.10, +10% YoY" },
+      { label: "Price Pos.", score: 55, color: "amber", note: "Mid 52wk range" },
+      { label: "Catalyst", score: 78, color: "green", note: "iPhone 17 cycle Sept 2026" },
+      { label: "Low Risk", score: 90, color: "green", note: "Ultimate safe haven stock" }
+    ],
+    catalysts: [
+      { icon: "📱", color: "cata-green", event: "iPhone 17 launch cycle begins", date: "September 2026" },
+      { icon: "🤖", color: "cata-blue", event: "Apple Intelligence AI rollout continues", date: "Ongoing 2026" },
+      { icon: "💰", color: "cata-green", event: "Q2 2026 earnings release", date: "April 2026" },
+      { icon: "💵", color: "cata-green", event: "$110B buyback program ongoing", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>Apple is the ultimate quality compounding machine.</strong> Services revenue hit $100B+ annually with 70%+ gross margins. The installed base of 2.2 billion active devices creates an unbreakable moat — every device is a subscription revenue machine.</p><p><strong>Why wait for a pullback:</strong> At 32x PE, you're paying a premium. Apple's earnings growth is 10–12%, which means the PE-to-growth ratio (PEG) is 2.9x — expensive. Below $215 (28x PE), you get the same business at a fairer price.</p><p><strong>Long-term:</strong> Apple Intelligence (on-device AI) positions Apple for the next computing cycle. Target: $280–$300 within 18 months if iPhone 17 cycle beats expectations.</p>"
+  },
+  {
+    ticker: "MSFT", name: "Microsoft Corp.", sector: "Technology", type: "stock", currency: "$",
+    price: 388.45, change: 5.20, changePct: 1.36, eps: 12.41, pe: 31.3, peForward: 28.0,
+    low52: 362.90, high52: 468.35, divYield: 0.79, roe: 37.5, volume: 22100000,
+    marketCap: "$2.9T", revenue25: "$254B revenue", debtEquity: 0.42,
+    signal: "buy", signalText: "BUY — AI LEADER",
+    entryZone: "$370 – $395", entryIdeal: [370, 395], entryAcceptable: [395, 420], entryAvoid: [420, 480],
+    reasoning: "<strong>Microsoft is the dominant enterprise AI infrastructure play.</strong> Azure cloud revenue grew 29% YoY powered by AI workloads. Copilot AI is being embedded across the entire Office 365 suite (400M+ users). At $388, down 17% from ATH, this is a rare dip entry for the #2 most valuable company on Earth. <strong>PE of 31x is in line with 5-year average</strong> — you're not overpaying at this level.",
+    factors: [
+      { label: "Valuation", score: 60, color: "amber", note: "31.3x PE — fair for quality" },
+      { label: "Earnings", score: 88, color: "green", note: "EPS +15% YoY, Azure 29% growth" },
+      { label: "Price Pos.", score: 75, color: "green", note: "17% below ATH — dip entry" },
+      { label: "Catalyst", score: 92, color: "green", note: "AI Copilot monetisation" },
+      { label: "Low Risk", score: 85, color: "green", note: "Diversified, low debt" }
+    ],
+    catalysts: [
+      { icon: "🤖", color: "cata-green", event: "Copilot AI revenue inflection — pricing $30/user/mo", date: "Ongoing 2026" },
+      { icon: "☁️", color: "cata-blue", event: "Azure AI capacity expansion — $80B capex", date: "FY2026" },
+      { icon: "📊", color: "cata-green", event: "Q3 FY2026 earnings", date: "April 2026" },
+      { icon: "🎮", color: "cata-blue", event: "Activision Blizzard integration synergies", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>Microsoft owns the AI infrastructure stack.</strong> Azure is the #2 cloud provider (25% share) and growing faster than AWS. The Copilot AI suite is the first real AI monetisation at scale — 400M+ Office users paying $30/month extra for AI features is a $144B annual revenue opportunity.</p><p><strong>17% below ATH is your entry:</strong> The pullback from $468 to $388 was driven by market-wide rotation, not Microsoft fundamentals. Revenue growth accelerated last quarter. This is a buy-the-dip opportunity.</p><p><strong>Target:</strong> $450–$480 within 12 months as AI revenue inflects. Long-term: $550+ as Copilot adoption goes mainstream.</p>"
+  },
+  {
+    ticker: "NVDA", name: "NVIDIA Corp.", sector: "Technology", type: "stock", currency: "$",
+    price: 117.57, change: 4.12, changePct: 3.63, eps: 2.94, pe: 40.0, peForward: 28.0,
+    low52: 75.61, high52: 153.13, divYield: 0.03, roe: 115.0, volume: 312000000,
+    marketCap: "$2.87T", revenue25: "$130B revenue est.", debtEquity: 0.41,
+    signal: "buy", signalText: "BUY — AI BACKBONE",
+    entryZone: "$105 – $120", entryIdeal: [105, 120], entryAcceptable: [120, 135], entryAvoid: [135, 160],
+    reasoning: "<strong>NVIDIA owns 92% of the AI GPU market.</strong> Every major AI model — GPT-5, Claude, Gemini — runs on NVIDIA hardware. Revenue tripled in 2 years from $44B to $130B+. The Blackwell GPU architecture is the fastest-selling product in NVIDIA history. Forward PE of 28x makes this the cheapest it has been relative to growth in 3 years. <strong>Buy between $105–$120 for this position.</strong>",
+    factors: [
+      { label: "Valuation", score: 55, color: "amber", note: "40x trailing, 28x forward" },
+      { label: "Earnings", score: 97, color: "green", note: "Revenue tripled in 2 years" },
+      { label: "Price Pos.", score: 65, color: "green", note: "23% below ATH" },
+      { label: "Catalyst", score: 95, color: "green", note: "Blackwell ramp + Rubin preview" },
+      { label: "Low Risk", score: 52, color: "amber", note: "High beta, volatile" }
+    ],
+    catalysts: [
+      { icon: "🖥️", color: "cata-green", event: "Blackwell GPU full production ramp", date: "Q1–Q2 2026" },
+      { icon: "📊", color: "cata-green", event: "Q1 FY2027 earnings", date: "May 2026" },
+      { icon: "🤖", color: "cata-blue", event: "Rubin next-gen architecture preview", date: "GTC 2026" },
+      { icon: "🌐", color: "cata-blue", event: "Sovereign AI data centre buildouts (30+ countries)", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>NVIDIA's moat is the CUDA ecosystem.</strong> 4 million developers, 15 years of optimised AI libraries — no competitor can replicate this. AMD and custom chips compete at the edges, but NVIDIA owns the center of AI computing.</p><p><strong>The growth is accelerating:</strong> Revenue went $27B → $61B → $130B in three years. Data centre revenue alone is $100B+. Forward PE of 28x on 50%+ EPS growth gives a PEG ratio of 0.56 — extremely cheap for a hypergrowth monopoly.</p><p><strong>Target:</strong> $160–$180 within 12 months. Long-term (3 years): $250+ as AI inference spending surpasses training spend.</p>"
+  },
+  {
+    ticker: "AMZN", name: "Amazon.com Inc.", sector: "Technology", type: "stock", currency: "$",
+    price: 197.34, change: 2.45, changePct: 1.26, eps: 5.53, pe: 35.7, peForward: 28.5,
+    low52: 161.02, high52: 242.52, divYield: 0.0, roe: 23.1, volume: 48300000,
+    marketCap: "$2.1T", revenue25: "$638B revenue", debtEquity: 0.58,
+    signal: "buy", signalText: "BUY — CLOUD + AI",
+    entryZone: "$185 – $200", entryIdeal: [185, 200], entryAcceptable: [200, 215], entryAvoid: [215, 250],
+    reasoning: "<strong>Amazon is a dual-engine growth story:</strong> AWS (cloud) is a $100B+ run-rate business growing 19%, and e-commerce margins are expanding as delivery efficiency improves. At $197, down 19% from ATH, you get the world's dominant cloud + e-commerce platform at forward PE 28.5x — in line with historical average. <strong>AWS AI inference revenue is the growth kicker.</strong>",
+    factors: [
+      { label: "Valuation", score: 58, color: "amber", note: "35.7x trailing, 28.5x forward" },
+      { label: "Earnings", score: 85, color: "green", note: "Operating income doubled YoY" },
+      { label: "Price Pos.", score: 72, color: "green", note: "19% below ATH" },
+      { label: "Catalyst", score: 80, color: "green", note: "AWS AI, Project Kuiper" },
+      { label: "Low Risk", score: 78, color: "green", note: "Dominant market position" }
+    ],
+    catalysts: [
+      { icon: "☁️", color: "cata-green", event: "AWS revenue crosses $100B annual run rate", date: "2026" },
+      { icon: "🛰️", color: "cata-blue", event: "Project Kuiper satellite internet launch", date: "H2 2026" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" },
+      { icon: "🤖", color: "cata-blue", event: "Amazon Bedrock AI platform growth", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>AWS is the crown jewel.</strong> #1 cloud provider with 31% market share. AWS generates 65% of Amazon's operating profit. AI workload migration to cloud is a decade-long tailwind. Amazon Bedrock (managed AI) is growing faster than any other AWS service.</p><p><strong>E-commerce margins are expanding:</strong> Regional fulfilment hubs + robotics + same-day delivery = structurally higher margins. Operating margin has gone from 2% to 11% in 3 years.</p><p><strong>Target:</strong> $250–$270 within 12 months. $300+ on 18-month horizon.</p>"
+  },
+  {
+    ticker: "GOOGL", name: "Alphabet Inc.", sector: "Technology", type: "stock", currency: "$",
+    price: 163.24, change: 1.87, changePct: 1.16, eps: 8.04, pe: 20.3, peForward: 18.5,
+    low52: 148.51, high52: 207.71, divYield: 0.49, roe: 32.8, volume: 28700000,
+    marketCap: "$2.0T", revenue25: "$365B revenue", debtEquity: 0.05,
+    signal: "buy", signalText: "STRONG BUY — CHEAPEST MAG7",
+    entryZone: "$155 – $168", entryIdeal: [155, 168], entryAcceptable: [168, 185], entryAvoid: [185, 215],
+    reasoning: "<strong>Alphabet is the cheapest Magnificent 7 stock at just 20.3x PE.</strong> Google Search revenue is $200B+, YouTube is a $50B business, and Google Cloud crossed $40B with 30% growth. The Gemini AI model is competitive with GPT-4. The market is undervaluing Alphabet due to search disruption fears — but 90% of web searches still go through Google. <strong>At 20x PE, you're paying half what NVDA or MSFT charges for similar quality.</strong>",
+    factors: [
+      { label: "Valuation", score: 88, color: "green", note: "20.3x PE — cheapest Mag7" },
+      { label: "Earnings", score: 85, color: "green", note: "EPS +32% YoY" },
+      { label: "Price Pos.", score: 78, color: "green", note: "21% below ATH" },
+      { label: "Catalyst", score: 75, color: "green", note: "Gemini AI + Cloud growth" },
+      { label: "Low Risk", score: 82, color: "green", note: "Zero debt, $95B cash" }
+    ],
+    catalysts: [
+      { icon: "🤖", color: "cata-green", event: "Gemini 2.0 rollout across products", date: "Ongoing 2026" },
+      { icon: "☁️", color: "cata-blue", event: "Google Cloud profitability expanding", date: "2026" },
+      { icon: "📺", color: "cata-green", event: "YouTube TV + NFL Sunday Ticket", date: "Sept 2026" },
+      { icon: "💰", color: "cata-green", event: "$70B buyback authorization", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>The market's AI fear discount is your opportunity.</strong> Investors worry ChatGPT will kill Google Search. Reality: Google processes 8.5 billion searches/day. AI Overviews are increasing search engagement, not reducing it. Search revenue grew 12% last quarter despite the AI narrative.</p><p><strong>The sum of parts is staggering:</strong> YouTube alone would be worth $400B+ as a standalone company. Waymo (self-driving) is doing 150K+ paid rides per week. Google Cloud hit profitability. Each of these businesses is individually worth more than what the market assigns to all of Alphabet.</p><p><strong>Target:</strong> $210–$230 within 12 months. This is a PE re-rating play — if GOOGL re-rates from 20x to 25x (still cheap), the stock hits $200.</p>"
+  },
+  {
+    ticker: "TSLA", name: "Tesla Inc.", sector: "Consumer Discretionary", type: "stock", currency: "$",
+    price: 253.82, change: -8.30, changePct: -3.17, eps: 2.42, pe: 104.9, peForward: 85.0,
+    low52: 138.80, high52: 488.54, divYield: 0.0, roe: 21.5, volume: 98500000,
+    marketCap: "$815B", revenue25: "$102B revenue", debtEquity: 0.11,
+    signal: "avoid", signalText: "AVOID — OVERVALUED",
+    entryZone: "$150 – $180", entryIdeal: [150, 180], entryAcceptable: [180, 220], entryAvoid: [220, 500],
+    reasoning: "<strong>Tesla at $254 trades at 105x trailing earnings — the most expensive auto stock by far.</strong> Vehicle deliveries declined 13% in Q1 2025. Margins are compressing as competitors (BYD, Rivian) gain share. The stock hit $488 on euphoria and is now -48% from ATH. Bulls rely on robotaxis and Optimus robot, but neither generates meaningful revenue yet. <strong>The business is real but the price is fantasy.</strong> Wait for $150–$180 for a reasonable risk-reward entry.",
+    factors: [
+      { label: "Valuation", score: 8, color: "red", note: "105x PE — extremely expensive" },
+      { label: "Earnings", score: 35, color: "red", note: "Margins declining, deliveries down" },
+      { label: "Price Pos.", score: 45, color: "amber", note: "48% below ATH, but still pricey" },
+      { label: "Catalyst", score: 65, color: "amber", note: "Robotaxi June 2026 launch" },
+      { label: "Low Risk", score: 20, color: "red", note: "High volatility, brand risk" }
+    ],
+    catalysts: [
+      { icon: "🚗", color: "cata-amber", event: "Robotaxi ride-hailing launch in Austin", date: "June 2026" },
+      { icon: "🤖", color: "cata-blue", event: "Optimus humanoid robot production pilot", date: "H2 2026" },
+      { icon: "📉", color: "cata-red", event: "Declining auto margins — price war ongoing", date: "Now" },
+      { icon: "⚠️", color: "cata-red", event: "Brand perception issues in key markets", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>The Tesla bull case requires believing in robotaxis and robots, not cars.</strong> The auto business alone would be worth $80–$100B (20x auto PE on $4–5B net income). That's roughly $25/share for the car business. The rest of the $815B valuation is speculative optionality on robotaxis, energy, and Optimus.</p><p><strong>Why avoid at this price:</strong> At 105x PE with declining vehicle deliveries and shrinking margins, you need everything to go perfectly. If robotaxis are delayed or underwhelm, the stock could easily revisit $150.</p><p><strong>The right play:</strong> Wait for $150–$180. At that price, you're paying for the car business + getting the optionality for free. That's a real risk-reward trade.</p>"
+  },
+  {
+    ticker: "META", name: "Meta Platforms Inc.", sector: "Technology", type: "stock", currency: "$",
+    price: 585.50, change: 7.20, changePct: 1.25, eps: 22.30, pe: 26.3, peForward: 22.0,
+    low52: 467.34, high52: 740.91, divYield: 0.35, roe: 35.4, volume: 15200000,
+    marketCap: "$1.5T", revenue25: "$168B revenue", debtEquity: 0.30,
+    signal: "buy", signalText: "BUY — AD MONOPOLY",
+    entryZone: "$550 – $600", entryIdeal: [550, 600], entryAcceptable: [600, 650], entryAvoid: [650, 750],
+    reasoning: "<strong>Meta is a digital advertising monopoly disguised as a social media company.</strong> Facebook + Instagram + WhatsApp reach 3.9 billion monthly users — half of humanity. Ad revenue grew 22% YoY to $168B. At 26.3x PE, Meta is cheaper than most large-cap tech peers. Reels (TikTok competitor) is now accretive to revenue. <strong>AI ad targeting improvements are driving 20%+ revenue growth with minimal incremental cost.</strong>",
+    factors: [
+      { label: "Valuation", score: 72, color: "green", note: "26.3x PE — fair for growth" },
+      { label: "Earnings", score: 90, color: "green", note: "EPS $22.30, +27% YoY" },
+      { label: "Price Pos.", score: 68, color: "green", note: "21% below ATH" },
+      { label: "Catalyst", score: 82, color: "green", note: "AI ads + Ray-Ban Meta glasses" },
+      { label: "Low Risk", score: 75, color: "green", note: "Dominant platform, low debt" }
+    ],
+    catalysts: [
+      { icon: "🤖", color: "cata-green", event: "Llama 4 AI model driving ad efficiency", date: "2026" },
+      { icon: "👓", color: "cata-blue", event: "Ray-Ban Meta AI glasses selling out", date: "Ongoing" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" },
+      { icon: "💰", color: "cata-green", event: "$50B+ buyback program", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>3.9 billion users is an unchallengeable moat.</strong> No competitor — not TikTok, not X, not Snap — comes close to Meta's combined reach. Every small business in the world needs Meta ads to grow. This is a toll road on global digital commerce.</p><p><strong>AI is the margin expander:</strong> Meta's Advantage+ AI ad platform automates ad creation and targeting, driving 20%+ revenue growth with declining cost-per-impression for advertisers. More effective ads = more advertiser spend = higher revenue at lower cost.</p><p><strong>Target:</strong> $700–$750 within 12 months. $800+ on 18-month horizon.</p>"
+  }
+];
+
+const GLOBAL_CRYPTO = [
+  {
+    ticker: "BTC", name: "Bitcoin", sector: "Cryptocurrency", type: "crypto", currency: "$",
+    price: 83814.00, change: 1200.00, changePct: 1.45, eps: null, pe: null, peForward: null,
+    low52: 49050.00, high52: 109114.88, divYield: 0.0, roe: null, volume: 28500000000,
+    marketCap: "$1.66T", revenue25: "N/A — digital asset", debtEquity: null,
+    signal: "buy", signalText: "BUY — HALVING CYCLE",
+    entryZone: "$75,000 – $85,000", entryIdeal: [75000, 85000], entryAcceptable: [85000, 95000], entryAvoid: [95000, 120000],
+    reasoning: "<strong>Bitcoin is in the post-halving accumulation phase.</strong> The April 2024 halving cut new supply by 50%. Historically, BTC rallies 300–500% within 12–18 months after halving. Bitcoin ETFs (BlackRock IBIT, Fidelity FBTC) have brought $50B+ in institutional inflows. At $83,814, BTC is 23% below its ATH of $109,114. <strong>The supply shock from halving + institutional demand = structural bull case.</strong>",
+    factors: [
+      { label: "Supply", score: 95, color: "green", note: "Post-halving supply squeeze" },
+      { label: "Demand", score: 88, color: "green", note: "$50B+ ETF inflows" },
+      { label: "Price Pos.", score: 65, color: "green", note: "23% below ATH" },
+      { label: "Macro", score: 72, color: "green", note: "Fed rate cuts = risk-on" },
+      { label: "Risk", score: 45, color: "amber", note: "Volatile — 30–40% drawdowns normal" }
+    ],
+    catalysts: [
+      { icon: "⛏️", color: "cata-green", event: "Post-halving supply shock — 12–18 month cycle peak expected", date: "Q3–Q4 2026" },
+      { icon: "🏦", color: "cata-green", event: "Institutional ETF inflows accelerating (BlackRock, Fidelity)", date: "Ongoing" },
+      { icon: "🏛️", color: "cata-blue", event: "US strategic Bitcoin reserve executive order signed", date: "March 2025" },
+      { icon: "📉", color: "cata-amber", event: "Fed rate decision — cuts = bullish for BTC", date: "Q2 2026" }
+    ],
+    thesis: "<p><strong>Bitcoin's halving cycle has been the most reliable pattern in crypto history.</strong> After the 2012 halving: +9,000%. After 2016: +2,900%. After 2020: +700%. The April 2024 halving is now 11 months old — historically, the major rally begins 12–18 months post-halving (Q2–Q4 2026).</p><p><strong>Institutional legitimacy:</strong> BlackRock's IBIT Bitcoin ETF has attracted $50B+ in assets. The US government signed an executive order creating a Strategic Bitcoin Reserve. This is no longer a fringe asset — it's becoming digital gold.</p><p><strong>Target:</strong> $120,000–$150,000 by Q4 2026 based on halving cycle analysis. Conservative target: $100,000. Stretch target: $180,000 if institutional adoption accelerates.</p>"
+  },
+  {
+    ticker: "ETH", name: "Ethereum", sector: "Cryptocurrency", type: "crypto", currency: "$",
+    price: 1907.15, change: -42.50, changePct: -2.18, eps: null, pe: null, peForward: null,
+    low52: 1385.00, high52: 4088.00, divYield: 3.5, roe: null, volume: 12800000000,
+    marketCap: "$230B", revenue25: "$2.7B protocol fees", debtEquity: null,
+    signal: "buy", signalText: "STRONG BUY — UNDERVALUED",
+    entryZone: "$1,700 – $2,000", entryIdeal: [1700, 2000], entryAcceptable: [2000, 2500], entryAvoid: [2500, 4200],
+    reasoning: "<strong>Ethereum is trading 53% below its ATH — the cheapest it has been relative to Bitcoin in 3 years.</strong> The ETH/BTC ratio is at historic lows. ETH generates $2.7B in annual protocol fees, has a 3.5% staking yield, and powers $100B+ in DeFi total value locked. Ethereum ETFs are approved and seeing growing inflows. <strong>This is a deep value play in crypto — ETH is the underdog that historically outperforms BTC in the late stage of bull markets.</strong>",
+    factors: [
+      { label: "Supply", score: 80, color: "green", note: "Deflationary after EIP-1559" },
+      { label: "Demand", score: 72, color: "green", note: "DeFi + NFT + L2 usage growing" },
+      { label: "Price Pos.", score: 88, color: "green", note: "53% below ATH — deep value" },
+      { label: "Macro", score: 68, color: "green", note: "ETH ETFs approved" },
+      { label: "Risk", score: 40, color: "amber", note: "L2 competition diluting fees" }
+    ],
+    catalysts: [
+      { icon: "⛓️", color: "cata-green", event: "Pectra upgrade — blob scaling + account abstraction", date: "Q1 2026" },
+      { icon: "🏦", color: "cata-green", event: "ETH ETF inflows expected to accelerate", date: "2026" },
+      { icon: "📈", color: "cata-blue", event: "ETH/BTC ratio mean reversion historically occurs in late bull", date: "Q3–Q4 2026" },
+      { icon: "💰", color: "cata-green", event: "3.5% staking yield — paid yield on a risk asset", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>ETH at $1,907 is the most undervalued major crypto asset.</strong> The ETH/BTC ratio is at 0.023, the lowest since 2020. Historically, when this ratio bottoms, ETH outperforms BTC 3–5x in the subsequent rally. In the 2021 bull run, ETH went from $700 to $4,800 — a 7x move — while BTC went from $30K to $69K (2.3x).</p><p><strong>Fundamental value:</strong> ETH generates real revenue ($2.7B in protocol fees), pays a real yield (3.5% staking), and is the settlement layer for $100B+ in DeFi assets. No other crypto has this combination.</p><p><strong>Target:</strong> $4,000–$5,000 by Q4 2026. This is a 2–2.5x return if the halving cycle plays out normally and ETH regains its historical BTC ratio.</p>"
+  },
+  {
+    ticker: "SOL", name: "Solana", sector: "Cryptocurrency", type: "crypto", currency: "$",
+    price: 130.08, change: 3.80, changePct: 3.01, eps: null, pe: null, peForward: null,
+    low52: 95.00, high52: 295.83, divYield: 6.8, roe: null, volume: 4200000000,
+    marketCap: "$63B", revenue25: "$1.2B protocol fees", debtEquity: null,
+    signal: "wait", signalText: "BUY ON PULLBACK",
+    entryZone: "$100 – $120", entryIdeal: [100, 120], entryAcceptable: [120, 140], entryAvoid: [140, 300],
+    reasoning: "<strong>Solana is the fastest high-throughput blockchain</strong> — 65,000 TPS, sub-second finality. It has become the dominant chain for retail DeFi, memecoins, and payment applications (Visa, Shopify integrations). However, at $130, it has pulled back 56% from its ATH of $296. <strong>Buy below $120 for better entries.</strong> The Firedancer validator client (by Jump Trading) will be the next major catalyst.",
+    factors: [
+      { label: "Supply", score: 55, color: "amber", note: "6.8% inflation from staking" },
+      { label: "Demand", score: 82, color: "green", note: "Most used blockchain by TPS" },
+      { label: "Price Pos.", score: 72, color: "green", note: "56% below ATH" },
+      { label: "Macro", score: 70, color: "green", note: "SOL ETF filings pending" },
+      { label: "Risk", score: 48, color: "amber", note: "Outage history, competition" }
+    ],
+    catalysts: [
+      { icon: "🔥", color: "cata-green", event: "Firedancer validator client launch — performance upgrade", date: "Q2 2026" },
+      { icon: "🏦", color: "cata-blue", event: "Solana ETF applications filed (21Shares, VanEck)", date: "2026" },
+      { icon: "💳", color: "cata-green", event: "Visa + Shopify payment integrations expanding", date: "Ongoing" },
+      { icon: "📈", color: "cata-blue", event: "DeFi TVL recovering — $8B+ total value locked", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>Solana is Ethereum's strongest competitor.</strong> While ETH processes 15–30 TPS, Solana handles 65,000 TPS at a fraction of the cost ($0.00025 per transaction vs ETH's $1–5). For retail applications — payments, gaming, social — Solana is simply better.</p><p><strong>The risk:</strong> Solana has had network outages (7 in 2 years). The Firedancer upgrade (a second validator client by Jump Trading) aims to fix this. If Firedancer delivers, it removes the single largest bear argument.</p><p><strong>Target:</strong> $200–$250 by Q4 2026 if ETF approved and market enters late bull phase. $100–$120 entry gives 2x upside with manageable risk.</p>"
+  },
+  {
+    ticker: "XRP", name: "XRP (Ripple)", sector: "Cryptocurrency", type: "crypto", currency: "$",
+    price: 2.31, change: 0.05, changePct: 2.21, eps: null, pe: null, peForward: null,
+    low52: 0.42, high52: 3.40, divYield: 0.0, roe: null, volume: 3100000000,
+    marketCap: "$134B", revenue25: "N/A — payments protocol", debtEquity: null,
+    signal: "wait", signalText: "HOLD — MONITOR",
+    entryZone: "$1.80 – $2.20", entryIdeal: [1.80, 2.20], entryAcceptable: [2.20, 2.60], entryAvoid: [2.60, 3.50],
+    reasoning: "<strong>XRP settled its SEC lawsuit and ran from $0.42 to $3.40 — an 8x move.</strong> Now at $2.31, it's consolidating. XRP is used for cross-border payments by 300+ financial institutions. An XRP ETF filing is pending. However, at $134B market cap, most of the legal clarity rally is priced in. <strong>Wait for $1.80–$2.20 for better entry. Not a avoid — just not the best risk-reward here.</strong>",
+    factors: [
+      { label: "Supply", score: 40, color: "amber", note: "Large token unlocks monthly" },
+      { label: "Demand", score: 65, color: "amber", note: "300+ bank partnerships" },
+      { label: "Price Pos.", score: 55, color: "amber", note: "32% below ATH, 5x from low" },
+      { label: "Macro", score: 70, color: "green", note: "SEC clarity achieved" },
+      { label: "Risk", score: 50, color: "amber", note: "Insider selling, token unlock pressure" }
+    ],
+    catalysts: [
+      { icon: "🏦", color: "cata-blue", event: "XRP ETF decision expected", date: "H2 2026" },
+      { icon: "✅", color: "cata-green", event: "SEC lawsuit fully resolved", date: "Complete" },
+      { icon: "💳", color: "cata-blue", event: "Ripple RLUSD stablecoin adoption", date: "Ongoing" },
+      { icon: "⚠️", color: "cata-amber", event: "Monthly token unlocks from escrow", date: "Monthly" }
+    ],
+    thesis: "<p><strong>XRP is a regulatory clarity play that has mostly played out.</strong> The 8x rally from $0.42 to $3.40 priced in the SEC lawsuit resolution. The remaining upside depends on the XRP ETF approval and Ripple's RLUSD stablecoin gaining traction.</p><p><strong>Not a bad hold, but not the best new entry:</strong> If you already own XRP from below $1, congratulations — hold for the ETF catalyst. For new money, ETH and SOL offer better risk-adjusted returns at current prices.</p><p><strong>Target:</strong> $3.50–$4.00 if ETF approved. $1.50–$1.80 if broader market corrects first.</p>"
+  },
+  {
+    ticker: "BNB", name: "BNB (Binance)", sector: "Cryptocurrency", type: "crypto", currency: "$",
+    price: 585.00, change: 8.50, changePct: 1.47, eps: null, pe: null, peForward: null,
+    low52: 490.00, high52: 795.00, divYield: 0.0, roe: null, volume: 1800000000,
+    marketCap: "$86B", revenue25: "Binance — largest exchange", debtEquity: null,
+    signal: "watch", signalText: "WATCH — EXCHANGE TOKEN",
+    entryZone: "$500 – $560", entryIdeal: [500, 560], entryAcceptable: [560, 620], entryAvoid: [620, 800],
+    reasoning: "<strong>BNB is the native token of Binance, the world's largest crypto exchange.</strong> BNB benefits from quarterly token burns (reducing supply), Binance Smart Chain DeFi usage, and Binance Launchpad project launches. At $585, it's 26% below its ATH. <strong>BNB is a quasi-equity play on Binance's profitability.</strong> The risk is regulatory — Binance has paid $4.3B in fines and faces ongoing scrutiny.",
+    factors: [
+      { label: "Supply", score: 75, color: "green", note: "Quarterly burns reducing supply" },
+      { label: "Demand", score: 70, color: "green", note: "Binance ecosystem utility" },
+      { label: "Price Pos.", score: 60, color: "amber", note: "26% below ATH" },
+      { label: "Macro", score: 55, color: "amber", note: "Regulatory overhang" },
+      { label: "Risk", score: 42, color: "amber", note: "Centralisation + regulatory risk" }
+    ],
+    catalysts: [
+      { icon: "🔥", color: "cata-green", event: "Quarterly BNB token burn", date: "Q2 2026" },
+      { icon: "🏦", color: "cata-amber", event: "Binance regulatory compliance progress", date: "Ongoing" },
+      { icon: "⛓️", color: "cata-blue", event: "BSC chain AI + DeFi ecosystem growth", date: "2026" }
+    ],
+    thesis: "<p><strong>BNB is the S&P 500 index of Binance.</strong> When Binance does well, BNB goes up. The quarterly burn mechanism has reduced supply from 200M to ~145M tokens. This continues until supply reaches 100M. Each burn is a structural supply reduction that supports price.</p><p><strong>The risk:</strong> BNB is essentially a centralised exchange token. If Binance faces new regulatory actions, BNB drops hard. The $4.3B DOJ fine in 2023 showed this risk is real.</p><p><strong>Target:</strong> $750–$800 in a bull market. $400–$450 in a bear case. Only allocate what you can afford to lose on regulatory risk.</p>"
+  }
+];
+
+// COMBINED ASSETS — unified list
+const ALL_GLOBAL_ASSETS = [...GLOBAL_STOCKS, ...GLOBAL_CRYPTO];
+
+let currentAsset = null;
+let currentAssetType = 'stocks';
+let alerts = [];
+let beginnerModeOn = true;
+let currentModule = 'analysis';
+let pickerHighlight = -1;
+
+// ============================================
+// UTILITY FUNCTIONS
+// ============================================
+
+function showToast(msg) {
+  const t = document.getElementById('beginnerToast');
+  const title = document.getElementById('toastTitle');
+  const text = document.getElementById('toastText');
+  if (title) title.textContent = '💡 Notice';
+  if (text) text.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+function closeToast() {
+  document.getElementById('beginnerToast').classList.remove('show');
+}
+
+function showLoading(show, msg) {
+  const overlay = document.getElementById('loadingOverlay');
+  const text = document.getElementById('loadingText');
+  if (show) { text.textContent = msg || 'Analysing...'; overlay.classList.add('show'); }
+  else { overlay.classList.remove('show'); }
+}
+
+// ============================================
+// SETTINGS / API KEY
+// ============================================
+
+function openSettings() { document.getElementById('settingsOverlay').classList.add('show'); }
+function closeSettings() { document.getElementById('settingsOverlay').classList.remove('show'); }
+
+function saveApiKey() {
+  const key = document.getElementById('geminiKeyInput').value.trim();
+  if (!key) { showToast('Enter an API key'); return; }
+  localStorage.setItem('ngx_gemini_key', key);
+  const st = document.getElementById('keyStatus');
+  if (st) { st.textContent = '✓ Key saved'; st.style.color = 'var(--green)'; }
+  showToast('API key saved');
+  setTimeout(() => closeSettings(), 800);
+}
+
+function getApiKey() { return localStorage.getItem('ngx_gemini_key'); }
+
+// ============================================
+// SIDEBAR + ASSET SWITCHING
+// ============================================
+
+function getActiveList() {
+  return currentAssetType === 'crypto' ? GLOBAL_CRYPTO : GLOBAL_STOCKS;
+}
+
+function switchAssetType(type, btn) {
+  currentAssetType = type;
+  document.querySelectorAll('.asset-tab').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderSidebar();
+}
+
+function filterAssets() { renderSidebar(); }
+
+function renderSidebar() {
+  const list = getActiveList();
+  const container = document.getElementById('assetList');
+  const countEl = document.getElementById('assetCount');
+  const query = (document.getElementById('searchInput')?.value || '').toLowerCase();
+  const filtered = list.filter(s =>
+    s.ticker.toLowerCase().includes(query) || s.name.toLowerCase().includes(query)
+  );
+  if (countEl) countEl.textContent = filtered.length;
+  container.innerHTML = filtered.map(s => {
+    const active = currentAsset && currentAsset.ticker === s.ticker ? 'active' : '';
+    const changeClass = s.changePct >= 0 ? 'pos' : 'neg';
+    const changeIcon = s.changePct >= 0 ? '▲' : '▼';
+    return `<div class="stock-item ${active}" onclick="selectAsset('${s.ticker}')">
+      <div class="stock-item-left">
+        <div class="stock-ticker">${s.ticker}</div>
+        <div class="stock-name">${s.name}</div>
+      </div>
+      <div class="stock-item-right">
+        <div class="stock-price">$${s.price.toLocaleString()}</div>
+        <div class="stock-change ${changeClass}">${changeIcon} ${Math.abs(s.changePct).toFixed(2)}%</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function selectAsset(ticker) {
+  const asset = ALL_GLOBAL_ASSETS.find(s => s.ticker === ticker);
+  if (!asset) return;
+  currentAsset = asset;
+  if (asset.type === 'crypto' && currentAssetType !== 'crypto') {
+    currentAssetType = 'crypto';
+    document.querySelectorAll('.asset-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.asset-tab')[1].classList.add('active');
+  } else if (asset.type === 'stock' && currentAssetType !== 'stocks') {
+    currentAssetType = 'stocks';
+    document.querySelectorAll('.asset-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.asset-tab')[0].classList.add('active');
+  }
+  renderSidebar();
+  renderStockDetail(asset);
+  switchModule('analysis');
+  if (window.innerWidth < 900) document.querySelector('.sidebar')?.classList.remove('open');
+}
+
+// ============================================
+// STOCK / ASSET DETAIL RENDERING
+// ============================================
+
+function renderStockDetail(s) {
+  // Show detail, hide welcome
+  document.getElementById('welcomeState').style.display = 'none';
+  document.getElementById('stockDetail').style.display = 'block';
+
+  const signalClass = s.signal === 'buy' ? 'signal-buy' : s.signal === 'avoid' ? 'signal-sell' : 'signal-hold';
+  const changeClass = s.changePct >= 0 ? 'pos' : 'neg';
+  const changeSign = s.changePct >= 0 ? '+' : '';
+  const isCrypto = s.type === 'crypto';
+
+  // Header
+  document.getElementById('dTicker').textContent = s.ticker;
+  document.getElementById('dName').textContent = s.name;
+  document.getElementById('dSector').textContent = s.sector;
+  document.getElementById('dPrice').textContent = '$' + s.price.toLocaleString();
+  document.getElementById('dPrice').className = 'detail-price';
+
+  const absEl = document.getElementById('dChangeAbs');
+  const pctEl = document.getElementById('dChangePct');
+  absEl.textContent = `${changeSign}$${Math.abs(s.change).toFixed(2)}`;
+  pctEl.textContent = `(${changeSign}${s.changePct.toFixed(2)}%)`;
+  absEl.className = changeClass;
+  pctEl.className = changeClass;
+
+  // Signal card
+  const badge = document.getElementById('signalBadge');
+  badge.textContent = s.signalText;
+  badge.className = 'signal-badge ' + signalClass;
+  document.getElementById('signalEntryPrice').textContent = s.entryZone;
+  document.getElementById('signalReasoning').innerHTML = s.reasoning;
+
+  // Alert ticker
+  const at2 = document.getElementById('alertTicker2');
+  if (at2) at2.textContent = s.ticker;
+
+  // Factor bars
+  const factorBars = document.getElementById('factorBars');
+  const overallScore = Math.round(s.factors.reduce((a, f) => a + f.score, 0) / s.factors.length);
+  factorBars.innerHTML = s.factors.map(f => `
+    <div class="factor-row">
+      <div class="factor-label">${f.label}</div>
+      <div class="factor-bar-bg"><div class="factor-bar-fill ${f.color}" style="width:${f.score}%">${f.score}/100</div></div>
+      <div class="factor-note">${f.note}</div>
+    </div>
+  `).join('') + `<div style="text-align:right;font-family:var(--mono);font-size:12px;margin-top:8px;color:var(--text2)">Overall: <strong style="color:var(--${overallScore >= 70 ? 'green' : overallScore >= 45 ? 'amber' : 'red'})">${overallScore}/100</strong></div>`;
+
+  // Metrics grid
+  const metricsGrid = document.getElementById('metricsGrid');
+  if (!isCrypto) {
+    metricsGrid.innerHTML = `
+      <div class="metric"><div class="metric-label">EPS</div><div class="metric-value">$${s.eps}</div></div>
+      <div class="metric"><div class="metric-label">P/E Ratio</div><div class="metric-value">${s.pe}x</div></div>
+      <div class="metric"><div class="metric-label">Forward P/E</div><div class="metric-value">${s.peForward}x</div></div>
+      <div class="metric"><div class="metric-label">Div Yield</div><div class="metric-value">${s.divYield}%</div></div>
+      <div class="metric"><div class="metric-label">ROE</div><div class="metric-value">${s.roe}%</div></div>
+      <div class="metric"><div class="metric-label">D/E Ratio</div><div class="metric-value">${s.debtEquity}</div></div>
+    `;
+  } else {
+    metricsGrid.innerHTML = `
+      <div class="metric"><div class="metric-label">${s.divYield > 0 ? 'Staking Yield' : 'Yield'}</div><div class="metric-value">${s.divYield}%</div></div>
+      <div class="metric"><div class="metric-label">Market Cap</div><div class="metric-value">${s.marketCap}</div></div>
+      <div class="metric"><div class="metric-label">24h Volume</div><div class="metric-value">$${(s.volume / 1e9).toFixed(1)}B</div></div>
+      <div class="metric"><div class="metric-label">52wk Low</div><div class="metric-value">$${s.low52.toLocaleString()}</div></div>
+      <div class="metric"><div class="metric-label">52wk High</div><div class="metric-value">$${s.high52.toLocaleString()}</div></div>
+      <div class="metric"><div class="metric-label">Revenue</div><div class="metric-value">${s.revenue25}</div></div>
+    `;
+  }
+
+  // 52-Week range bar
+  const range = s.high52 - s.low52;
+  const pct = range > 0 ? ((s.price - s.low52) / range * 100) : 50;
+  document.getElementById('rangeFill').style.width = pct + '%';
+  document.getElementById('rangeCursor').style.left = pct + '%';
+  document.getElementById('rangeLow').textContent = '$' + s.low52.toLocaleString();
+  document.getElementById('rangeHigh').textContent = '$' + s.high52.toLocaleString();
+  document.getElementById('rangeCurrentLabel').textContent = 'Current $' + s.price.toLocaleString();
+
+  // Entry zones
+  document.getElementById('entryZones').innerHTML = `
+    <div class="entry-zone zone-ideal">
+      <span class="zone-label">🟢 Ideal Entry</span>
+      <span class="zone-range">$${s.entryIdeal[0].toLocaleString()} – $${s.entryIdeal[1].toLocaleString()}</span>
+    </div>
+    <div class="entry-zone zone-acceptable">
+      <span class="zone-label">🟡 Acceptable</span>
+      <span class="zone-range">$${s.entryAcceptable[0].toLocaleString()} – $${s.entryAcceptable[1].toLocaleString()}</span>
+    </div>
+    <div class="entry-zone zone-avoid">
+      <span class="zone-label">🔴 Avoid</span>
+      <span class="zone-range">$${s.entryAvoid[0].toLocaleString()} – $${s.entryAvoid[1].toLocaleString()}</span>
+    </div>
+  `;
+
+  // Catalysts
+  document.getElementById('catalystList').innerHTML = s.catalysts.map(c => `
+    <div class="catalyst-card ${c.color}">
+      <div class="catalyst-icon">${c.icon}</div>
+      <div class="catalyst-info">
+        <div class="catalyst-event">${c.event}</div>
+        <div class="catalyst-date">${c.date}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // AI thesis
+  document.getElementById('aiContent').innerHTML = s.thesis;
+
+  // Reset tabs to buy tab
+  switchTab('buy');
+
+  // Render alerts for this asset
+  renderAlerts();
+}
+
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+  const panel = document.getElementById('tab-' + tabId);
+  if (panel) panel.classList.add('active');
+  // Highlight correct button
+  const buttons = document.querySelectorAll('.tab-btn');
+  const idx = tabId === 'buy' ? 0 : tabId === 'sell' ? 1 : 2;
+  if (buttons[idx]) buttons[idx].classList.add('active');
+}
+
+// ============================================
+// GEMINI API INTEGRATION
+// ============================================
+
+const RATE_LIMIT = { count: 0, resetTime: 0, max: 10 };
+
+function checkRateLimit() {
+  const now = Date.now();
+  if (now > RATE_LIMIT.resetTime) { RATE_LIMIT.count = 0; RATE_LIMIT.resetTime = now + 60000; }
+  if (RATE_LIMIT.count >= RATE_LIMIT.max) return false;
+  RATE_LIMIT.count++;
+  return true;
+}
+
+async function callGemini(prompt, model) {
+  const key = getApiKey();
+  if (!key) { showToast('Set your Gemini API key in Settings'); return null; }
+  if (!checkRateLimit()) { showToast('Rate limit: wait 60 seconds'); return null; }
+
+  const models = model ? [model] : ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-2.0-flash-lite'];
+  for (const m of models) {
+    try {
+      const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${encodeURIComponent(key)}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          tools: [{ google_search: {} }],
+          generationConfig: { temperature: 0.7, maxOutputTokens: 4096 }
+        })
+      });
+      if (!resp.ok) continue;
+      const data = await resp.json();
+      return data?.candidates?.[0]?.content?.parts?.[0]?.text || null;
+    } catch(e) { continue; }
+  }
+  return null;
+}
+
+async function fetchLivePrice(ticker, type) {
+  const cacheKey = `global_price_${ticker}`;
+  const cached = localStorage.getItem(cacheKey);
+  if (cached) {
+    const { price, time } = JSON.parse(cached);
+    if (Date.now() - time < 300000) return price;
+  }
+  const assetType = type === 'crypto' ? 'cryptocurrency' : 'stock';
+  const prompt = `What is the current live price of ${ticker} (${assetType}) in US dollars right now? Reply with ONLY the number, no symbols, commas ok. Example: 185.42`;
+  const result = await callGemini(prompt, 'gemini-2.0-flash');
+  if (result) {
+    const price = parseFloat(result.replace(/[^0-9.]/g, ''));
+    if (!isNaN(price) && price > 0) {
+      localStorage.setItem(cacheKey, JSON.stringify({ price, time: Date.now() }));
+      return price;
+    }
+  }
+  return null;
+}
+
+async function refreshCurrentPrice() {
+  if (!currentAsset) return;
+  showLoading(true, `Fetching live price for ${currentAsset.ticker}...`);
+  const price = await fetchLivePrice(currentAsset.ticker, currentAsset.type);
+  showLoading(false);
+  if (price) {
+    currentAsset.price = price;
+    document.getElementById('dPrice').textContent = '$' + price.toLocaleString();
+    document.getElementById('priceSourceBadge').textContent = 'LIVE via Gemini • ' + new Date().toLocaleTimeString();
+    showToast(`${currentAsset.ticker}: $${price.toLocaleString()}`);
+  } else {
+    showToast('Could not fetch price — check API key');
+  }
+}
+
+// ============================================
+// SELL / HOLD ADVISOR
+// ============================================
+
+async function analyzeSell() {
+  if (!currentAsset) return;
+  const buyPrice = parseFloat(document.getElementById('buyPriceInput')?.value);
+  const shares = parseFloat(document.getElementById('sharesInput')?.value) || 1;
+  if (!buyPrice || buyPrice <= 0) { showToast('Enter a valid buy price'); return; }
+
+  const s = currentAsset;
+  const pnl = ((s.price - buyPrice) / buyPrice * 100).toFixed(2);
+  const gain = s.price - buyPrice;
+  const totalGain = gain * shares;
+  const isCrypto = s.type === 'crypto';
+
+  const verdictEl = document.getElementById('sellVerdict');
+  const explEl = document.getElementById('sellExplanation');
+  const statsEl = document.getElementById('sellStats');
+  const resultEl = document.getElementById('sellResult');
+  resultEl.style.display = 'block';
+  verdictEl.textContent = '🤖 Analysing...';
+  explEl.textContent = '';
+  statsEl.innerHTML = '';
+
+  // Stats
+  statsEl.innerHTML = `
+    <div class="stat-row"><span>Buy Price</span><span>$${buyPrice.toLocaleString()}</span></div>
+    <div class="stat-row"><span>Current Price</span><span>$${s.price.toLocaleString()}</span></div>
+    <div class="stat-row"><span>Units</span><span>${shares}</span></div>
+    <div class="stat-row"><span>P&L %</span><span style="color:var(--${gain >= 0 ? 'green' : 'red'})">${gain >= 0 ? '+' : ''}${pnl}%</span></div>
+    <div class="stat-row"><span>Total P&L</span><span style="color:var(--${gain >= 0 ? 'green' : 'red'})">${gain >= 0 ? '+' : '-'}$${Math.abs(totalGain).toFixed(2)}</span></div>
+  `;
+
+  const prompt = `You are a professional ${isCrypto ? 'crypto' : 'stock'} analyst. A user bought ${s.ticker} (${s.name}) at $${buyPrice}. Currently at $${s.price}. P&L: ${pnl}% (${gain >= 0 ? 'profit' : 'loss'} of $${Math.abs(gain).toFixed(2)} per unit).
+
+Key data: ${isCrypto ? `Market cap: ${s.marketCap}` : `PE: ${s.pe}x, EPS: $${s.eps}, ROE: ${s.roe}%`}. 52wk range: $${s.low52.toLocaleString()} – $${s.high52.toLocaleString()}. Signal: ${s.signalText}. Entry zone: ${s.entryZone}.
+
+Give a clear SELL, HOLD, or ADD MORE recommendation:
+1. Start with a single word verdict: SELL, HOLD, or ADD MORE
+2. Explain why in 2-3 sentences
+3. Give specific stop-loss and take-profit targets
+Keep under 150 words.`;
+
+  const result = await callGemini(prompt);
+  if (result) {
+    const firstWord = result.trim().split(/[\s,.!:]/)[0].toUpperCase();
+    const verdictColor = firstWord === 'SELL' ? 'var(--red)' : firstWord === 'ADD' ? 'var(--green)' : 'var(--amber)';
+    verdictEl.innerHTML = `<span style="color:${verdictColor};font-weight:800;font-size:18px">${firstWord === 'ADD' ? 'ADD MORE' : firstWord}</span>`;
+    explEl.innerHTML = result;
+  } else {
+    // Offline fallback
+    const verdict = s.price <= s.entryIdeal[1] ? 'ADD MORE' : s.price <= s.entryAcceptable[1] ? 'HOLD' : 'CONSIDER SELLING';
+    const verdictColor = verdict === 'ADD MORE' ? 'var(--green)' : verdict === 'HOLD' ? 'var(--amber)' : 'var(--red)';
+    verdictEl.innerHTML = `<span style="color:${verdictColor};font-weight:800;font-size:18px">${verdict}</span>`;
+    explEl.innerHTML = `<p>Current price $${s.price.toLocaleString()} is ${s.price <= s.entryIdeal[1] ? 'in the ideal entry zone — consider adding to your position.' : s.price <= s.entryAcceptable[1] ? 'in the acceptable range — hold.' : 'above optimal entry — consider taking partial profits.'}</p><p style="color:var(--text3);font-size:12px">Set your API key for detailed AI analysis.</p>`;
+  }
+}
+
+// ============================================
+// PRICE ALERTS
+// ============================================
+
+function loadAlerts() {
+  try { alerts = JSON.parse(localStorage.getItem('global_alerts') || '[]'); } catch(e) { alerts = []; }
+}
+
+function saveAlerts() { localStorage.setItem('global_alerts', JSON.stringify(alerts)); }
+
+function addAlert() {
+  if (!currentAsset) return;
+  const price = parseFloat(document.getElementById('alertPriceInput')?.value);
+  const type = document.getElementById('alertTypeInput')?.value || 'below';
+  if (!price || price <= 0) { showToast('Enter a valid price'); return; }
+  alerts.push({ ticker: currentAsset.ticker, name: currentAsset.name, price, type, created: Date.now() });
+  saveAlerts();
+  renderAlerts();
+  showToast(`Alert set: ${currentAsset.ticker} ${type} $${price.toLocaleString()}`);
+  document.getElementById('alertPriceInput').value = '';
+}
+
+function removeAlert(idx) {
+  alerts.splice(idx, 1);
+  saveAlerts();
+  renderAlerts();
+}
+
+function renderAlerts() {
+  const container = document.getElementById('alertsList');
+  if (!container) return;
+  const assetAlerts = currentAsset ? alerts.filter(a => a.ticker === currentAsset.ticker) : [];
+  if (assetAlerts.length === 0) {
+    container.innerHTML = '<div class="empty-alerts">No alerts set yet.</div>';
+    return;
+  }
+  container.innerHTML = assetAlerts.map((a, i) => {
+    const icon = a.type === 'above' ? '📈' : '📉';
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;margin-bottom:8px">
+      <div><strong>${a.ticker}</strong> — ${icon} ${a.type === 'above' ? 'Above' : 'Below'} $${a.price.toLocaleString()}</div>
+      <button onclick="removeAlert(${i})" style="background:none;border:none;color:var(--red);cursor:pointer;font-size:1.1rem">✕</button>
+    </div>`;
+  }).join('');
+}
+
+// ============================================
+// SECTOR DATA — GLOBAL MARKETS
+// ============================================
+
+const GLOBAL_SECTORS = [
+  {
+    name: "Technology", icon: "💻", tickers: ["AAPL","MSFT","NVDA","GOOGL","META"],
+    score: 88, signal: "Strong Buy", color: "green",
+    thesis: "AI infrastructure spending is creating a once-in-a-decade capex supercycle. Mag7 tech companies are spending $300B+ on AI in 2026. Cloud revenue is accelerating."
+  },
+  {
+    name: "Healthcare", icon: "🏥", tickers: ["UNH","LLY","JNJ","ABBV","MRK"],
+    score: 68, signal: "Selective Buy", color: "amber",
+    thesis: "GLP-1 drugs (Ozempic, Mounjaro) are a $100B+ market opportunity. Outside of GLP-1, healthcare faces Medicare pricing pressure and patent cliffs."
+  },
+  {
+    name: "Finance", icon: "🏦", tickers: ["JPM","V","MA","BAC","GS"],
+    score: 72, signal: "Buy on Dips", color: "green",
+    thesis: "Banks benefit from higher-for-longer rates. Visa/Mastercard are toll roads on global spending. Asset managers benefit from ETF inflows."
+  },
+  {
+    name: "Energy", icon: "⛽", tickers: ["XOM","CVX","COP","SLB","EOG"],
+    score: 55, signal: "Hold / Underweight", color: "amber",
+    thesis: "Oil prices range-bound ($65–$85/barrel). Natural gas better positioned on AI data centre power demand. Energy is a dividend play, not a growth play."
+  },
+  {
+    name: "Consumer", icon: "🛒", tickers: ["AMZN","COST","WMT","HD","NKE"],
+    score: 65, signal: "Quality Names Only", color: "amber",
+    thesis: "Consumer spending slowing but resilient. Premium brands gaining share. Own Costco, Amazon, Walmart — avoid discretionary names exposed to tariffs."
+  },
+  {
+    name: "DeFi & L1s", icon: "⛓️", tickers: ["ETH","SOL","AVAX","DOT","ADA"],
+    score: 78, signal: "Accumulate", color: "green",
+    thesis: "Layer 1 blockchains are the infrastructure of crypto. ETH dominates DeFi. SOL is fastest-growing for retail. L1s historically outperform BTC 2–5x in late bull market."
+  },
+  {
+    name: "Memecoins", icon: "🐸", tickers: ["DOGE","SHIB","PEPE","WIF","BONK"],
+    score: 25, signal: "Extreme Caution", color: "red",
+    thesis: "Pure speculation. Can 10x or go to zero. Use <5% of portfolio, take profits at 2x, never HODL long term. Most memecoin buyers lose money."
+  },
+  {
+    name: "Real Assets", icon: "🏗️", tickers: ["GLD","SLV","BTC","AMT","PLD"],
+    score: 62, signal: "Defensive Allocation", color: "amber",
+    thesis: "Gold at all-time highs as central banks diversify. Bitcoin emerging as digital gold. Data centre REITs benefit from AI infrastructure demand."
+  }
+];
+
+const GLOBAL_STOCK_PICKS = [
+  { ticker:"NVDA", name:"NVIDIA", sector:"Technology", signal:"explode", momentum:95, allocation:"8–12%", horizon:"6–12mo", why:"AI GPU monopoly, 50%+ growth, fwd PE 28x" },
+  { ticker:"GOOGL", name:"Alphabet", sector:"Technology", signal:"explode", momentum:88, allocation:"8–10%", horizon:"6–12mo", why:"Cheapest Mag7 at 20x PE, $95B cash" },
+  { ticker:"MSFT", name:"Microsoft", sector:"Technology", signal:"building", momentum:82, allocation:"6–8%", horizon:"6–12mo", why:"Azure + Copilot AI, 17% below ATH" },
+  { ticker:"META", name:"Meta", sector:"Technology", signal:"building", momentum:80, allocation:"5–7%", horizon:"6–12mo", why:"3.9B users, 22% ad revenue growth" },
+  { ticker:"ETH", name:"Ethereum", sector:"Crypto", signal:"explode", momentum:85, allocation:"7–10%", horizon:"6–18mo", why:"53% below ATH, DeFi backbone, 3.5% yield" },
+  { ticker:"BTC", name:"Bitcoin", sector:"Crypto", signal:"building", momentum:78, allocation:"10–15%", horizon:"12–18mo", why:"Post-halving cycle, ETF inflows" },
+  { ticker:"AMZN", name:"Amazon", sector:"Technology", signal:"building", momentum:76, allocation:"5–7%", horizon:"6–12mo", why:"AWS $100B+, margin expansion" },
+  { ticker:"AAPL", name:"Apple", sector:"Technology", signal:"hold", momentum:65, allocation:"3–5%", horizon:"12mo+", why:"Quality compounder but 32x PE — wait" },
+  { ticker:"SOL", name:"Solana", sector:"Crypto", signal:"watch", momentum:70, allocation:"3–5%", horizon:"6–12mo", why:"Fastest blockchain, ETF pending" },
+  { ticker:"TSLA", name:"Tesla", sector:"Autos", signal:"exit", momentum:30, allocation:"0%", horizon:"N/A", why:"105x PE, declining deliveries" },
+  { ticker:"XRP", name:"XRP", sector:"Crypto", signal:"watch", momentum:55, allocation:"2–3%", horizon:"6–12mo", why:"SEC clarity priced in, ETF pending" },
+  { ticker:"BNB", name:"BNB", sector:"Crypto", signal:"hold", momentum:60, allocation:"2–3%", horizon:"6–12mo", why:"Binance exchange token, quarterly burns" }
+];
+
+const GLOBAL_EXIT_SIGNALS = [
+  {
+    sector: "Technology", icon: "💻",
+    signal: "Reduce on Euphoria",
+    condition: "NASDAQ-100 exceeds 25,000 with VIX below 12",
+    detail: "Tech is cyclical at extremes. When volatility drops to historic lows and valuations exceed 35x forward PE, trim positions by 20–30%."
+  },
+  {
+    sector: "Crypto", icon: "₿",
+    signal: "Take Profits at Cycle Top",
+    condition: "BTC Fear & Greed > 90 for 14+ days, or BTC $150K+",
+    detail: "Every crypto cycle ends with euphoria then 70–80% drawdowns. When Bitcoin hits $150K in Extreme Greed for 2+ weeks, sell 30–50% of crypto."
+  },
+  {
+    sector: "Healthcare", icon: "🏥",
+    signal: "Watch for Patent Cliffs",
+    condition: "Major drug patent expirations in 2025–2027",
+    detail: "Pfizer (Eliquis cliff 2026), AbbVie (Humira erosion), Merck (Keytruda cliff 2028). Sell 6–12 months before patent cliff hits revenue."
+  },
+  {
+    sector: "Memecoins", icon: "🐸",
+    signal: "Exit When Volume Dies",
+    condition: "24h volume drops 70%+ from peak",
+    detail: "Memecoin rallies last days to weeks. If 24h volume drops 70% from peak, the pump is over. The average memecoin loses 90% within 90 days of peak."
+  }
+];
+
+// ============================================
+// SECTOR RADAR RENDERING
+// ============================================
+
+function renderHeatGrid() {
+  const grid = document.getElementById('heatGrid');
+  if (!grid) return;
+  grid.innerHTML = GLOBAL_SECTORS.map(sec => `
+    <div class="heat-cell" onclick="showSectorDetail('${sec.name}')" style="border-left:3px solid var(--${sec.color});cursor:pointer">
+      <div class="heat-icon">${sec.icon}</div>
+      <div class="heat-name">${sec.name}</div>
+      <div class="heat-score" style="color:var(--${sec.color})">${sec.score}/100</div>
+      <div class="heat-signal">${sec.signal}</div>
+    </div>
+  `).join('');
+}
+
+function showSectorDetail(name) {
+  const sec = GLOBAL_SECTORS.find(s => s.name === name);
+  if (!sec) return;
+  const panel = document.getElementById('sectorDetailPanel');
+  panel.innerHTML = `
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-top:16px;">
+      <h3 style="margin-bottom:8px">${sec.icon} ${sec.name} — ${sec.signal}</h3>
+      <div class="factor-bar-bg" style="margin:12px 0"><div class="factor-bar-fill ${sec.color}" style="width:${sec.score}%">${sec.score}/100</div></div>
+      <p style="font-size:13px;line-height:1.7;color:var(--text2)">${sec.thesis}</p>
+      <div style="margin-top:12px"><strong style="font-size:12px">Key Tickers:</strong> ${sec.tickers.map(t => `<span class="ticker-chip" onclick="navigateToAsset('${t}')" style="cursor:pointer;display:inline-block;padding:4px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;margin:3px;font-family:var(--mono);font-size:11px">${t}</span>`).join(' ')}</div>
+    </div>
+  `;
+  panel.style.display = 'block';
+}
+
+function navigateToAsset(ticker) {
+  const asset = ALL_GLOBAL_ASSETS.find(a => a.ticker === ticker);
+  if (asset) {
+    selectAsset(ticker);
+  } else {
+    showToast(`${ticker} — detailed analysis coming soon`);
+  }
+}
+
+// ============================================
+// STOCK PICKS TABLE
+// ============================================
+
+let currentPickFilter = 'all';
+
+function renderPicksTable(filter) {
+  filter = filter || currentPickFilter;
+  const tbody = document.getElementById('picksTableBody');
+  if (!tbody) return;
+
+  const filtered = filter === 'all' ? GLOBAL_STOCK_PICKS : GLOBAL_STOCK_PICKS.filter(p => p.signal === filter);
+  
+  const signalEmoji = { explode: '🚀', building: '📈', hold: '💎', exit: '🚪', watch: '👀' };
+  const signalLabel = { explode: 'EXPLODE', building: 'BUILDING', hold: 'HOLD', exit: 'EXIT', watch: 'WATCH' };
+  const signalColor = { explode: 'green', building: 'blue', hold: 'amber', exit: 'red', watch: 'text2' };
+
+  tbody.innerHTML = filtered.map(p => {
+    const asset = ALL_GLOBAL_ASSETS.find(a => a.ticker === p.ticker);
+    const price = asset ? '$' + asset.price.toLocaleString() : '—';
+    return `<tr onclick="navigateToAsset('${p.ticker}')" style="cursor:pointer">
+      <td><strong>${p.ticker}</strong><br><span style="font-size:11px;color:var(--text3)">${p.name}</span></td>
+      <td>${p.sector}</td>
+      <td style="font-family:var(--mono)">${price}</td>
+      <td><span style="color:var(--${signalColor[p.signal]})">${signalEmoji[p.signal] || ''} ${signalLabel[p.signal] || p.signal.toUpperCase()}</span></td>
+      <td><div class="factor-bar-bg" style="width:80px;height:6px;display:inline-block;vertical-align:middle"><div class="factor-bar-fill ${signalColor[p.signal]}" style="width:${p.momentum}%"></div></div> ${p.momentum}</td>
+      <td style="font-family:var(--mono);font-size:12px">${p.allocation}</td>
+      <td style="font-size:12px">${p.horizon}</td>
+      <td style="font-size:12px;max-width:200px">${p.why}</td>
+    </tr>`;
+  }).join('');
+}
+
+function filterPicksTable(filter, btn) {
+  currentPickFilter = filter;
+  document.querySelectorAll('#stockPickFilters .filter-chip').forEach(c => c.classList.remove('on'));
+  if (btn) btn.classList.add('on');
+  renderPicksTable(filter);
+}
+
+// ============================================
+// EXIT SIGNALS RENDERING
+// ============================================
+
+function renderExitCards() {
+  const container = document.getElementById('exitCards');
+  if (!container) return;
+  container.innerHTML = GLOBAL_EXIT_SIGNALS.map(e => `
+    <div class="exit-card" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="font-size:20px">${e.icon}</span>
+        <strong>${e.sector}</strong>
+        <span style="margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--red);background:var(--red-dim);padding:3px 8px;border-radius:4px">${e.signal}</span>
+      </div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--amber);background:var(--amber-dim);padding:8px 12px;border-radius:6px;margin-bottom:10px">⚡ ${e.condition}</div>
+      <p style="font-size:13px;line-height:1.7;color:var(--text2);margin:0">${e.detail}</p>
+    </div>
+  `).join('');
+}
+
+// ============================================
+// POSITION SIZER
+// ============================================
+
+function calculateAllocation() {
+  const capital = parseFloat(document.getElementById('totalCapital')?.value);
+  const risk = document.getElementById('riskLevel')?.value || 'moderate';
+  if (!capital || capital <= 0) { showToast('Enter your total capital'); return; }
+
+  let allocations;
+  if (risk === 'conservative') {
+    allocations = [
+      { asset: 'US Large Cap (VOO/SPY)', pct: 40, color: 'var(--blue)' },
+      { asset: 'Bonds / Fixed Income', pct: 25, color: 'var(--text2)' },
+      { asset: 'International (VXUS)', pct: 15, color: 'var(--purple)' },
+      { asset: 'Bitcoin (BTC)', pct: 5, color: 'var(--amber)' },
+      { asset: 'Ethereum (ETH)', pct: 3, color: 'var(--blue)' },
+      { asset: 'Gold (GLD)', pct: 7, color: 'var(--amber)' },
+      { asset: 'Cash Reserve', pct: 5, color: 'var(--text3)' }
+    ];
+  } else if (risk === 'aggressive') {
+    allocations = [
+      { asset: 'Mag7 Individual Stocks', pct: 35, color: 'var(--green)' },
+      { asset: 'Growth Tech (QQQ)', pct: 20, color: 'var(--blue)' },
+      { asset: 'Bitcoin (BTC)', pct: 15, color: 'var(--amber)' },
+      { asset: 'Ethereum (ETH)', pct: 10, color: 'var(--blue)' },
+      { asset: 'Alt Crypto (SOL, etc.)', pct: 8, color: 'var(--purple)' },
+      { asset: 'Speculative', pct: 7, color: 'var(--red)' },
+      { asset: 'Cash Reserve', pct: 5, color: 'var(--text3)' }
+    ];
+  } else {
+    allocations = [
+      { asset: 'US Large Cap / ETFs', pct: 30, color: 'var(--blue)' },
+      { asset: 'Mag7 Stocks', pct: 20, color: 'var(--green)' },
+      { asset: 'International / EM', pct: 10, color: 'var(--purple)' },
+      { asset: 'Bitcoin (BTC)', pct: 10, color: 'var(--amber)' },
+      { asset: 'Ethereum (ETH)', pct: 7, color: 'var(--blue)' },
+      { asset: 'Alt Crypto', pct: 5, color: 'var(--purple)' },
+      { asset: 'Bonds', pct: 10, color: 'var(--text2)' },
+      { asset: 'Cash Reserve', pct: 8, color: 'var(--text3)' }
+    ];
+  }
+
+  const resultEl = document.getElementById('allocResult');
+  resultEl.style.display = 'block';
+
+  // Summary cards
+  const stockPct = allocations.filter(a => !a.asset.includes('Crypto') && !a.asset.includes('Bitcoin') && !a.asset.includes('Ethereum') && !a.asset.includes('Cash') && !a.asset.includes('Bond') && !a.asset.includes('Gold')).reduce((s,a) => s + a.pct, 0);
+  const cryptoPct = allocations.filter(a => a.asset.includes('Crypto') || a.asset.includes('Bitcoin') || a.asset.includes('Ethereum')).reduce((s,a) => s + a.pct, 0);
+  const otherPct = 100 - stockPct - cryptoPct;
+
+  document.getElementById('allocSummary').innerHTML = `
+    <div style="background:var(--bg3);border-radius:10px;padding:16px;text-align:center">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:1px">STOCKS</div>
+      <div style="font-size:24px;font-weight:800;color:var(--green)">${stockPct}%</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--text2)">$${(capital * stockPct / 100).toLocaleString(undefined,{maximumFractionDigits:0})}</div>
+    </div>
+    <div style="background:var(--bg3);border-radius:10px;padding:16px;text-align:center">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:1px">CRYPTO</div>
+      <div style="font-size:24px;font-weight:800;color:var(--blue)">${cryptoPct}%</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--text2)">$${(capital * cryptoPct / 100).toLocaleString(undefined,{maximumFractionDigits:0})}</div>
+    </div>
+    <div style="background:var(--bg3);border-radius:10px;padding:16px;text-align:center">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:1px">OTHER</div>
+      <div style="font-size:24px;font-weight:800;color:var(--text2)">${otherPct}%</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--text2)">$${(capital * otherPct / 100).toLocaleString(undefined,{maximumFractionDigits:0})}</div>
+    </div>
+  `;
+
+  // Breakdown bars
+  document.getElementById('allocBreakdown').innerHTML = allocations.map(a => `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+      <div style="width:140px;font-size:12px;color:var(--text2)">${a.asset}</div>
+      <div style="flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden"><div style="height:100%;width:${a.pct}%;background:${a.color};border-radius:4px"></div></div>
+      <div style="font-family:var(--mono);font-size:12px;width:45px;text-align:right">${a.pct}%</div>
+      <div style="font-family:var(--mono);font-size:12px;width:80px;text-align:right;color:var(--text2)">$${(capital * a.pct / 100).toLocaleString(undefined,{maximumFractionDigits:0})}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('allocExplanation').innerHTML = `⚠️ This is educational guidance, not financial advice. The ${risk} profile ${risk === 'conservative' ? 'prioritises capital preservation with minimal crypto exposure' : risk === 'aggressive' ? 'maximises growth potential with higher crypto allocation — expect 30-50% drawdowns' : 'balances growth and safety with moderate crypto exposure'}. Adjust based on your age, income stability, and risk tolerance.`;
+}
+
+// ============================================
+// MODULE SWITCHING
+// ============================================
+
+function switchModule(module) {
+  currentModule = module;
+  document.querySelectorAll('.module-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.module-nav-btn').forEach(n => n.classList.remove('active'));
+
+  const panel = document.getElementById('module-' + module);
+  if (panel) panel.classList.add('active');
+
+  const btn = document.getElementById('mnav-' + module);
+  if (btn) btn.classList.add('active');
+
+  if (module === 'sectors') renderHeatGrid();
+  if (module === 'picks') renderPicksTable();
+  if (module === 'exit') renderExitCards();
+}
+
+// ============================================
+// AI FULL SCAN
+// ============================================
+
+async function runFullScan() {
+  const key = getApiKey();
+  if (!key) { showToast('Set your Gemini API key first'); return; }
+
+  showLoading(true, '🤖 Running AI market scan across global stocks & crypto...');
+
+  const tickers = ALL_GLOBAL_ASSETS.map(a => `${a.ticker} ($${a.price.toLocaleString()}, ${a.signalText})`).join(', ');
+
+  const prompt = `You are a professional global market analyst. Assets tracked:
+
+${tickers}
+
+Provide a comprehensive market brief in HTML format:
+1. <h3>🌍 Market Snapshot</h3> — 2 sentences on current conditions
+2. <h3>🔥 Top 3 Buys Right Now</h3> — best risk-reward with 1 sentence reasoning each
+3. <h3>⚠️ What to Avoid</h3> — overvalued/risky assets
+4. <h3>📊 Crypto vs Stocks</h3> — which offers better risk-adjusted returns now
+5. <h3>📆 Key Events This Week</h3> — upcoming catalysts
+
+Under 400 words. Use bullet points. Be specific with tickers and prices.`;
+
+  const result = await callGemini(prompt);
+  showLoading(false);
+
+  if (result) {
+    document.getElementById('macroAnalysis').innerHTML = result;
+  } else {
+    showToast('Scan failed — check API key');
+  }
+}
+
+// ============================================
+// STOCK PICKER (AUTOCOMPLETE)
+// ============================================
+
+function onPickerInput() {
+  const q = document.getElementById('pickerInput').value.toLowerCase().trim();
+  if (!q) { closeDropdown(); return; }
+  const matches = ALL_GLOBAL_ASSETS.filter(a =>
+    a.ticker.toLowerCase().includes(q) || a.name.toLowerCase().includes(q) || a.sector.toLowerCase().includes(q)
+  ).slice(0, 8);
+  const dd = document.getElementById('pickerDropdown');
+  pickerHighlight = -1;
+  if (matches.length === 0) { dd.innerHTML = '<div class="picker-item" style="color:var(--text3)">No matches</div>'; dd.classList.add('show'); return; }
+  dd.innerHTML = matches.map((a, i) => {
+    const cls = a.signal === 'buy' ? 'signal-buy' : a.signal === 'avoid' ? 'signal-sell' : 'signal-hold';
+    return `<div class="picker-item" data-idx="${i}" onclick="pickAsset('${a.ticker}')" style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border)">
+      <div><strong>${a.ticker}</strong> <span style="color:var(--text3);font-size:12px">${a.name}</span></div>
+      <div style="font-size:11px;color:var(--text2)">$${a.price.toLocaleString()}</div>
+    </div>`;
+  }).join('');
+  dd.classList.add('show');
+}
+
+function onPickerKey(e) {
+  const dd = document.getElementById('pickerDropdown');
+  const items = dd.querySelectorAll('.picker-item[data-idx]');
+  if (e.key === 'ArrowDown') { e.preventDefault(); pickerHighlight = Math.min(pickerHighlight + 1, items.length - 1); highlightPickerItem(items); }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); pickerHighlight = Math.max(pickerHighlight - 1, 0); highlightPickerItem(items); }
+  else if (e.key === 'Enter') { e.preventDefault(); if (pickerHighlight >= 0 && items[pickerHighlight]) items[pickerHighlight].click(); else analyseFromPicker(); }
+  else if (e.key === 'Escape') { closeDropdown(); }
+}
+
+function highlightPickerItem(items) {
+  items.forEach((it, i) => it.style.background = i === pickerHighlight ? 'var(--bg3)' : 'transparent');
+}
+
+function openDropdown() { onPickerInput(); }
+function closeDropdown() { document.getElementById('pickerDropdown').classList.remove('show'); }
+
+function pickAsset(ticker) {
+  closeDropdown();
+  document.getElementById('pickerInput').value = '';
+  selectAsset(ticker);
+}
+
+function analyseFromPicker() {
+  const q = document.getElementById('pickerInput').value.trim().toUpperCase();
+  if (!q) return;
+  const asset = ALL_GLOBAL_ASSETS.find(a => a.ticker === q);
+  if (asset) { pickAsset(q); return; }
+  // Try partial match
+  const match = ALL_GLOBAL_ASSETS.find(a => a.ticker.includes(q) || a.name.toUpperCase().includes(q));
+  if (match) { pickAsset(match.ticker); return; }
+  showToast(`${q} not found — try a different ticker`);
+}
+
+// Close dropdown on outside click
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('#pickerWrap')) closeDropdown();
+});
+
+// ============================================
+// QUICK CHIPS
+// ============================================
+
+function renderQuickChips() {
+  const chips = ['NVDA', 'AAPL', 'MSFT', 'GOOGL', 'BTC', 'ETH', 'SOL', 'TSLA', 'META', 'AMZN'];
+  const el = document.getElementById('quickChips');
+  if (!el) return;
+  el.innerHTML = chips.map(t => {
+    const a = ALL_GLOBAL_ASSETS.find(x => x.ticker === t);
+    if (!a) return '';
+    const clr = a.signal === 'buy' ? 'green' : a.signal === 'avoid' ? 'red' : 'amber';
+    return `<span class="quick-chip" onclick="selectAsset('${t}')" style="cursor:pointer;display:inline-block;padding:5px 12px;background:var(--${clr}-dim);color:var(--${clr});border:1px solid rgba(var(--${clr}-rgb,0,0,0),0.2);border-radius:20px;font-family:var(--mono);font-size:11px;margin:3px">${t} $${a.price.toLocaleString()}</span>`;
+  }).join('');
+}
+
+// ============================================
+// BEGINNER MODE
+// ============================================
+
+function toggleBeginner() {
+  beginnerModeOn = !beginnerModeOn;
+  const toggle = document.getElementById('beginnerToggle');
+  const label = document.getElementById('beginnerLabel');
+  toggle.classList.toggle('on', beginnerModeOn);
+  label.textContent = beginnerModeOn ? 'EXPLAIN MODE' : 'EXPERT MODE';
+  document.querySelectorAll('.beginner-tip-bar').forEach(el => {
+    el.style.display = beginnerModeOn ? 'block' : 'none';
+  });
+}
+
+// ============================================
+// MOBILE SIDEBAR TOGGLE
+// ============================================
+
+function toggleSidebar() {
+  document.querySelector('.sidebar')?.classList.toggle('open');
+}
+
+// ============================================
+// INITIALIZATION
+// ============================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadAlerts();
+  renderSidebar();
+  renderQuickChips();
+
+  // Load API key into settings input if exists
+  const savedKey = getApiKey();
+  if (savedKey) {
+    const input = document.getElementById('geminiKeyInput');
+    if (input) input.value = savedKey;
+  }
+
+  // Show welcome state, hide detail
+  document.getElementById('welcomeState').style.display = 'block';
+  document.getElementById('stockDetail').style.display = 'none';
+});
+</script>
+
+</body>
+</html>
