@@ -163,8 +163,9 @@ header { background:var(--bg2); border-bottom:1px solid var(--border); padding:0
 /* FACTORS */
 .factors-section { margin-top:16px; padding-top:16px; border-top:1px solid var(--border); }
 .factors-title { font-family:var(--mono); font-size:10px; letter-spacing:1.5px; color:var(--text3); text-transform:uppercase; margin-bottom:14px; }
-.factor-row { display:grid; grid-template-columns:100px 1fr 60px; align-items:center; gap:12px; margin-bottom:10px; }
+.factor-row { display:grid; grid-template-columns:100px 1fr 60px 160px; align-items:center; gap:12px; margin-bottom:10px; }
 .factor-label { font-size:12px; color:var(--text2); }
+.factor-note { font-size:11px; color:var(--text3); }
 .factor-bar-track { height:6px; background:rgba(255,255,255,0.06); border-radius:3px; overflow:hidden; }
 .factor-bar-fill { height:100%; border-radius:3px; transition:width 0.8s cubic-bezier(0.4,0,0.2,1); }
 .fill-green { background:var(--green); }
@@ -517,7 +518,10 @@ tr:hover td { background:var(--bg3); }
     </div>
   </div>
   <div class="sidebar-section">
-    <div class="sidebar-title">ASSETS (<span id="assetCount">0</span>)</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+      <div class="sidebar-title" style="margin-bottom:0">ASSETS (<span id="assetCount">0</span>)</div>
+      <button onclick="refreshAllPrices()" style="background:none;border:1px solid var(--border);border-radius:6px;padding:4px 10px;color:var(--text3);font-family:var(--mono);font-size:10px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.color='var(--blue)';this.style.borderColor='rgba(77,159,255,0.3)'" onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border)'">⟳ Live</button>
+    </div>
     <div class="stock-list" id="assetList"></div>
   </div>
 </aside>
@@ -564,6 +568,7 @@ tr:hover td { background:var(--bg3); }
           <span id="dChangePct"></span>
         </div>
         <div id="priceSourceBadge" style="font-family:var(--mono);font-size:10px;margin-top:4px;text-align:right;"></div>
+        <button onclick="refreshCurrentPrice()" style="margin-top:8px;background:var(--blue);color:#fff;border:none;border-radius:6px;padding:6px 14px;font-family:var(--mono);font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;margin-left:auto;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">⟳ Refresh Price</button>
       </div>
     </div>
 
@@ -1102,19 +1107,19 @@ function showToast(msg) {
   const text = document.getElementById('toastText');
   if (title) title.textContent = '💡 Notice';
   if (text) text.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3500);
+  t.classList.add('visible');
+  setTimeout(() => t.classList.remove('visible'), 3500);
 }
 
 function closeToast() {
-  document.getElementById('beginnerToast').classList.remove('show');
+  document.getElementById('beginnerToast').classList.remove('visible');
 }
 
 function showLoading(show, msg) {
   const overlay = document.getElementById('loadingOverlay');
   const text = document.getElementById('loadingText');
-  if (show) { text.textContent = msg || 'Analysing...'; overlay.classList.add('show'); }
-  else { overlay.classList.remove('show'); }
+  if (show) { text.textContent = msg || 'Analysing...'; overlay.classList.add('visible'); }
+  else { overlay.classList.remove('visible'); }
 }
 
 // ============================================
@@ -1164,7 +1169,7 @@ function renderSidebar() {
   if (countEl) countEl.textContent = filtered.length;
   container.innerHTML = filtered.map(s => {
     const active = currentAsset && currentAsset.ticker === s.ticker ? 'active' : '';
-    const changeClass = s.changePct >= 0 ? 'pos' : 'neg';
+    const changeClass = s.changePct >= 0 ? 'change-up' : 'change-down';
     const changeIcon = s.changePct >= 0 ? '▲' : '▼';
     return `<div class="stock-item ${active}" onclick="selectAsset('${s.ticker}')">
       <div class="stock-item-left">
@@ -1207,8 +1212,8 @@ function renderStockDetail(s) {
   document.getElementById('welcomeState').style.display = 'none';
   document.getElementById('stockDetail').style.display = 'block';
 
-  const signalClass = s.signal === 'buy' ? 'signal-buy' : s.signal === 'avoid' ? 'signal-sell' : 'signal-hold';
-  const changeClass = s.changePct >= 0 ? 'pos' : 'neg';
+  const signalClass = s.signal;
+  const changeClass = s.changePct >= 0 ? 'change-up' : 'change-down';
   const changeSign = s.changePct >= 0 ? '+' : '';
   const isCrypto = s.type === 'crypto';
 
@@ -1227,6 +1232,8 @@ function renderStockDetail(s) {
   pctEl.className = changeClass;
 
   // Signal card
+  const signalCard = document.getElementById('signalCard');
+  signalCard.className = 'signal-card ' + signalClass;
   const badge = document.getElementById('signalBadge');
   badge.textContent = s.signalText;
   badge.className = 'signal-badge ' + signalClass;
@@ -1243,7 +1250,8 @@ function renderStockDetail(s) {
   factorBars.innerHTML = s.factors.map(f => `
     <div class="factor-row">
       <div class="factor-label">${f.label}</div>
-      <div class="factor-bar-bg"><div class="factor-bar-fill ${f.color}" style="width:${f.score}%">${f.score}/100</div></div>
+      <div class="factor-bar-track"><div class="factor-bar-fill fill-${f.color}" style="width:${f.score}%"></div></div>
+      <div class="factor-score">${f.score}/100</div>
       <div class="factor-note">${f.note}</div>
     </div>
   `).join('') + `<div style="text-align:right;font-family:var(--mono);font-size:12px;margin-top:8px;color:var(--text2)">Overall: <strong style="color:var(--${overallScore >= 70 ? 'green' : overallScore >= 45 ? 'amber' : 'red'})">${overallScore}/100</strong></div>`;
@@ -1252,21 +1260,21 @@ function renderStockDetail(s) {
   const metricsGrid = document.getElementById('metricsGrid');
   if (!isCrypto) {
     metricsGrid.innerHTML = `
-      <div class="metric"><div class="metric-label">EPS</div><div class="metric-value">$${s.eps}</div></div>
-      <div class="metric"><div class="metric-label">P/E Ratio</div><div class="metric-value">${s.pe}x</div></div>
-      <div class="metric"><div class="metric-label">Forward P/E</div><div class="metric-value">${s.peForward}x</div></div>
-      <div class="metric"><div class="metric-label">Div Yield</div><div class="metric-value">${s.divYield}%</div></div>
-      <div class="metric"><div class="metric-label">ROE</div><div class="metric-value">${s.roe}%</div></div>
-      <div class="metric"><div class="metric-label">D/E Ratio</div><div class="metric-value">${s.debtEquity}</div></div>
+      <div class="metric-card"><div class="metric-label">EPS</div><div class="metric-value">$${s.eps}</div></div>
+      <div class="metric-card"><div class="metric-label">P/E Ratio</div><div class="metric-value">${s.pe}x</div></div>
+      <div class="metric-card"><div class="metric-label">Forward P/E</div><div class="metric-value">${s.peForward}x</div></div>
+      <div class="metric-card"><div class="metric-label">Div Yield</div><div class="metric-value">${s.divYield}%</div></div>
+      <div class="metric-card"><div class="metric-label">ROE</div><div class="metric-value">${s.roe}%</div></div>
+      <div class="metric-card"><div class="metric-label">D/E Ratio</div><div class="metric-value">${s.debtEquity}</div></div>
     `;
   } else {
     metricsGrid.innerHTML = `
-      <div class="metric"><div class="metric-label">${s.divYield > 0 ? 'Staking Yield' : 'Yield'}</div><div class="metric-value">${s.divYield}%</div></div>
-      <div class="metric"><div class="metric-label">Market Cap</div><div class="metric-value">${s.marketCap}</div></div>
-      <div class="metric"><div class="metric-label">24h Volume</div><div class="metric-value">$${(s.volume / 1e9).toFixed(1)}B</div></div>
-      <div class="metric"><div class="metric-label">52wk Low</div><div class="metric-value">$${s.low52.toLocaleString()}</div></div>
-      <div class="metric"><div class="metric-label">52wk High</div><div class="metric-value">$${s.high52.toLocaleString()}</div></div>
-      <div class="metric"><div class="metric-label">Revenue</div><div class="metric-value">${s.revenue25}</div></div>
+      <div class="metric-card"><div class="metric-label">${s.divYield > 0 ? 'Staking Yield' : 'Yield'}</div><div class="metric-value">${s.divYield}%</div></div>
+      <div class="metric-card"><div class="metric-label">Market Cap</div><div class="metric-value">${s.marketCap}</div></div>
+      <div class="metric-card"><div class="metric-label">24h Volume</div><div class="metric-value">$${(s.volume / 1e9).toFixed(1)}B</div></div>
+      <div class="metric-card"><div class="metric-label">52wk Low</div><div class="metric-value">$${s.low52.toLocaleString()}</div></div>
+      <div class="metric-card"><div class="metric-label">52wk High</div><div class="metric-value">$${s.high52.toLocaleString()}</div></div>
+      <div class="metric-card"><div class="metric-label">Revenue</div><div class="metric-value">${s.revenue25}</div></div>
     `;
   }
 
@@ -1281,25 +1289,16 @@ function renderStockDetail(s) {
 
   // Entry zones
   document.getElementById('entryZones').innerHTML = `
-    <div class="entry-zone zone-ideal">
-      <span class="zone-label">🟢 Ideal Entry</span>
-      <span class="zone-range">$${s.entryIdeal[0].toLocaleString()} – $${s.entryIdeal[1].toLocaleString()}</span>
-    </div>
-    <div class="entry-zone zone-acceptable">
-      <span class="zone-label">🟡 Acceptable</span>
-      <span class="zone-range">$${s.entryAcceptable[0].toLocaleString()} – $${s.entryAcceptable[1].toLocaleString()}</span>
-    </div>
-    <div class="entry-zone zone-avoid">
-      <span class="zone-label">🔴 Avoid</span>
-      <span class="zone-range">$${s.entryAvoid[0].toLocaleString()} – $${s.entryAvoid[1].toLocaleString()}</span>
-    </div>
+    <div class="entry-zone-pill ez-ideal">🟢 Ideal Entry $${s.entryIdeal[0].toLocaleString()} – $${s.entryIdeal[1].toLocaleString()}</div>
+    <div class="entry-zone-pill ez-acceptable">🟡 Acceptable $${s.entryAcceptable[0].toLocaleString()} – $${s.entryAcceptable[1].toLocaleString()}</div>
+    <div class="entry-zone-pill ez-avoid">🔴 Avoid $${s.entryAvoid[0].toLocaleString()} – $${s.entryAvoid[1].toLocaleString()}</div>
   `;
 
   // Catalysts
   document.getElementById('catalystList').innerHTML = s.catalysts.map(c => `
-    <div class="catalyst-card ${c.color}">
-      <div class="catalyst-icon">${c.icon}</div>
-      <div class="catalyst-info">
+    <div class="catalyst-item">
+      <div class="catalyst-icon ${c.color}">${c.icon}</div>
+      <div>
         <div class="catalyst-event">${c.event}</div>
         <div class="catalyst-date">${c.date}</div>
       </div>
@@ -1405,6 +1404,47 @@ async function refreshCurrentPrice() {
 // SELL / HOLD ADVISOR
 // ============================================
 
+async function refreshAllPrices() {
+  const key = getApiKey();
+  if (!key) { showToast('Set your Gemini API key in Settings ⚙'); return; }
+  const statusEl = document.getElementById('statusText');
+  statusEl.textContent = 'REFRESHING...';
+
+  const tickers = ALL_GLOBAL_ASSETS.map(a => `${a.ticker} (${a.type})`).join(', ');
+  const prompt = `What are the current live prices in USD for each of these assets: ${tickers}? Reply in this exact format, one per line: TICKER:PRICE (just the number, no $ sign). Example:\nAAPL:227.48\nBTC:83814`;
+
+  const result = await callGemini(prompt, 'gemini-2.0-flash');
+  if (result) {
+    const lines = result.split('\n').filter(l => l.includes(':'));
+    let updated = 0;
+    for (const line of lines) {
+      const parts = line.split(':');
+      const ticker = parts[0].trim().toUpperCase();
+      const priceStr = parts.slice(1).join(':').trim();
+      const price = parseFloat(priceStr.replace(/[^0-9.]/g, ''));
+      if (ticker && !isNaN(price) && price > 0) {
+        const asset = ALL_GLOBAL_ASSETS.find(a => a.ticker === ticker);
+        if (asset) {
+          const oldPrice = asset.price;
+          asset.price = price;
+          asset.change = +(price - oldPrice).toFixed(2);
+          asset.changePct = +((price - oldPrice) / oldPrice * 100).toFixed(2);
+          localStorage.setItem(`global_price_${asset.ticker}`, JSON.stringify({ price, time: Date.now() }));
+          updated++;
+        }
+      }
+    }
+    renderSidebar();
+    if (currentAsset) renderStockDetail(currentAsset);
+    renderQuickChips();
+    statusEl.textContent = 'LIVE';
+    showToast(`${updated} prices refreshed via Gemini`);
+  } else {
+    statusEl.textContent = 'READY';
+    showToast('Could not refresh — check API key');
+  }
+}
+
 async function analyzeSell() {
   if (!currentAsset) return;
   const buyPrice = parseFloat(document.getElementById('buyPriceInput')?.value);
@@ -1428,11 +1468,9 @@ async function analyzeSell() {
 
   // Stats
   statsEl.innerHTML = `
-    <div class="stat-row"><span>Buy Price</span><span>$${buyPrice.toLocaleString()}</span></div>
-    <div class="stat-row"><span>Current Price</span><span>$${s.price.toLocaleString()}</span></div>
-    <div class="stat-row"><span>Units</span><span>${shares}</span></div>
-    <div class="stat-row"><span>P&L %</span><span style="color:var(--${gain >= 0 ? 'green' : 'red'})">${gain >= 0 ? '+' : ''}${pnl}%</span></div>
-    <div class="stat-row"><span>Total P&L</span><span style="color:var(--${gain >= 0 ? 'green' : 'red'})">${gain >= 0 ? '+' : '-'}$${Math.abs(totalGain).toFixed(2)}</span></div>
+    <div class="sell-stat"><div class="sell-stat-label">BUY PRICE</div><div class="sell-stat-val">$${buyPrice.toLocaleString()}</div></div>
+    <div class="sell-stat"><div class="sell-stat-label">P&L</div><div class="sell-stat-val ${gain >= 0 ? 'profit' : 'loss'}">${gain >= 0 ? '+' : ''}${pnl}%</div></div>
+    <div class="sell-stat"><div class="sell-stat-label">TOTAL</div><div class="sell-stat-val ${gain >= 0 ? 'profit' : 'loss'}">${gain >= 0 ? '+' : '-'}$${Math.abs(totalGain).toFixed(2)}</div></div>
   `;
 
   const prompt = `You are a professional ${isCrypto ? 'crypto' : 'stock'} analyst. A user bought ${s.ticker} (${s.name}) at $${buyPrice}. Currently at $${s.price}. P&L: ${pnl}% (${gain >= 0 ? 'profit' : 'loss'} of $${Math.abs(gain).toFixed(2)} per unit).
@@ -1601,29 +1639,58 @@ const GLOBAL_EXIT_SIGNALS = [
 function renderHeatGrid() {
   const grid = document.getElementById('heatGrid');
   if (!grid) return;
-  grid.innerHTML = GLOBAL_SECTORS.map(sec => `
-    <div class="heat-cell" onclick="showSectorDetail('${sec.name}')" style="border-left:3px solid var(--${sec.color});cursor:pointer">
-      <div class="heat-icon">${sec.icon}</div>
-      <div class="heat-name">${sec.name}</div>
-      <div class="heat-score" style="color:var(--${sec.color})">${sec.score}/100</div>
-      <div class="heat-signal">${sec.signal}</div>
-    </div>
-  `).join('');
+  const phaseMap = { green: 'phase-early', blue: 'phase-mid', amber: 'phase-late', red: 'phase-exit' };
+  grid.innerHTML = GLOBAL_SECTORS.map(sec => {
+    const phase = phaseMap[sec.color] || 'phase-mid';
+    return `<div class="sector-card ${phase}" onclick="showSectorDetail('${sec.name}')">
+      <div class="sc-phase" style="color:var(--${sec.color})"><div class="sc-phase-dot" style="background:var(--${sec.color})"></div>${sec.icon}</div>
+      <div class="sc-name">${sec.name}</div>
+      <div class="sc-score-row">
+        <div class="sc-score-bar"><div class="sc-score-fill" style="width:${sec.score}%;background:var(--${sec.color})"></div></div>
+        <div class="sc-score-val" style="color:var(--${sec.color})">${sec.score}/100</div>
+      </div>
+      <div class="sc-signal" style="background:var(--${sec.color}-dim);color:var(--${sec.color})">${sec.signal}</div>
+    </div>`;
+  }).join('');
 }
 
 function showSectorDetail(name) {
   const sec = GLOBAL_SECTORS.find(s => s.name === name);
   if (!sec) return;
   const panel = document.getElementById('sectorDetailPanel');
+  panel.className = 'sector-detail-panel show';
+
+  const stockCards = sec.tickers.map(t => {
+    const asset = ALL_GLOBAL_ASSETS.find(a => a.ticker === t);
+    if (asset) {
+      const sigClass = asset.signal === 'buy' ? 'sig-buy' : asset.signal === 'avoid' ? 'sig-avoid' : 'sig-wait';
+      return `<div class="sdp-stock-card" onclick="selectAsset('${t}')">
+        <div class="sdp-stock-top">
+          <div class="sdp-stock-ticker">${t}</div>
+          <div class="sdp-stock-price">$${asset.price.toLocaleString()}</div>
+        </div>
+        <div class="sdp-stock-name">${asset.name}</div>
+        <div class="sdp-stock-signal ${sigClass}">${asset.signalText}</div>
+      </div>`;
+    }
+    return `<div class="sdp-stock-card">
+      <div class="sdp-stock-top"><div class="sdp-stock-ticker">${t}</div></div>
+      <div class="sdp-stock-signal sig-fetch">Coming soon</div>
+    </div>`;
+  }).join('');
+
   panel.innerHTML = `
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-top:16px;">
-      <h3 style="margin-bottom:8px">${sec.icon} ${sec.name} — ${sec.signal}</h3>
-      <div class="factor-bar-bg" style="margin:12px 0"><div class="factor-bar-fill ${sec.color}" style="width:${sec.score}%">${sec.score}/100</div></div>
-      <p style="font-size:13px;line-height:1.7;color:var(--text2)">${sec.thesis}</p>
-      <div style="margin-top:12px"><strong style="font-size:12px">Key Tickers:</strong> ${sec.tickers.map(t => `<span class="ticker-chip" onclick="navigateToAsset('${t}')" style="cursor:pointer;display:inline-block;padding:4px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;margin:3px;font-family:var(--mono);font-size:11px">${t}</span>`).join(' ')}</div>
+    <div class="sdp-header">
+      <div class="sdp-title">${sec.icon} ${sec.name}</div>
+      <div class="sdp-close" onclick="document.getElementById('sectorDetailPanel').className='sector-detail-panel'">✕</div>
     </div>
+    <div class="sdp-meta">
+      <div class="sdp-meta-item"><strong>Signal:</strong> ${sec.signal}</div>
+      <div class="sdp-meta-item"><strong>Score:</strong> <span style="color:var(--${sec.color})">${sec.score}/100</span></div>
+    </div>
+    <p style="font-size:13px;line-height:1.7;color:var(--text2);margin-bottom:16px">${sec.thesis}</p>
+    <div class="sdp-stocks-grid">${stockCards}</div>
   `;
-  panel.style.display = 'block';
 }
 
 function navigateToAsset(ticker) {
@@ -1650,19 +1717,19 @@ function renderPicksTable(filter) {
   
   const signalEmoji = { explode: '🚀', building: '📈', hold: '💎', exit: '🚪', watch: '👀' };
   const signalLabel = { explode: 'EXPLODE', building: 'BUILDING', hold: 'HOLD', exit: 'EXIT', watch: 'WATCH' };
-  const signalColor = { explode: 'green', building: 'blue', hold: 'amber', exit: 'red', watch: 'text2' };
+  const signalColor = { explode: 'green', building: 'blue', hold: 'amber', exit: 'red', watch: 'purple' };
 
   tbody.innerHTML = filtered.map(p => {
     const asset = ALL_GLOBAL_ASSETS.find(a => a.ticker === p.ticker);
     const price = asset ? '$' + asset.price.toLocaleString() : '—';
     return `<tr onclick="navigateToAsset('${p.ticker}')" style="cursor:pointer">
-      <td><strong>${p.ticker}</strong><br><span style="font-size:11px;color:var(--text3)">${p.name}</span></td>
+      <td><span class="td-ticker">${p.ticker}</span><br><span class="td-name">${p.name}</span></td>
       <td>${p.sector}</td>
-      <td style="font-family:var(--mono)">${price}</td>
-      <td><span style="color:var(--${signalColor[p.signal]})">${signalEmoji[p.signal] || ''} ${signalLabel[p.signal] || p.signal.toUpperCase()}</span></td>
-      <td><div class="factor-bar-bg" style="width:80px;height:6px;display:inline-block;vertical-align:middle"><div class="factor-bar-fill ${signalColor[p.signal]}" style="width:${p.momentum}%"></div></div> ${p.momentum}</td>
-      <td style="font-family:var(--mono);font-size:12px">${p.allocation}</td>
-      <td style="font-size:12px">${p.horizon}</td>
+      <td class="td-price">${price}</td>
+      <td><span class="td-signal sig-${p.signal}">${signalEmoji[p.signal] || ''} ${signalLabel[p.signal] || p.signal.toUpperCase()}</span></td>
+      <td class="td-momentum"><div class="mom-bar"><div class="mom-fill" style="width:${p.momentum}%;background:var(--${signalColor[p.signal]})"></div></div> ${p.momentum}</td>
+      <td class="td-alloc">${p.allocation}</td>
+      <td class="td-horizon">${p.horizon}</td>
       <td style="font-size:12px;max-width:200px">${p.why}</td>
     </tr>`;
   }).join('');
@@ -1682,17 +1749,23 @@ function filterPicksTable(filter, btn) {
 function renderExitCards() {
   const container = document.getElementById('exitCards');
   if (!container) return;
-  container.innerHTML = GLOBAL_EXIT_SIGNALS.map(e => `
-    <div class="exit-card" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:12px;">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-        <span style="font-size:20px">${e.icon}</span>
-        <strong>${e.sector}</strong>
-        <span style="margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--red);background:var(--red-dim);padding:3px 8px;border-radius:4px">${e.signal}</span>
+  container.innerHTML = GLOBAL_EXIT_SIGNALS.map(e => {
+    const badgeClass = e.signal.includes('Exit') || e.signal.includes('Take') ? 'eb-exit' : e.signal.includes('Watch') || e.signal.includes('Reduce') ? 'eb-watch' : 'eb-hold';
+    return `<div class="exit-card">
+      <div class="exit-card-header">
+        <div class="exit-card-title">${e.icon} ${e.sector}</div>
+        <div class="exit-badge ${badgeClass}">${e.signal}</div>
       </div>
-      <div style="font-family:var(--mono);font-size:11px;color:var(--amber);background:var(--amber-dim);padding:8px 12px;border-radius:6px;margin-bottom:10px">⚡ ${e.condition}</div>
-      <p style="font-size:13px;line-height:1.7;color:var(--text2);margin:0">${e.detail}</p>
-    </div>
-  `).join('');
+      <div class="exit-indicators">
+        <div class="exit-ind">
+          <div class="exit-ind-icon">⚡</div>
+          <div class="exit-ind-text">${e.condition}</div>
+          <div class="exit-ind-status eis-warn">MONITOR</div>
+        </div>
+      </div>
+      <p style="font-size:13px;line-height:1.7;color:var(--text2);margin-top:12px">${e.detail}</p>
+    </div>`;
+  }).join('');
 }
 
 // ============================================
@@ -1844,20 +1917,27 @@ function onPickerInput() {
   ).slice(0, 8);
   const dd = document.getElementById('pickerDropdown');
   pickerHighlight = -1;
-  if (matches.length === 0) { dd.innerHTML = '<div class="picker-item" style="color:var(--text3)">No matches</div>'; dd.classList.add('show'); return; }
+  if (matches.length === 0) { dd.innerHTML = '<div class="picker-dropdown-item" style="color:var(--text3);justify-content:center;">No matches found</div>'; dd.classList.add('open'); return; }
   dd.innerHTML = matches.map((a, i) => {
-    const cls = a.signal === 'buy' ? 'signal-buy' : a.signal === 'avoid' ? 'signal-sell' : 'signal-hold';
-    return `<div class="picker-item" data-idx="${i}" onclick="pickAsset('${a.ticker}')" style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--border)">
-      <div><strong>${a.ticker}</strong> <span style="color:var(--text3);font-size:12px">${a.name}</span></div>
-      <div style="font-size:11px;color:var(--text2)">$${a.price.toLocaleString()}</div>
+    const sigClass = a.signal === 'buy' ? 'pdi-sig-buy' : a.signal === 'avoid' ? 'pdi-sig-avoid' : 'pdi-sig-wait';
+    return `<div class="picker-dropdown-item" data-idx="${i}" onclick="pickAsset('${a.ticker}')">
+      <div class="pdi-left">
+        <div class="pdi-pip pip-${a.signal === 'avoid' ? 'avoid' : a.signal === 'wait' ? 'wait' : 'buy'}"></div>
+        <div class="pdi-ticker">${a.ticker}</div>
+        <div class="pdi-name">${a.name}</div>
+      </div>
+      <div class="pdi-right">
+        <div class="pdi-price">$${a.price.toLocaleString()}</div>
+        <div class="pdi-signal ${sigClass}">${a.signalText}</div>
+      </div>
     </div>`;
   }).join('');
-  dd.classList.add('show');
+  dd.classList.add('open');
 }
 
 function onPickerKey(e) {
   const dd = document.getElementById('pickerDropdown');
-  const items = dd.querySelectorAll('.picker-item[data-idx]');
+  const items = dd.querySelectorAll('.picker-dropdown-item[data-idx]');
   if (e.key === 'ArrowDown') { e.preventDefault(); pickerHighlight = Math.min(pickerHighlight + 1, items.length - 1); highlightPickerItem(items); }
   else if (e.key === 'ArrowUp') { e.preventDefault(); pickerHighlight = Math.max(pickerHighlight - 1, 0); highlightPickerItem(items); }
   else if (e.key === 'Enter') { e.preventDefault(); if (pickerHighlight >= 0 && items[pickerHighlight]) items[pickerHighlight].click(); else analyseFromPicker(); }
@@ -1869,7 +1949,7 @@ function highlightPickerItem(items) {
 }
 
 function openDropdown() { onPickerInput(); }
-function closeDropdown() { document.getElementById('pickerDropdown').classList.remove('show'); }
+function closeDropdown() { document.getElementById('pickerDropdown').classList.remove('open'); }
 
 function pickAsset(ticker) {
   closeDropdown();
@@ -1904,8 +1984,11 @@ function renderQuickChips() {
   el.innerHTML = chips.map(t => {
     const a = ALL_GLOBAL_ASSETS.find(x => x.ticker === t);
     if (!a) return '';
-    const clr = a.signal === 'buy' ? 'green' : a.signal === 'avoid' ? 'red' : 'amber';
-    return `<span class="quick-chip" onclick="selectAsset('${t}')" style="cursor:pointer;display:inline-block;padding:5px 12px;background:var(--${clr}-dim);color:var(--${clr});border:1px solid rgba(var(--${clr}-rgb,0,0,0),0.2);border-radius:20px;font-family:var(--mono);font-size:11px;margin:3px">${t} $${a.price.toLocaleString()}</span>`;
+    const clr = a.signal === 'buy' ? 'green' : a.signal === 'avoid' ? 'red' : a.signal === 'wait' ? 'amber' : 'blue';
+    return `<span class="quick-chip" onclick="selectAsset('${t}')">
+      <span class="chip-pip" style="background:var(--${clr})"></span>
+      ${t} $${a.price.toLocaleString()}
+    </span>`;
   }).join('');
 }
 
