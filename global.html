@@ -967,6 +967,399 @@ const GLOBAL_STOCKS = [
       { icon: "💰", color: "cata-green", event: "$50B+ buyback program", date: "Ongoing" }
     ],
     thesis: "<p><strong>3.9 billion users is an unchallengeable moat.</strong> No competitor — not TikTok, not X, not Snap — comes close to Meta's combined reach. Every small business in the world needs Meta ads to grow. This is a toll road on global digital commerce.</p><p><strong>AI is the margin expander:</strong> Meta's Advantage+ AI ad platform automates ad creation and targeting, driving 20%+ revenue growth with declining cost-per-impression for advertisers. More effective ads = more advertiser spend = higher revenue at lower cost.</p><p><strong>Target:</strong> $700–$750 within 12 months. $800+ on 18-month horizon.</p>"
+  },
+  // ========== SEMICONDUCTORS ==========
+  {
+    ticker: "AMD", name: "Advanced Micro Devices", sector: "Semiconductors", type: "stock", currency: "$",
+    price: 102.50, change: 1.80, changePct: 1.79, eps: 3.31, pe: 31.0, peForward: 22.0,
+    low52: 85.00, high52: 227.30, divYield: 0.0, roe: 4.2, volume: 52000000,
+    marketCap: "$166B", revenue25: "$26B revenue", debtEquity: 0.04,
+    signal: "buy", signalText: "BUY — AI CHALLENGER",
+    entryZone: "$90 – $110", entryIdeal: [90, 110], entryAcceptable: [110, 130], entryAvoid: [130, 230],
+    reasoning: "<strong>AMD is the #2 AI GPU maker</strong> and the only real competitor to NVIDIA. MI300X GPUs are winning enterprise deals with Microsoft, Meta, and Oracle. At $102, down 55% from ATH, AMD trades at just 22x forward earnings — the cheapest it's been in 3 years relative to growth.",
+    factors: [
+      { label: "Valuation", score: 72, color: "green", note: "22x forward — cheap for growth" },
+      { label: "Earnings", score: 75, color: "green", note: "AI GPU revenue $5B+ run rate" },
+      { label: "Price Pos.", score: 85, color: "green", note: "55% below ATH — deep value" },
+      { label: "Catalyst", score: 78, color: "green", note: "MI350 launch, data centre wins" },
+      { label: "Low Risk", score: 55, color: "amber", note: "NVDA dominance risk" }
+    ],
+    catalysts: [
+      { icon: "🖥️", color: "cata-green", event: "MI350 AI GPU launch", date: "H2 2026" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" },
+      { icon: "☁️", color: "cata-blue", event: "Cloud provider adoption expanding", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>AMD at $102 is deeply undervalued.</strong> The MI300X is the only GPU that competitively challenges NVIDIA in AI training. Cloud hyperscalers want a second supplier to reduce NVIDIA dependency. AMD's data centre revenue is on a $10B+ run rate.</p><p><strong>Target:</strong> $150–$180 within 12 months.</p>"
+  },
+  {
+    ticker: "AVGO", name: "Broadcom Inc.", sector: "Semiconductors", type: "stock", currency: "$",
+    price: 178.20, change: 3.40, changePct: 1.94, eps: 4.55, pe: 39.2, peForward: 28.0,
+    low52: 119.76, high52: 251.88, divYield: 1.22, roe: 16.2, volume: 28000000,
+    marketCap: "$835B", revenue25: "$56B revenue", debtEquity: 1.64,
+    signal: "buy", signalText: "BUY — CUSTOM AI CHIPS",
+    entryZone: "$160 – $185", entryIdeal: [160, 185], entryAcceptable: [185, 210], entryAvoid: [210, 260],
+    reasoning: "<strong>Broadcom builds custom AI chips (XPUs) for Google, Meta, and Apple.</strong> AI revenue is $12B+ and growing 50%+ YoY. The VMware acquisition adds $14B in recurring software revenue. At $178, 29% below ATH, this is a premium semiconductor compounder on sale.",
+    factors: [
+      { label: "Valuation", score: 55, color: "amber", note: "39x trailing, 28x forward" },
+      { label: "Earnings", score: 85, color: "green", note: "AI + VMware driving growth" },
+      { label: "Price Pos.", score: 72, color: "green", note: "29% below ATH" },
+      { label: "Catalyst", score: 82, color: "green", note: "Custom AI chip ramp" },
+      { label: "Low Risk", score: 70, color: "green", note: "Diversified, recurring revenue" }
+    ],
+    catalysts: [
+      { icon: "🤖", color: "cata-green", event: "Custom AI XPU ramp for Google TPU v6", date: "2026" },
+      { icon: "💼", color: "cata-blue", event: "VMware synergies — $2B cost savings", date: "2026" },
+      { icon: "📊", color: "cata-green", event: "Q2 FY2026 earnings", date: "June 2026" }
+    ],
+    thesis: "<p><strong>Broadcom is the picks-and-shovels play for custom AI silicon.</strong> Google, Meta, and ByteDance are building custom AI chips to reduce reliance on NVIDIA — and Broadcom designs them. This is a structural multi-year growth driver.</p><p><strong>Target:</strong> $230–$260 within 12 months.</p>"
+  },
+  {
+    ticker: "TSM", name: "Taiwan Semiconductor", sector: "Semiconductors", type: "stock", currency: "$",
+    price: 168.50, change: 2.10, changePct: 1.26, eps: 7.15, pe: 23.6, peForward: 20.0,
+    low52: 120.88, high52: 222.20, divYield: 1.18, roe: 30.5, volume: 18000000,
+    marketCap: "$872B", revenue25: "$92B revenue", debtEquity: 0.24,
+    signal: "buy", signalText: "STRONG BUY — AI FAB MONOPOLY",
+    entryZone: "$155 – $175", entryIdeal: [155, 175], entryAcceptable: [175, 195], entryAvoid: [195, 230],
+    reasoning: "<strong>TSMC manufactures 92% of the world's advanced chips.</strong> Every AI GPU from NVIDIA, AMD, and Apple is made by TSMC. At 23.6x PE with 30% ROE, TSMC is the cheapest way to play the entire AI revolution. Geopolitical risk (Taiwan) is the only discount factor.",
+    factors: [
+      { label: "Valuation", score: 78, color: "green", note: "23.6x PE — cheap for monopoly" },
+      { label: "Earnings", score: 90, color: "green", note: "Revenue up 35% YoY" },
+      { label: "Price Pos.", score: 70, color: "green", note: "24% below ATH" },
+      { label: "Catalyst", score: 88, color: "green", note: "AI chip demand surge" },
+      { label: "Low Risk", score: 45, color: "amber", note: "Taiwan geopolitical risk" }
+    ],
+    catalysts: [
+      { icon: "🏭", color: "cata-green", event: "Arizona fab coming online — $40B investment", date: "2026" },
+      { icon: "🤖", color: "cata-green", event: "N3E/N2 ramp for AI chips", date: "2026" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>TSMC is the most important company in the world.</strong> Without TSMC, no iPhones, no NVIDIA GPUs, no AI. The 3nm and 2nm process nodes give TSMC a 3-year lead over competitors. AI demand has filled their fabs for the next 2 years.</p><p><strong>Target:</strong> $210–$240 within 12 months.</p>"
+  },
+  {
+    ticker: "SMH", name: "VanEck Semiconductor ETF", sector: "Semiconductors", type: "stock", currency: "$",
+    price: 218.50, change: 3.20, changePct: 1.49, eps: null, pe: null, peForward: null,
+    low52: 175.00, high52: 283.07, divYield: 0.55, roe: null, volume: 12000000,
+    marketCap: "ETF — $22B AUM", revenue25: "Holds NVDA, TSM, AVGO, AMD", debtEquity: null,
+    signal: "buy", signalText: "BUY — SEMICONDUCTOR BASKET",
+    entryZone: "$200 – $225", entryIdeal: [200, 225], entryAcceptable: [225, 250], entryAvoid: [250, 290],
+    reasoning: "<strong>SMH gives you the entire AI semiconductor ecosystem in one trade.</strong> Top holdings: NVDA 20%, TSM 13%, AVGO 8%, AMD 5%. 23% below ATH. If you can't pick individual chip stocks, SMH is the easiest way to own the AI buildout.",
+    factors: [
+      { label: "Valuation", score: 70, color: "green", note: "Diversified chip exposure" },
+      { label: "Earnings", score: 85, color: "green", note: "AI-driven semiconductor boom" },
+      { label: "Price Pos.", score: 72, color: "green", note: "23% below ATH" },
+      { label: "Catalyst", score: 80, color: "green", note: "Entire AI capex cycle" },
+      { label: "Low Risk", score: 68, color: "green", note: "ETF diversification" }
+    ],
+    catalysts: [
+      { icon: "📈", color: "cata-green", event: "AI capex spending accelerating globally", date: "Ongoing" },
+      { icon: "🏭", color: "cata-blue", event: "Chip capacity expansion (US CHIPS Act)", date: "2026" }
+    ],
+    thesis: "<p><strong>SMH is the lazy genius play for AI.</strong> Instead of picking individual winners, own them all. NVDA, TSM, AVGO, AMD — the top 4 holdings make up 46% of the fund. When AI chip demand surges, SMH surges.</p><p><strong>Target:</strong> $270–$290 within 12 months.</p>"
+  },
+  // ========== FINANCE ==========
+  {
+    ticker: "JPM", name: "JPMorgan Chase", sector: "Finance", type: "stock", currency: "$",
+    price: 242.80, change: 1.50, changePct: 0.62, eps: 19.75, pe: 12.3, peForward: 11.5,
+    low52: 186.72, high52: 280.25, divYield: 2.10, roe: 17.2, volume: 9200000,
+    marketCap: "$688B", revenue25: "$177B revenue", debtEquity: 1.54,
+    signal: "buy", signalText: "BUY — BANKING KING",
+    entryZone: "$225 – $250", entryIdeal: [225, 250], entryAcceptable: [250, 270], entryAvoid: [270, 300],
+    reasoning: "<strong>JPM is the best-managed bank on Earth.</strong> Jamie Dimon has built a fortress balance sheet. At 12.3x PE with 17.2% ROE, JPM is cheap. Net interest income benefits from higher rates. Investment banking recovery is a 2026 catalyst.",
+    factors: [
+      { label: "Valuation", score: 82, color: "green", note: "12.3x PE — very cheap" },
+      { label: "Earnings", score: 80, color: "green", note: "EPS $19.75, consistent growth" },
+      { label: "Price Pos.", score: 60, color: "amber", note: "13% below ATH" },
+      { label: "Catalyst", score: 72, color: "green", note: "IB recovery, credit card growth" },
+      { label: "Low Risk", score: 78, color: "green", note: "Fortress balance sheet" }
+    ],
+    catalysts: [
+      { icon: "🏦", color: "cata-green", event: "Investment banking revenue recovery", date: "2026" },
+      { icon: "💳", color: "cata-blue", event: "Chase credit card growth — #1 issuer", date: "Ongoing" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>JPM earns more than any bank in history.</strong> Net interest income is $90B+. The credit card business alone generates $20B+ in annual revenue. Trading and IB divisions are rebounding. 2.1% dividend yield gives you income while you wait.</p><p><strong>Target:</strong> $280–$300 within 12 months.</p>"
+  },
+  {
+    ticker: "V", name: "Visa Inc.", sector: "Finance", type: "stock", currency: "$",
+    price: 328.40, change: 2.80, changePct: 0.86, eps: 10.12, pe: 32.5, peForward: 28.0,
+    low52: 252.70, high52: 366.21, divYield: 0.72, roe: 52.0, volume: 7100000,
+    marketCap: "$525B", revenue25: "$36B revenue", debtEquity: 1.73,
+    signal: "wait", signalText: "BUY ON PULLBACK",
+    entryZone: "$300 – $325", entryIdeal: [300, 325], entryAcceptable: [325, 345], entryAvoid: [345, 380],
+    reasoning: "<strong>Visa is a toll road on global spending.</strong> Every card swipe worldwide = revenue for Visa. 52% ROE is elite. At $328, slightly above ideal entry but still 10% below ATH. Wait for $300–$325 for better risk-reward.",
+    factors: [
+      { label: "Valuation", score: 55, color: "amber", note: "32.5x PE — premium" },
+      { label: "Earnings", score: 85, color: "green", note: "Consistent 10%+ EPS growth" },
+      { label: "Price Pos.", score: 58, color: "amber", note: "10% below ATH" },
+      { label: "Catalyst", score: 70, color: "green", note: "Cross-border travel recovery" },
+      { label: "Low Risk", score: 90, color: "green", note: "Duopoly, asset-light" }
+    ],
+    catalysts: [
+      { icon: "✈️", color: "cata-green", event: "Cross-border transaction volume rising", date: "Ongoing" },
+      { icon: "📊", color: "cata-green", event: "Q2 2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>Visa processes $15 trillion in annual payment volume.</strong> They take a small cut of every transaction globally. Near-zero marginal cost = 65%+ operating margins. The shift from cash to digital payments is a 15-year secular trend.</p><p><strong>Target:</strong> $370–$400 within 12 months.</p>"
+  },
+  {
+    ticker: "GS", name: "Goldman Sachs", sector: "Finance", type: "stock", currency: "$",
+    price: 530.00, change: 4.20, changePct: 0.80, eps: 40.54, pe: 13.1, peForward: 12.0,
+    low52: 415.00, high52: 650.05, divYield: 2.10, roe: 12.1, volume: 3100000,
+    marketCap: "$173B", revenue25: "$51B revenue", debtEquity: 2.64,
+    signal: "wait", signalText: "HOLD — CYCLICAL",
+    entryZone: "$480 – $530", entryIdeal: [480, 530], entryAcceptable: [530, 580], entryAvoid: [580, 660],
+    reasoning: "<strong>Goldman Sachs is the world's top investment bank.</strong> M&A and IPO activity is rebounding strongly. At 13.1x PE with EPS of $40+, GS is cheap. But it's highly cyclical — buy during pullbacks, not rallies.",
+    factors: [
+      { label: "Valuation", score: 78, color: "green", note: "13.1x PE — cheap for quality" },
+      { label: "Earnings", score: 72, color: "green", note: "IB deal pipeline growing" },
+      { label: "Price Pos.", score: 55, color: "amber", note: "18% below ATH" },
+      { label: "Catalyst", score: 68, color: "green", note: "IPO + M&A recovery" },
+      { label: "Low Risk", score: 45, color: "amber", note: "Cyclical, market-dependent" }
+    ],
+    catalysts: [
+      { icon: "📈", color: "cata-green", event: "IPO market reopening", date: "2026" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>Goldman thrives in a deal-making recovery.</strong> After a 2-year drought, M&A and IPO volumes are surging. GS captures ~8% of global IB fees. When markets are hot, GS prints money.</p><p><strong>Target:</strong> $620–$660 within 12 months if IB recovery continues.</p>"
+  },
+  // ========== HEALTHCARE ==========
+  {
+    ticker: "LLY", name: "Eli Lilly", sector: "Healthcare", type: "stock", currency: "$",
+    price: 785.00, change: 12.50, changePct: 1.62, eps: 12.12, pe: 64.8, peForward: 42.0,
+    low52: 680.00, high52: 972.53, divYield: 0.70, roe: 67.5, volume: 4500000,
+    marketCap: "$745B", revenue25: "$47B revenue", debtEquity: 2.56,
+    signal: "wait", signalText: "BUY ON DIP — GLP-1 KING",
+    entryZone: "$700 – $780", entryIdeal: [700, 780], entryAcceptable: [780, 850], entryAvoid: [850, 1000],
+    reasoning: "<strong>Eli Lilly's Mounjaro/Zepbound (GLP-1 drugs) are the fastest-growing drugs in pharma history.</strong> $30B+ in annual GLP-1 revenue. At 64.8x trailing PE, it's expensive — but forward PE of 42x prices in massive growth. Wait for dips.",
+    factors: [
+      { label: "Valuation", score: 35, color: "red", note: "64.8x PE — expensive" },
+      { label: "Earnings", score: 92, color: "green", note: "GLP-1 revenue explosive" },
+      { label: "Price Pos.", score: 68, color: "green", note: "19% below ATH" },
+      { label: "Catalyst", score: 90, color: "green", note: "Oral GLP-1 + Alzheimer's drug" },
+      { label: "Low Risk", score: 62, color: "amber", note: "Single product concentration" }
+    ],
+    catalysts: [
+      { icon: "💊", color: "cata-green", event: "Oral GLP-1 (orforglipron) Phase 3 data", date: "H2 2026" },
+      { icon: "🧠", color: "cata-blue", event: "Donanemab Alzheimer's drug launch", date: "2026" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>GLP-1 is a $100B+ market by 2030.</strong> Lilly's Mounjaro/Zepbound treats diabetes AND obesity — 40% of US adults are obese. This is the biggest pharma opportunity since statins. The oral GLP-1 pill (no injection needed) could 3x the addressable market.</p><p><strong>Target:</strong> $950–$1,000 within 12 months.</p>"
+  },
+  {
+    ticker: "UNH", name: "UnitedHealth Group", sector: "Healthcare", type: "stock", currency: "$",
+    price: 470.00, change: -3.20, changePct: -0.68, eps: 27.32, pe: 17.2, peForward: 15.5,
+    low52: 436.00, high52: 630.73, divYield: 1.72, roe: 25.8, volume: 5200000,
+    marketCap: "$432B", revenue25: "$400B revenue", debtEquity: 0.75,
+    signal: "buy", signalText: "BUY — CHEAP HEALTHCARE",
+    entryZone: "$440 – $480", entryIdeal: [440, 480], entryAcceptable: [480, 520], entryAvoid: [520, 640],
+    reasoning: "<strong>UNH is the world's largest healthcare company at 17.2x PE — beaten down and cheap.</strong> $400B revenue, Optum health services growing 15%+ YoY. The stock dropped 25% from ATH on political concerns and DOJ investigation, creating a value entry.",
+    factors: [
+      { label: "Valuation", score: 82, color: "green", note: "17.2x PE — historically cheap" },
+      { label: "Earnings", score: 78, color: "green", note: "EPS $27+, steady grower" },
+      { label: "Price Pos.", score: 80, color: "green", note: "25% below ATH — deep value" },
+      { label: "Catalyst", score: 65, color: "amber", note: "DOJ investigation resolution" },
+      { label: "Low Risk", score: 60, color: "amber", note: "Regulatory/political risks" }
+    ],
+    catalysts: [
+      { icon: "🏥", color: "cata-green", event: "Optum health services expansion", date: "Ongoing" },
+      { icon: "⚖️", color: "cata-amber", event: "DOJ investigation resolution expected", date: "2026" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>UNH at 17x PE is a rare entry for the #1 healthcare company.</strong> The company serves 50M+ members, generates $400B in revenue, and Optum's tech platform is the moat. Political noise creates buying opportunities in this defensive compounder.</p><p><strong>Target:</strong> $580–$620 within 12 months.</p>"
+  },
+  // ========== CONSUMER / RETAIL ==========
+  {
+    ticker: "COST", name: "Costco Wholesale", sector: "Consumer", type: "stock", currency: "$",
+    price: 935.00, change: 5.40, changePct: 0.58, eps: 16.56, pe: 56.5, peForward: 48.0,
+    low52: 697.47, high52: 1078.23, divYield: 0.49, roe: 30.5, volume: 2100000,
+    marketCap: "$415B", revenue25: "$260B revenue", debtEquity: 0.35,
+    signal: "wait", signalText: "HOLD — PREMIUM QUALITY",
+    entryZone: "$850 – $920", entryIdeal: [850, 920], entryAcceptable: [920, 980], entryAvoid: [980, 1100],
+    reasoning: "<strong>Costco is the ultimate consumer moat</strong> — 130M+ loyal cardholders, 90%+ renewal rates. But at 56.5x PE, you're paying a premium. Costco is a HOLD if you own it, but not a new buy at this price. Wait for $850–$920.",
+    factors: [
+      { label: "Valuation", score: 25, color: "red", note: "56.5x PE — very expensive" },
+      { label: "Earnings", score: 78, color: "green", note: "Membership model = sticky" },
+      { label: "Price Pos.", score: 55, color: "amber", note: "13% below ATH" },
+      { label: "Catalyst", score: 60, color: "amber", note: "Membership fee hike potential" },
+      { label: "Low Risk", score: 88, color: "green", note: "Recession-proof business" }
+    ],
+    catalysts: [
+      { icon: "💳", color: "cata-green", event: "Membership fee increase possible", date: "2026" },
+      { icon: "📊", color: "cata-green", event: "Q2 FY2026 earnings", date: "March 2026" }
+    ],
+    thesis: "<p><strong>Costco is the best retailer in the world.</strong> 130M members paying $65–$130/year for access to below-market prices on everything from groceries to gold bars. 90%+ renewal rate is unmatched. But the valuation demands patience.</p><p><strong>Target:</strong> $1,050–$1,100 within 12 months.</p>"
+  },
+  {
+    ticker: "WMT", name: "Walmart Inc.", sector: "Consumer", type: "stock", currency: "$",
+    price: 85.60, change: 0.40, changePct: 0.47, eps: 2.41, pe: 35.5, peForward: 30.0,
+    low52: 64.50, high52: 105.30, divYield: 0.98, roe: 20.5, volume: 12000000,
+    marketCap: "$690B", revenue25: "$650B revenue", debtEquity: 0.56,
+    signal: "wait", signalText: "HOLD — DEFENSIVE",
+    entryZone: "$78 – $85", entryIdeal: [78, 85], entryAcceptable: [85, 92], entryAvoid: [92, 110],
+    reasoning: "<strong>Walmart is the world's largest retailer</strong> — $650B revenue, e-commerce up 20%+. The ad business (Walmart Connect) is a high-margin growth engine. At 35.5x PE, slightly rich. Best as a defensive holding during market uncertainty.",
+    factors: [
+      { label: "Valuation", score: 40, color: "amber", note: "35.5x PE — above historical avg" },
+      { label: "Earnings", score: 72, color: "green", note: "E-commerce + advertising growth" },
+      { label: "Price Pos.", score: 55, color: "amber", note: "19% below ATH" },
+      { label: "Catalyst", score: 65, color: "amber", note: "Ad business margin expansion" },
+      { label: "Low Risk", score: 92, color: "green", note: "Recession-proof, #1 retailer" }
+    ],
+    catalysts: [
+      { icon: "🛒", color: "cata-green", event: "Walmart Connect ad revenue growing 30%+", date: "Ongoing" },
+      { icon: "📊", color: "cata-green", event: "Q1 FY2027 earnings", date: "May 2026" }
+    ],
+    thesis: "<p><strong>Walmart is transitioning from pure retailer to tech platform.</strong> The advertising business (Walmart Connect) is growing 30%+ with 70%+ margins. Walmart+ subscription competes with Amazon Prime. $650B in revenue makes this the ultimate defensive compounder.</p><p><strong>Target:</strong> $100–$110 within 12 months.</p>"
+  },
+  // ========== ENERGY ==========
+  {
+    ticker: "XOM", name: "Exxon Mobil", sector: "Energy", type: "stock", currency: "$",
+    price: 108.50, change: -0.80, changePct: -0.73, eps: 8.89, pe: 12.2, peForward: 11.5,
+    low52: 95.77, high52: 126.34, divYield: 3.52, roe: 16.3, volume: 15000000,
+    marketCap: "$460B", revenue25: "$340B revenue", debtEquity: 0.20,
+    signal: "wait", signalText: "HOLD — DIVIDEND PLAY",
+    entryZone: "$100 – $110", entryIdeal: [100, 110], entryAcceptable: [110, 118], entryAvoid: [118, 130],
+    reasoning: "<strong>Exxon is the largest US oil company.</strong> 3.5% dividend yield at 12.2x PE. Energy is range-bound at $65–$85 oil. Good for income investors, not growth seekers. The Pioneer acquisition adds low-cost Permian Basin assets.",
+    factors: [
+      { label: "Valuation", score: 75, color: "green", note: "12.2x PE — cheap" },
+      { label: "Earnings", score: 65, color: "amber", note: "Dependent on oil prices" },
+      { label: "Price Pos.", score: 55, color: "amber", note: "14% below ATH" },
+      { label: "Catalyst", score: 50, color: "amber", note: "Oil price dependent" },
+      { label: "Low Risk", score: 72, color: "green", note: "Dividend aristocrat, low debt" }
+    ],
+    catalysts: [
+      { icon: "⛽", color: "cata-amber", event: "OPEC+ production decisions impact price", date: "Quarterly" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>Exxon is a cash machine at any oil price above $50/barrel.</strong> The Pioneer acquisition makes Exxon the largest Permian Basin producer. 3.5% dividend yield is well-covered. This is a portfolio stabiliser, not a growth stock.</p><p><strong>Target:</strong> $120–$130 within 12 months if oil stays above $70.</p>"
+  },
+  // ========== INTERNATIONAL ==========
+  {
+    ticker: "ASML", name: "ASML Holding", sector: "Semiconductors", type: "stock", currency: "$",
+    price: 680.00, change: 12.00, changePct: 1.80, eps: 24.00, pe: 28.3, peForward: 24.0,
+    low52: 575.00, high52: 1110.09, divYield: 0.66, roe: 55.0, volume: 3800000,
+    marketCap: "$275B", revenue25: "€28B revenue", debtEquity: 0.28,
+    signal: "buy", signalText: "BUY — MONOPOLY",
+    entryZone: "$630 – $700", entryIdeal: [630, 700], entryAcceptable: [700, 780], entryAvoid: [780, 1120],
+    reasoning: "<strong>ASML has a literal monopoly on EUV lithography machines</strong> — no other company on Earth can build them. Every advanced chip requires ASML's $380M machines. At $680, 39% below ATH, this is the deepest discount on the world's most important tech monopoly in years.",
+    factors: [
+      { label: "Valuation", score: 65, color: "amber", note: "28.3x PE — fair for monopoly" },
+      { label: "Earnings", score: 82, color: "green", note: "Backlog exceeds €40B" },
+      { label: "Price Pos.", score: 88, color: "green", note: "39% below ATH — rare dip" },
+      { label: "Catalyst", score: 85, color: "green", note: "High-NA EUV ramp" },
+      { label: "Low Risk", score: 75, color: "green", note: "No competition, deep moat" }
+    ],
+    catalysts: [
+      { icon: "🔬", color: "cata-green", event: "High-NA EUV (0.55 NA) production ramp", date: "2026" },
+      { icon: "🌏", color: "cata-blue", event: "China export restrictions increase pricing power", date: "Ongoing" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>ASML is the most important company most people have never heard of.</strong> Zero competition. €40B+ order backlog. The High-NA EUV machine costs $380M each and is sold out through 2027. When you have a monopoly on the most critical technology in the semiconductor supply chain, valuation is always justified.</p><p><strong>Target:</strong> $900–$1,000 within 12 months.</p>"
+  },
+  // ========== ETFS ==========
+  {
+    ticker: "QQQ", name: "Invesco NASDAQ-100 ETF", sector: "Technology", type: "stock", currency: "$",
+    price: 475.00, change: 5.50, changePct: 1.17, eps: null, pe: null, peForward: null,
+    low52: 410.00, high52: 540.81, divYield: 0.58, roe: null, volume: 35000000,
+    marketCap: "ETF — $310B AUM", revenue25: "Holds Mag7 + top tech", debtEquity: null,
+    signal: "buy", signalText: "BUY — CORE HOLDING",
+    entryZone: "$450 – $480", entryIdeal: [450, 480], entryAcceptable: [480, 510], entryAvoid: [510, 550],
+    reasoning: "<strong>QQQ tracks the NASDAQ-100</strong> — the 100 largest non-financial NASDAQ companies. This is the simplest way to own big tech. Down 12% from ATH, QQQ is in a good entry zone. Core portfolio holding for any growth-oriented investor.",
+    factors: [
+      { label: "Valuation", score: 62, color: "amber", note: "Blended PE ~27x" },
+      { label: "Earnings", score: 82, color: "green", note: "AI-driven earnings growth" },
+      { label: "Price Pos.", score: 68, color: "green", note: "12% below ATH" },
+      { label: "Catalyst", score: 78, color: "green", note: "AI + tech earnings cycle" },
+      { label: "Low Risk", score: 80, color: "green", note: "Diversified tech basket" }
+    ],
+    catalysts: [
+      { icon: "📈", color: "cata-green", event: "Q1 2026 tech earnings season", date: "April 2026" },
+      { icon: "🤖", color: "cata-blue", event: "AI monetisation inflection across tech", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>QQQ has returned 15%+ annually over the past 15 years.</strong> It's the easiest way to own the AI revolution without stock-picking risk. If in doubt about individual stocks, just buy QQQ and add on every 10%+ pullback.</p><p><strong>Target:</strong> $540–$560 within 12 months.</p>"
+  },
+  {
+    ticker: "SPY", name: "SPDR S&P 500 ETF", sector: "Index Fund", type: "stock", currency: "$",
+    price: 555.00, change: 3.80, changePct: 0.69, eps: null, pe: null, peForward: null,
+    low52: 487.85, high52: 613.23, divYield: 1.25, roe: null, volume: 65000000,
+    marketCap: "ETF — $580B AUM", revenue25: "Tracks S&P 500", debtEquity: null,
+    signal: "buy", signalText: "BUY — MARKET CORE",
+    entryZone: "$530 – $560", entryIdeal: [530, 560], entryAcceptable: [560, 585], entryAvoid: [585, 620],
+    reasoning: "<strong>SPY tracks the S&P 500</strong> — America's 500 largest companies. The safest equity investment. Down 9% from ATH, SPY is in a reasonable buy zone. If you don't know what to buy, buy SPY. Warren Buffett recommends the S&P 500 for 99% of investors.",
+    factors: [
+      { label: "Valuation", score: 58, color: "amber", note: "Blended PE ~22x" },
+      { label: "Earnings", score: 75, color: "green", note: "US corporate earnings strong" },
+      { label: "Price Pos.", score: 65, color: "green", note: "9% below ATH" },
+      { label: "Catalyst", score: 70, color: "green", note: "Fed rate cuts, earnings growth" },
+      { label: "Low Risk", score: 90, color: "green", note: "Most diversified US equity" }
+    ],
+    catalysts: [
+      { icon: "🏛️", color: "cata-green", event: "Fed rate cut expectations 2026", date: "Ongoing" },
+      { icon: "📈", color: "cata-green", event: "S&P 500 earnings growth 10%+ expected", date: "2026" }
+    ],
+    thesis: "<p><strong>SPY has averaged 10%+ annual returns since 1927.</strong> No stock picker consistently beats the S&P 500 over 20+ years. If you're building wealth long-term, SPY should be your largest holding. Dollar-cost average monthly.</p><p><strong>Target:</strong> $610–$630 within 12 months.</p>"
+  },
+  // ========== OTHER KEY NAMES ==========
+  {
+    ticker: "NFLX", name: "Netflix Inc.", sector: "Media", type: "stock", currency: "$",
+    price: 960.00, change: 8.50, changePct: 0.89, eps: 20.24, pe: 47.4, peForward: 38.0,
+    low52: 543.19, high52: 1064.49, divYield: 0.0, roe: 34.2, volume: 4200000,
+    marketCap: "$413B", revenue25: "$44B revenue", debtEquity: 0.67,
+    signal: "wait", signalText: "HOLD — FULLY VALUED",
+    entryZone: "$850 – $940", entryIdeal: [850, 940], entryAcceptable: [940, 1000], entryAvoid: [1000, 1100],
+    reasoning: "<strong>Netflix is the global streaming king</strong> — 300M+ paid subscribers, 34% ROE. The ad tier is driving revenue acceleration. But at 47x PE near ATH, most of the good news is priced in. Better to buy pullbacks.",
+    factors: [
+      { label: "Valuation", score: 32, color: "red", note: "47.4x PE — expensive" },
+      { label: "Earnings", score: 82, color: "green", note: "Subscriber growth + ads" },
+      { label: "Price Pos.", score: 40, color: "amber", note: "Only 10% below ATH" },
+      { label: "Catalyst", score: 72, color: "green", note: "Live sports + gaming" },
+      { label: "Low Risk", score: 70, color: "green", note: "Dominant market position" }
+    ],
+    catalysts: [
+      { icon: "🥊", color: "cata-green", event: "WWE Raw & live sports driving ad revenue", date: "Ongoing" },
+      { icon: "📊", color: "cata-green", event: "Q1 2026 earnings", date: "April 2026" }
+    ],
+    thesis: "<p><strong>Netflix won the streaming wars.</strong> 300M+ paid subscribers across 190 countries. The ad-supported tier is the next growth engine. But the stock has run 77% from its 52-week low — wait for a pullback to $850–$940.</p><p><strong>Target:</strong> $1,050–$1,100 but better entry below $940.</p>"
+  },
+  {
+    ticker: "CRM", name: "Salesforce Inc.", sector: "Technology", type: "stock", currency: "$",
+    price: 264.00, change: 2.30, changePct: 0.88, eps: 8.22, pe: 32.1, peForward: 26.0,
+    low52: 218.01, high52: 369.00, divYield: 0.55, roe: 10.8, volume: 6500000,
+    marketCap: "$253B", revenue25: "$38B revenue", debtEquity: 0.19,
+    signal: "buy", signalText: "BUY — ENTERPRISE AI",
+    entryZone: "$245 – $270", entryIdeal: [245, 270], entryAcceptable: [270, 300], entryAvoid: [300, 370],
+    reasoning: "<strong>Salesforce is the #1 CRM platform</strong> — 150K+ enterprise customers. Agentforce AI agents are the next growth catalyst. At $264, 29% below ATH, Salesforce is reasonably valued at 26x forward PE with margin expansion underway.",
+    factors: [
+      { label: "Valuation", score: 62, color: "amber", note: "32x trailing, 26x forward" },
+      { label: "Earnings", score: 75, color: "green", note: "Operating margin expanding" },
+      { label: "Price Pos.", score: 72, color: "green", note: "29% below ATH" },
+      { label: "Catalyst", score: 78, color: "green", note: "Agentforce AI launch" },
+      { label: "Low Risk", score: 68, color: "green", note: "Enterprise recurring revenue" }
+    ],
+    catalysts: [
+      { icon: "🤖", color: "cata-green", event: "Agentforce AI agents monetisation", date: "2026" },
+      { icon: "📊", color: "cata-green", event: "Q1 FY2027 earnings", date: "May 2026" }
+    ],
+    thesis: "<p><strong>Salesforce controls 23% of the $80B CRM market.</strong> Agentforce (AI agents that automate sales, service, marketing) is the biggest product launch since Service Cloud. Enterprise customers are paying premium pricing for AI features. Margins are expanding from 20% to 30%+.</p><p><strong>Target:</strong> $340–$370 within 12 months.</p>"
+  },
+  {
+    ticker: "PLTR", name: "Palantir Technologies", sector: "Technology", type: "stock", currency: "$",
+    price: 85.00, change: 3.20, changePct: 3.91, eps: 0.38, pe: 223.7, peForward: 120.0,
+    low52: 21.30, high52: 125.41, divYield: 0.0, roe: 12.5, volume: 65000000,
+    marketCap: "$194B", revenue25: "$3.2B revenue", debtEquity: 0.0,
+    signal: "avoid", signalText: "AVOID — EXTREME VALUATION",
+    entryZone: "$35 – $50", entryIdeal: [35, 50], entryAcceptable: [50, 65], entryAvoid: [65, 130],
+    reasoning: "<strong>Palantir's AIP platform is genuinely revolutionary</strong> — but at 224x PE, the stock is priced for perfection and then some. Revenue is only $3.2B. Even at 50%+ growth, you need years to justify this valuation. Great company, terrible price.",
+    factors: [
+      { label: "Valuation", score: 5, color: "red", note: "224x PE — absurdly expensive" },
+      { label: "Earnings", score: 58, color: "amber", note: "Growing fast but small base" },
+      { label: "Price Pos.", score: 55, color: "amber", note: "32% below ATH" },
+      { label: "Catalyst", score: 72, color: "green", note: "AIP enterprise adoption" },
+      { label: "Low Risk", score: 20, color: "red", note: "High valuation = high risk" }
+    ],
+    catalysts: [
+      { icon: "🤖", color: "cata-green", event: "AIP boot camps driving enterprise adoption", date: "Ongoing" },
+      { icon: "🏛️", color: "cata-blue", event: "US government AI contracts expanding", date: "2026" }
+    ],
+    thesis: "<p><strong>Palantir's technology is elite — the stock price is not.</strong> At 224x earnings, every bit of AI optimism is already baked in. If revenue growth slows even slightly, a 40–60% correction is likely. The right entry is $35–$50, not $85.</p><p><strong>Target:</strong> Could reach $130 in euphoria, but fair value is $50–$60.</p>"
   }
 ];
 
@@ -1084,6 +1477,112 @@ const GLOBAL_CRYPTO = [
       { icon: "⛓️", color: "cata-blue", event: "BSC chain AI + DeFi ecosystem growth", date: "2026" }
     ],
     thesis: "<p><strong>BNB is the S&P 500 index of Binance.</strong> When Binance does well, BNB goes up. The quarterly burn mechanism has reduced supply from 200M to ~145M tokens. This continues until supply reaches 100M. Each burn is a structural supply reduction that supports price.</p><p><strong>The risk:</strong> BNB is essentially a centralised exchange token. If Binance faces new regulatory actions, BNB drops hard. The $4.3B DOJ fine in 2023 showed this risk is real.</p><p><strong>Target:</strong> $750–$800 in a bull market. $400–$450 in a bear case. Only allocate what you can afford to lose on regulatory risk.</p>"
+  },
+  // ========== ADDITIONAL CRYPTO ==========
+  {
+    ticker: "DOGE", name: "Dogecoin", sector: "Memecoins", type: "crypto", currency: "$",
+    price: 0.18, change: 0.008, changePct: 4.65, eps: null, pe: null, peForward: null,
+    low52: 0.09, high52: 0.48, divYield: null, roe: null, volume: null,
+    marketCap: "$26B", revenue25: "Memecoin — payments utility", debtEquity: null,
+    signal: "watch", signalText: "SPECULATIVE — HIGH RISK",
+    entryZone: "$0.12 – $0.18", entryIdeal: [0.12, 0.18], entryAcceptable: [0.18, 0.25], entryAvoid: [0.25, 0.50],
+    reasoning: "<strong>DOGE is the original memecoin</strong> — backed by Elon Musk, integrated into X (Twitter) tipping, and accepted by Tesla for merch. At $0.18, it's 63% below ATH. High risk but high reward if Musk integrates DOGE into X Payments.",
+    factors: [
+      { label: "Momentum", score: 55, color: "amber", note: "Elon Musk catalyst" },
+      { label: "Adoption", score: 45, color: "amber", note: "X Payments speculation" },
+      { label: "Price Pos.", score: 72, color: "green", note: "63% below ATH" },
+      { label: "Macro", score: 50, color: "amber", note: "Meme season dependent" },
+      { label: "Risk", score: 20, color: "red", note: "Pure speculation" }
+    ],
+    catalysts: [
+      { icon: "🐕", color: "cata-green", event: "X Payments integration rumour", date: "2026" },
+      { icon: "📱", color: "cata-blue", event: "Tesla accepting DOGE for products", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>DOGE is a meme, but memes move markets.</strong> If Elon integrates DOGE into X Payments for 500M+ users, the demand shock would be massive. But without that catalyst, DOGE has no fundamental value. Small position only — max 1-2% of portfolio.</p>"
+  },
+  {
+    ticker: "ADA", name: "Cardano", sector: "DeFi & L1s", type: "crypto", currency: "$",
+    price: 0.72, change: 0.03, changePct: 4.35, eps: null, pe: null, peForward: null,
+    low52: 0.28, high52: 1.33, divYield: null, roe: null, volume: null,
+    marketCap: "$25B", revenue25: "Smart contract L1", debtEquity: null,
+    signal: "watch", signalText: "SPECULATIVE — RESEARCH CHAIN",
+    entryZone: "$0.55 – $0.75", entryIdeal: [0.55, 0.75], entryAcceptable: [0.75, 0.95], entryAvoid: [0.95, 1.40],
+    reasoning: "<strong>Cardano is a peer-reviewed research blockchain</strong> with a devoted community. Chang hard fork upgraded governance. DeFi TVL is growing but still small vs. Solana/Ethereum. At $0.72, discounted from 2021 ATH of $3.10.",
+    factors: [
+      { label: "Momentum", score: 55, color: "amber", note: "Governance upgrade positive" },
+      { label: "Adoption", score: 40, color: "amber", note: "DeFi TVL still small" },
+      { label: "Price Pos.", score: 65, color: "amber", note: "77% below ATH" },
+      { label: "Macro", score: 50, color: "amber", note: "Alt-season dependent" },
+      { label: "Risk", score: 35, color: "red", note: "Slow development pace" }
+    ],
+    catalysts: [
+      { icon: "⛓️", color: "cata-blue", event: "Hydra scaling solution rollout", date: "2026" },
+      { icon: "🗳️", color: "cata-green", event: "On-chain governance activation", date: "Active" }
+    ],
+    thesis: "<p><strong>Cardano is the academic's blockchain.</strong> Peer-reviewed research and formal verification give it strong theoretical foundations. But theory doesn't always translate to adoption. DeFi TVL is $500M vs. Ethereum's $50B+. Small speculative position only.</p>"
+  },
+  {
+    ticker: "AVAX", name: "Avalanche", sector: "DeFi & L1s", type: "crypto", currency: "$",
+    price: 22.50, change: 0.85, changePct: 3.93, eps: null, pe: null, peForward: null,
+    low52: 14.60, high52: 55.79, divYield: null, roe: null, volume: null,
+    marketCap: "$9.3B", revenue25: "L1 + Subnet architecture", debtEquity: null,
+    signal: "watch", signalText: "SPECULATIVE — SUBNET PLAY",
+    entryZone: "$18 – $24", entryIdeal: [18, 24], entryAcceptable: [24, 32], entryAvoid: [32, 60],
+    reasoning: "<strong>Avalanche's subnet architecture enables custom blockchains.</strong> Institutional interest from JPMorgan, Citi, and gaming companies. AVAX9000 upgrade reduces deployment costs. At $22.50, 60% below ATH, there's value if subnet adoption grows.",
+    factors: [
+      { label: "Momentum", score: 55, color: "amber", note: "Subnet ecosystem growing" },
+      { label: "Adoption", score: 50, color: "amber", note: "Institutional interest rising" },
+      { label: "Price Pos.", score: 70, color: "green", note: "60% below ATH" },
+      { label: "Macro", score: 55, color: "amber", note: "Alt-season needed" },
+      { label: "Risk", score: 40, color: "amber", note: "Solana competition" }
+    ],
+    catalysts: [
+      { icon: "🏔️", color: "cata-green", event: "AVAX9000 upgrade live", date: "Active" },
+      { icon: "🏦", color: "cata-blue", event: "Institutional tokenisation on Avalanche", date: "2026" }
+    ],
+    thesis: "<p><strong>Avalanche's bet is on customisable blockchains (subnets) for institutions and gaming.</strong> JPMorgan, Citi, and others have run tokenisation pilots on Avalanche. If real-world asset (RWA) tokenisation takes off, AVAX benefits. High risk, high reward.</p>"
+  },
+  {
+    ticker: "LINK", name: "Chainlink", sector: "DeFi & L1s", type: "crypto", currency: "$",
+    price: 14.80, change: 0.55, changePct: 3.86, eps: null, pe: null, peForward: null,
+    low52: 8.15, high52: 30.81, divYield: null, roe: null, volume: null,
+    marketCap: "$9.4B", revenue25: "Oracle network — data infrastructure", debtEquity: null,
+    signal: "buy", signalText: "BUY — INFRASTRUCTURE",
+    entryZone: "$12 – $16", entryIdeal: [12, 16], entryAcceptable: [16, 20], entryAvoid: [20, 32],
+    reasoning: "<strong>Chainlink powers 80%+ of DeFi oracles</strong> — the infrastructure that connects real-world data to smart contracts. CCIP (cross-chain protocol) is being adopted by Swift and major banks. At $14.80, discounted 52% from ATH. Infrastructure plays benefit from total crypto TVL growth.",
+    factors: [
+      { label: "Momentum", score: 65, color: "amber", note: "CCIP adoption growing" },
+      { label: "Adoption", score: 75, color: "green", note: "80%+ oracle market share" },
+      { label: "Price Pos.", score: 72, color: "green", note: "52% below ATH" },
+      { label: "Macro", score: 60, color: "amber", note: "Benefits from all DeFi growth" },
+      { label: "Risk", score: 55, color: "amber", note: "Token unlocks, competition" }
+    ],
+    catalysts: [
+      { icon: "🔗", color: "cata-green", event: "CCIP cross-chain adoption by Swift", date: "2026" },
+      { icon: "🏦", color: "cata-blue", event: "Bank tokenisation partnerships expanding", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>Chainlink is the picks-and-shovels play of crypto.</strong> Every DeFi protocol, every tokenised asset, every cross-chain bridge needs price feeds and data verification. Chainlink provides 80%+ of them. If crypto grows, LINK grows. CCIP (cross-chain) is the next major revenue driver.</p>"
+  },
+  {
+    ticker: "DOT", name: "Polkadot", sector: "DeFi & L1s", type: "crypto", currency: "$",
+    price: 4.20, change: 0.15, changePct: 3.70, eps: null, pe: null, peForward: null,
+    low52: 3.50, high52: 11.90, divYield: null, roe: null, volume: null,
+    marketCap: "$6.1B", revenue25: "Multi-chain interoperability", debtEquity: null,
+    signal: "watch", signalText: "SPECULATIVE — INTEROPERABILITY",
+    entryZone: "$3.50 – $4.50", entryIdeal: [3.50, 4.50], entryAcceptable: [4.50, 6.00], entryAvoid: [6.00, 12.00],
+    reasoning: "<strong>Polkadot enables interoperable blockchains via parachains.</strong> Polkadot 2.0 unlocked agile coretime (flexible blockspace). Still 92% below 2021 ATH of $55. High risk — needs adoption to justify.",
+    factors: [
+      { label: "Momentum", score: 40, color: "amber", note: "Polkadot 2.0 upgrade" },
+      { label: "Adoption", score: 35, color: "red", note: "Low vs. competitors" },
+      { label: "Price Pos.", score: 78, color: "green", note: "92% below ATH" },
+      { label: "Macro", score: 45, color: "amber", note: "Alt-season critical" },
+      { label: "Risk", score: 30, color: "red", note: "Heavy competition from Cosmos, ETH L2s" }
+    ],
+    catalysts: [
+      { icon: "🌐", color: "cata-blue", event: "Polkadot 2.0 agile coretime live", date: "Active" },
+      { icon: "📱", color: "cata-amber", event: "Parachain ecosystem adoption", date: "Ongoing" }
+    ],
+    thesis: "<p><strong>Polkadot's thesis is multi-chain interoperability.</strong> If the future is 100+ blockchains needing to communicate, Polkadot wins. But Ethereum L2s and Cosmos are strong competitors. At $4.20, it's a cheap lottery ticket on the multi-chain thesis.</p>"
   }
 ];
 
@@ -1375,7 +1874,8 @@ async function callGemini(prompt, model) {
 // ============================================
 
 const COINGECKO_IDS = {
-  BTC: 'bitcoin', ETH: 'ethereum', SOL: 'solana', XRP: 'ripple', BNB: 'binancecoin'
+  BTC: 'bitcoin', ETH: 'ethereum', SOL: 'solana', XRP: 'ripple', BNB: 'binancecoin',
+  DOGE: 'dogecoin', ADA: 'cardano', AVAX: 'avalanche-2', LINK: 'chainlink', DOT: 'polkadot'
 };
 
 async function fetchCryptoPrices() {
@@ -1625,9 +2125,14 @@ function renderAlerts() {
 
 const GLOBAL_SECTORS = [
   {
-    name: "Technology", icon: "💻", tickers: ["AAPL","MSFT","NVDA","GOOGL","META"],
+    name: "Technology", icon: "💻", tickers: ["AAPL","MSFT","NVDA","GOOGL","META","CRM","NFLX","PLTR"],
     score: 88, signal: "Strong Buy", color: "green",
     thesis: "AI infrastructure spending is creating a once-in-a-decade capex supercycle. Mag7 tech companies are spending $300B+ on AI in 2026. Cloud revenue is accelerating."
+  },
+  {
+    name: "Semiconductors", icon: "🔬", tickers: ["AMD","AVGO","TSM","ASML","SMH"],
+    score: 85, signal: "Strong Buy", color: "green",
+    thesis: "AI chip demand is insatiable. NVIDIA leads but AMD, Broadcom, and TSMC all benefit. ASML's monopoly on EUV lithography is the deepest moat in tech. SMH ETF gives broad exposure."
   },
   {
     name: "Healthcare", icon: "🏥", tickers: ["UNH","LLY","JNJ","ABBV","MRK"],
@@ -1635,7 +2140,7 @@ const GLOBAL_SECTORS = [
     thesis: "GLP-1 drugs (Ozempic, Mounjaro) are a $100B+ market opportunity. Outside of GLP-1, healthcare faces Medicare pricing pressure and patent cliffs."
   },
   {
-    name: "Finance", icon: "🏦", tickers: ["JPM","V","MA","BAC","GS"],
+    name: "Finance", icon: "🏦", tickers: ["JPM","V","GS","MA","BAC"],
     score: 72, signal: "Buy on Dips", color: "green",
     thesis: "Banks benefit from higher-for-longer rates. Visa/Mastercard are toll roads on global spending. Asset managers benefit from ETF inflows."
   },
@@ -1650,9 +2155,9 @@ const GLOBAL_SECTORS = [
     thesis: "Consumer spending slowing but resilient. Premium brands gaining share. Own Costco, Amazon, Walmart — avoid discretionary names exposed to tariffs."
   },
   {
-    name: "DeFi & L1s", icon: "⛓️", tickers: ["ETH","SOL","AVAX","DOT","ADA"],
+    name: "DeFi & L1s", icon: "⛓️", tickers: ["ETH","SOL","AVAX","DOT","ADA","LINK"],
     score: 78, signal: "Accumulate", color: "green",
-    thesis: "Layer 1 blockchains are the infrastructure of crypto. ETH dominates DeFi. SOL is fastest-growing for retail. L1s historically outperform BTC 2–5x in late bull market."
+    thesis: "Layer 1 blockchains are the infrastructure of crypto. ETH dominates DeFi. SOL is fastest-growing for retail. Chainlink powers 80% of oracles. L1s historically outperform BTC 2–5x in late bull market."
   },
   {
     name: "Memecoins", icon: "🐸", tickers: ["DOGE","SHIB","PEPE","WIF","BONK"],
@@ -1663,22 +2168,35 @@ const GLOBAL_SECTORS = [
     name: "Real Assets", icon: "🏗️", tickers: ["GLD","SLV","BTC","AMT","PLD"],
     score: 62, signal: "Defensive Allocation", color: "amber",
     thesis: "Gold at all-time highs as central banks diversify. Bitcoin emerging as digital gold. Data centre REITs benefit from AI infrastructure demand."
+  },
+  {
+    name: "ETFs & Index", icon: "📊", tickers: ["QQQ","SPY","SMH"],
+    score: 80, signal: "Core Holdings", color: "green",
+    thesis: "If you can't pick individual stocks, ETFs are the answer. SPY gives broad US exposure, QQQ gives tech-heavy growth, SMH gives semiconductor leverage. Dollar-cost average into these."
   }
 ];
 
 const GLOBAL_STOCK_PICKS = [
   { ticker:"NVDA", name:"NVIDIA", sector:"Technology", signal:"explode", momentum:95, allocation:"8–12%", horizon:"6–12mo", why:"AI GPU monopoly, 50%+ growth, fwd PE 28x" },
   { ticker:"GOOGL", name:"Alphabet", sector:"Technology", signal:"explode", momentum:88, allocation:"8–10%", horizon:"6–12mo", why:"Cheapest Mag7 at 20x PE, $95B cash" },
+  { ticker:"ASML", name:"ASML", sector:"Semiconductors", signal:"explode", momentum:88, allocation:"5–7%", horizon:"6–12mo", why:"EUV monopoly, 39% below ATH, €40B backlog" },
+  { ticker:"TSM", name:"TSMC", sector:"Semiconductors", signal:"explode", momentum:85, allocation:"5–8%", horizon:"6–12mo", why:"Makes 92% of advanced chips, 20x fwd PE" },
   { ticker:"MSFT", name:"Microsoft", sector:"Technology", signal:"building", momentum:82, allocation:"6–8%", horizon:"6–12mo", why:"Azure + Copilot AI, 17% below ATH" },
   { ticker:"META", name:"Meta", sector:"Technology", signal:"building", momentum:80, allocation:"5–7%", horizon:"6–12mo", why:"3.9B users, 22% ad revenue growth" },
   { ticker:"ETH", name:"Ethereum", sector:"Crypto", signal:"explode", momentum:85, allocation:"7–10%", horizon:"6–18mo", why:"53% below ATH, DeFi backbone, 3.5% yield" },
+  { ticker:"UNH", name:"UnitedHealth", sector:"Healthcare", signal:"building", momentum:80, allocation:"4–6%", horizon:"6–12mo", why:"17x PE, 25% below ATH — rare entry" },
+  { ticker:"AMD", name:"AMD", sector:"Semiconductors", signal:"building", momentum:78, allocation:"4–6%", horizon:"6–12mo", why:"#2 AI GPU, 55% below ATH, 22x fwd PE" },
   { ticker:"BTC", name:"Bitcoin", sector:"Crypto", signal:"building", momentum:78, allocation:"10–15%", horizon:"12–18mo", why:"Post-halving cycle, ETF inflows" },
   { ticker:"AMZN", name:"Amazon", sector:"Technology", signal:"building", momentum:76, allocation:"5–7%", horizon:"6–12mo", why:"AWS $100B+, margin expansion" },
-  { ticker:"AAPL", name:"Apple", sector:"Technology", signal:"hold", momentum:65, allocation:"3–5%", horizon:"12mo+", why:"Quality compounder but 32x PE — wait" },
+  { ticker:"JPM", name:"JPMorgan", sector:"Finance", signal:"building", momentum:75, allocation:"4–6%", horizon:"6–12mo", why:"12x PE, 17% ROE, banking king" },
+  { ticker:"LINK", name:"Chainlink", sector:"Crypto", signal:"building", momentum:72, allocation:"3–5%", horizon:"6–12mo", why:"80% oracle market share, CCIP adoption" },
+  { ticker:"CRM", name:"Salesforce", sector:"Technology", signal:"building", momentum:72, allocation:"3–5%", horizon:"6–12mo", why:"#1 CRM, Agentforce AI launch, 29% off ATH" },
   { ticker:"SOL", name:"Solana", sector:"Crypto", signal:"watch", momentum:70, allocation:"3–5%", horizon:"6–12mo", why:"Fastest blockchain, ETF pending" },
+  { ticker:"QQQ", name:"NASDAQ-100 ETF", sector:"ETFs", signal:"building", momentum:75, allocation:"10–20%", horizon:"12mo+", why:"Core holding — own all big tech" },
+  { ticker:"SPY", name:"S&P 500 ETF", sector:"ETFs", signal:"building", momentum:70, allocation:"15–25%", horizon:"12mo+", why:"Warren Buffett's recommendation" },
+  { ticker:"AAPL", name:"Apple", sector:"Technology", signal:"hold", momentum:65, allocation:"3–5%", horizon:"12mo+", why:"Quality compounder but 32x PE — wait" },
   { ticker:"TSLA", name:"Tesla", sector:"Autos", signal:"exit", momentum:30, allocation:"0%", horizon:"N/A", why:"105x PE, declining deliveries" },
-  { ticker:"XRP", name:"XRP", sector:"Crypto", signal:"watch", momentum:55, allocation:"2–3%", horizon:"6–12mo", why:"SEC clarity priced in, ETF pending" },
-  { ticker:"BNB", name:"BNB", sector:"Crypto", signal:"hold", momentum:60, allocation:"2–3%", horizon:"6–12mo", why:"Binance exchange token, quarterly burns" }
+  { ticker:"PLTR", name:"Palantir", sector:"Technology", signal:"exit", momentum:25, allocation:"0%", horizon:"N/A", why:"224x PE — great company, terrible price" }
 ];
 
 const GLOBAL_EXIT_SIGNALS = [
