@@ -2477,9 +2477,10 @@ function renderSidebar() {
     const active = currentAsset && currentAsset.ticker === s.ticker ? 'active' : '';
     const changeClass = s.changePct >= 0 ? 'change-up' : 'change-down';
     const changeIcon = s.changePct >= 0 ? '▲' : '▼';
+    const pipClass = s.signal === 'buy' ? 'pip-buy' : s.signal === 'wait' ? 'pip-wait' : s.signal === 'avoid' ? 'pip-avoid' : 'pip-buy';
     return `<div class="stock-item ${active}" onclick="selectAsset('${s.ticker}')">
       <div class="stock-item-left">
-        <div class="stock-ticker">${s.ticker}</div>
+        <div class="stock-ticker"><span class="signal-pip ${pipClass}"></span>${s.ticker}</div>
         <div class="stock-name">${s.name}</div>
       </div>
       <div class="stock-item-right">
