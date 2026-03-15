@@ -1862,6 +1862,26 @@ select.si-input {
   .beginner-tip-bar.show { display: block; }
   .beginner-tip-bar strong { color: var(--blue); }
 
+  /* Settings Modal */
+  .settings-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center; }
+  .settings-overlay.show { display:flex; }
+  .settings-modal { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:28px; width:420px; max-width:90vw; }
+  .settings-modal h3 { font-size:16px; font-weight:800; margin-bottom:4px; color:var(--text); }
+  .settings-modal .sub { font-size:12px; color:var(--text3); margin-bottom:18px; line-height:1.5; }
+  .settings-modal label { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:1px; display:block; margin-bottom:6px; }
+  .settings-modal input { width:100%; padding:10px 12px; background:var(--bg3); border:1px solid var(--border); border-radius:8px; color:var(--text); font-family:var(--mono); font-size:12px; outline:none; box-sizing:border-box; }
+  .settings-modal input:focus { border-color:var(--green); }
+  .settings-modal .btn-row { display:flex; gap:8px; margin-top:18px; }
+  .settings-modal .btn-save { flex:1; padding:9px 0; border-radius:8px; border:none; background:var(--green); color:#000; font-family:var(--mono); font-size:11px; font-weight:800; cursor:pointer; letter-spacing:0.5px; }
+  .settings-modal .btn-cancel { flex:1; padding:9px 0; border-radius:8px; border:1px solid var(--border); background:transparent; color:var(--text3); font-family:var(--mono); font-size:11px; cursor:pointer; }
+  .settings-modal .btn-save:hover { opacity:0.9; }
+  .settings-modal .btn-cancel:hover { border-color:var(--text3); color:var(--text2); }
+  .settings-modal .key-status { font-family:var(--mono); font-size:10px; margin-top:10px; padding:6px 10px; border-radius:6px; }
+  .settings-modal .key-status.ok { background:var(--green-dim); color:var(--green); }
+  .settings-modal .key-status.none { background:var(--amber-dim); color:var(--amber); }
+  .settings-btn { background:var(--bg3); border:1px solid var(--border); border-radius:6px; padding:5px 10px; cursor:pointer; color:var(--text3); font-size:14px; display:flex; align-items:center; gap:4px; transition:all 0.2s; }
+  .settings-btn:hover { border-color:rgba(0,245,160,0.3); color:var(--green); }
+
 </style>
 </head>
 <body>
@@ -1899,8 +1919,24 @@ select.si-input {
       <span id="statusText">READY</span>
     </div>
     <div class="asi-badge" id="asiDisplay" style="cursor:pointer;" onclick="refreshCurrentPrice()" title="Click to refresh live price">⟳ REFRESH PRICE</div>
+    <div class="settings-btn" onclick="openSettings()" title="API Settings">⚙</div>
   </div>
 </header>
+
+<!-- SETTINGS MODAL -->
+<div class="settings-overlay" id="settingsOverlay" onclick="if(event.target===this)closeSettings()">
+  <div class="settings-modal">
+    <h3>⚙ API Settings</h3>
+    <div class="sub">Enter your free Google Gemini API key to enable live price fetching and AI analysis.<br>Get one free at <a href="https://aistudio.google.com/apikey" target="_blank" style="color:var(--green);text-decoration:underline;">aistudio.google.com/apikey</a></div>
+    <label>GEMINI API KEY</label>
+    <input type="password" id="geminiKeyInput" placeholder="AIzaSy..." autocomplete="off">
+    <div id="keyStatus"></div>
+    <div class="btn-row">
+      <button class="btn-cancel" onclick="closeSettings()">Cancel</button>
+      <button class="btn-save" onclick="saveApiKey()">Save Key</button>
+    </div>
+  </div>
+</div>
 
 <div class="app-layout">
 
@@ -8373,7 +8409,52 @@ function highlightFilter(activeBtn) {
 buildSectorFilters();
 
 // =============================================
-// LIVE PRICE ENGINE — Claude API Web Search
+// GEMINI API — Settings & Key Management
+// =============================================
+
+function getApiKey() {
+  return localStorage.getItem('ngx_gemini_key') || '';
+}
+
+function openSettings() {
+  const input = document.getElementById('geminiKeyInput');
+  input.value = getApiKey();
+  updateKeyStatus();
+  document.getElementById('settingsOverlay').classList.add('show');
+}
+
+function closeSettings() {
+  document.getElementById('settingsOverlay').classList.remove('show');
+}
+
+function saveApiKey() {
+  const key = document.getElementById('geminiKeyInput').value.trim();
+  if (key) {
+    localStorage.setItem('ngx_gemini_key', key);
+    updateKeyStatus();
+    showToast('✅ API Key Saved', 'Your Gemini API key has been saved. Live price fetching and AI scan are now enabled.');
+    closeSettings();
+  } else {
+    localStorage.removeItem('ngx_gemini_key');
+    updateKeyStatus();
+  }
+}
+
+function updateKeyStatus() {
+  const el = document.getElementById('keyStatus');
+  if (!el) return;
+  const key = getApiKey();
+  if (key) {
+    el.className = 'key-status ok';
+    el.textContent = '✓ API key configured — live features enabled';
+  } else {
+    el.className = 'key-status none';
+    el.textContent = '⚠ No API key — click the link above to get one free';
+  }
+}
+
+// =============================================
+// LIVE PRICE ENGINE — Google Gemini API
 // =============================================
 
 let liveRefreshInterval = null;
@@ -8404,61 +8485,57 @@ function setPriceSourceBadge(isLive) {
   }
 }
 
+async function callGemini(prompt, maxTokens) {
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    throw new Error('NO_KEY');
+  }
+  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${encodeURIComponent(apiKey)}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      tools: [{ google_search: {} }],
+      generationConfig: { maxOutputTokens: maxTokens || 1024 }
+    })
+  });
+  if (!response.ok) {
+    const errBody = await response.text();
+    throw new Error('Gemini API error: ' + response.status + ' ' + errBody.substring(0, 200));
+  }
+  const data = await response.json();
+  let text = '';
+  if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+    for (const part of data.candidates[0].content.parts) {
+      if (part.text) text += part.text;
+    }
+  }
+  return text;
+}
+
 async function fetchLivePrice(ticker) {
   setStatus('fetching', 'FETCHING...');
 
-  const prompt = `You are a Nigerian stock market data assistant. 
-Give me the CURRENT price of ${ticker} on the Nigerian Exchange (NGX) today.
+  const prompt = `You are a Nigerian stock market data assistant.
+Search for the CURRENT price of ${ticker} on the Nigerian Exchange (NGX) today.
 
 Respond with ONLY valid JSON in this exact format, nothing else:
-{
-  "ticker": "${ticker}",
-  "price": <number>,
-  "change": <number>,
-  "changePct": <number>,
-  "volume": <number>,
-  "high": <number>,
-  "low": <number>,
-  "source": "NGX live",
-  "timestamp": "<today's date>"
-}
+{"ticker":"${ticker}","price":0,"change":0,"changePct":0,"volume":0,"high":0,"low":0,"source":"NGX","timestamp":""}
 
-Use the most recent available price from ngxgroup.com or any reliable NGX source.
-If you cannot find the exact current price, use your best knowledge of the recent price.
-Return ONLY the JSON object, no explanation.`;
+Fill in the real numbers. Use the most recent available price from ngxgroup.com, stocksng.com, or any reliable NGX source.
+Return ONLY the JSON object, no explanation or markdown.`;
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-
-    if (!response.ok) throw new Error('API error: ' + response.status);
-
-    const data = await response.json();
-
-    // Extract JSON from response
-    let jsonText = '';
-    for (const block of data.content) {
-      if (block.type === 'text' && block.text) {
-        jsonText += block.text;
-      }
-    }
-
-    // Parse JSON from response
-    const jsonMatch = jsonText.match(/\{[\s\S]*\}/);
+    const text = await callGemini(prompt, 300);
+    const jsonMatch = text.match(/\{[\s\S]*?\}/);
     if (!jsonMatch) throw new Error('No JSON in response');
-
     const priceData = JSON.parse(jsonMatch[0]);
     return { success: true, data: priceData };
-
   } catch (err) {
+    if (err.message === 'NO_KEY') {
+      openSettings();
+      return { success: false, error: 'No API key configured' };
+    }
     console.error('Live price fetch error:', err);
     return { success: false, error: err.message };
   }
@@ -8636,89 +8713,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const tip = document.getElementById('tip-stocks');
   if (tip && beginnerModeOn) tip.classList.add('show');
 });
-
-// ============================================
-// STATUS + LIVE PRICE ENGINE
-// ============================================
-function setStatus(state, text) {
-  const dot = document.getElementById('statusDot');
-  const label = document.getElementById('statusText');
-  if (!dot || !label) return;
-  const colors = { ready:'var(--green)', fetching:'var(--amber)', error:'var(--red)', live:'var(--green)' };
-  dot.style.background = colors[state] || 'var(--text3)';
-  label.textContent = text;
-}
-
-function setLastUpdated() {
-  const now = new Date();
-  const t = now.toLocaleTimeString('en-NG', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
-}
-
-function setPriceSourceBadge(isLive) {
-  const el = document.getElementById('priceSourceBadge');
-  if (!el) return;
-  if (isLive) {
-    el.innerHTML = '<span style="background:rgba(0,229,153,0.15);color:var(--green);border:1px solid rgba(0,229,153,0.3);padding:2px 8px;border-radius:4px;font-family:var(--mono);font-size:10px;">&#9679; LIVE PRICE</span>';
-  } else {
-    el.innerHTML = '<span style="background:rgba(245,166,35,0.15);color:var(--amber);border:1px solid rgba(245,166,35,0.3);padding:2px 8px;border-radius:4px;font-family:var(--mono);font-size:10px;">&#9679; LAST KNOWN — click Refresh</span>';
-  }
-}
-
-async function fetchLivePrice(ticker) {
-  setStatus('fetching', 'FETCHING...');
-  const prompt = `Give me ONLY the current NGX price of ${ticker} in JSON format: {"ticker":"${ticker}","price":0,"change":0,"changePct":0}. Use the most recent price available. Return ONLY the JSON, nothing else.`;
-  try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 200,
-        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    if (!response.ok) throw new Error('API error');
-    const data = await response.json();
-    let text = data.content.filter(b => b.type === 'text').map(b => b.text).join('');
-    const match = text.match(/\{[\s\S]*?\}/);
-    if (!match) throw new Error('No JSON');
-    return { success: true, data: JSON.parse(match[0]) };
-  } catch(err) {
-    return { success: false, error: err.message };
-  }
-}
-
-async function refreshCurrentPrice() {
-  if (!currentStock) return;
-  const result = await fetchLivePrice(currentStock.ticker);
-  if (result.success) {
-    const d = result.data;
-    currentStock.price = parseFloat(d.price) || currentStock.price;
-    currentStock.change = parseFloat(d.change) || 0;
-    currentStock.changePct = parseFloat(d.changePct) || 0;
-    if (currentStock.eps > 0) currentStock.pe = parseFloat((currentStock.price / currentStock.eps).toFixed(1));
-    // Update displayed price
-    const priceEl = document.getElementById('dPrice');
-    if (priceEl) {
-      priceEl.textContent = '\u20A6' + currentStock.price.toLocaleString();
-      const flashColor = currentStock.changePct >= 0 ? 'var(--green)' : 'var(--red)';
-      priceEl.style.color = flashColor;
-      setTimeout(() => { priceEl.style.color = ''; }, 1500);
-    }
-    const sign = currentStock.changePct >= 0 ? '+' : '';
-    const cls = currentStock.changePct > 0 ? 'change-up' : currentStock.changePct < 0 ? 'change-down' : 'change-flat';
-    const absEl = document.getElementById('dChangeAbs');
-    const pctEl = document.getElementById('dChangePct');
-    if (absEl) { absEl.textContent = sign + '\u20A6' + Math.abs(currentStock.change).toFixed(2); absEl.className = cls; }
-    if (pctEl) { pctEl.textContent = sign + currentStock.changePct.toFixed(2) + '%'; pctEl.className = cls; }
-    setPriceSourceBadge(true);
-    setStatus('live', 'LIVE');
-  } else {
-    setPriceSourceBadge(false);
-    setStatus('error', 'FAILED');
-  }
-}
 
 // ============================================
 // ROTATION JS (from NGX Radar)
@@ -9204,14 +9198,13 @@ function calculateAllocation() {
 }
 
 // ============================================
-// AI SCAN — Claude API + Web Search
+// AI SCAN — Google Gemini API + Web Search
 // ============================================
 async function runFullScan() {
-  const btn = document.getElementById('scanBtn');
-  const bar = document.getElementById('loadingBar');
-  btn.disabled = true;
-  btn.textContent = '⟳ Scanning...';
-  bar.classList.add('visible');
+  const scanBtn = document.querySelector('.scan-btn');
+  const bar = document.getElementById('radarLoadingBar');
+  if (scanBtn) { scanBtn.disabled = true; scanBtn.textContent = '⟳ Scanning...'; }
+  if (bar) bar.classList.add('visible');
 
   const prompt = `You are a Nigerian stock market sector rotation analyst with deep knowledge of NGX.
 
@@ -9219,7 +9212,7 @@ Today is ${new Date().toLocaleDateString('en-NG', {weekday:'long', year:'numeric
 
 Using current market data from the Nigerian Exchange (NGX), provide a sector rotation intelligence report with:
 
-1. MACRO OVERVIEW (2–3 sentences): Where is Nigeria's economy in the cycle right now? What macro factors are driving the NGX in March 2026?
+1. MACRO OVERVIEW (2–3 sentences): Where is Nigeria's economy in the cycle right now? What macro factors are driving the NGX?
 
 2. TOP 3 HOT SECTORS (entering or mid expansion phase): Name each sector, why it's hot, and the 2–3 best stocks in it.
 
@@ -9227,48 +9220,40 @@ Using current market data from the Nigerian Exchange (NGX), provide a sector rot
 
 4. THE SINGLE BEST TRADE RIGHT NOW: One specific stock, one specific entry price, one specific target price, and the reason in 2 sentences.
 
-5. 3–6 MONTH OUTLOOK: What sector will be the dominant winner by September 2026?
+5. 3–6 MONTH OUTLOOK: What sector will be the dominant winner in the next 6 months?
 
-Format as clean paragraphs. Be specific with naira prices. Be honest — if something is overvalued, say so.`;
+Format as clean paragraphs with line breaks between sections. Be specific with naira prices. Be honest — if something is overvalued, say so.`;
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-
-    if (!response.ok) throw new Error('API error');
-    const data = await response.json();
-
-    let text = '';
-    for (const block of data.content) {
-      if (block.type === 'text') text += block.text;
-    }
+    const text = await callGemini(prompt, 1500);
 
     if (text.trim()) {
-      document.getElementById('macroAnalysis').innerHTML = text.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
-      document.getElementById('stockAnalysis').innerHTML = '<p>' + text.replace(/\n\n/g, '</p><p>').replace(/\n/g, ' ') + '</p>';
-      document.getElementById('exitAnalysis').innerHTML = '<p>' + text.replace(/\n\n/g, '</p><p>').replace(/\n/g, ' ') + '</p>';
+      const formatted = text.split('\n').filter(l => l.trim()).map(l => `<p>${l}</p>`).join('');
+      const macroEl = document.getElementById('macroAnalysis');
+      if (macroEl) macroEl.innerHTML = formatted;
+      const stockEl = document.getElementById('stockAnalysis');
+      if (stockEl) stockEl.innerHTML = formatted;
+      const exitEl = document.getElementById('exitAnalysis');
+      if (exitEl) exitEl.innerHTML = formatted;
     }
 
     const now = new Date().toLocaleTimeString('en-NG', { hour:'2-digit', minute:'2-digit' });
-    document.getElementById('lastScanTime').textContent = `Last scan: ${now}`;
+    const scanTimeEl = document.getElementById('lastScanTime');
+    if (scanTimeEl) scanTimeEl.textContent = `Last scan: ${now}`;
 
     if (beginnerModeOn) showToast('✅ Scan Complete', 'The AI just searched live NGX data and generated your sector rotation intelligence. Scroll down to see the full analysis.');
 
   } catch(err) {
-    document.getElementById('macroAnalysis').innerHTML = `<p><strong>Scan using stored intelligence</strong> (live search unavailable): Based on our analysis through March 2026, Banking (GTCO, UBA, ACCESSCORP) at PE ratios of 2.6–6x represents the highest-conviction rotation play on NGX. The Oil & Gas sector (SEPLAT, Aradel) is in late expansion — profitable to hold but not to enter. Agriculture (PRESCO, OKOMU) remains mid-cycle with strong earnings. The single best entry right now is UBA at ₦42–46 with a 12-month target of ₦70–76.</p>`;
+    if (err.message === 'NO_KEY') {
+      openSettings();
+    } else {
+      const macroEl = document.getElementById('macroAnalysis');
+      if (macroEl) macroEl.innerHTML = `<p><strong>Scan using stored intelligence</strong> (live search unavailable): Based on our analysis through March 2026, Banking (GTCO, UBA, ACCESSCORP) at PE ratios of 2.6–6x represents the highest-conviction rotation play on NGX. The Oil & Gas sector (SEPLAT, Aradel) is in late expansion — profitable to hold but not to enter. Agriculture (PRESCO, OKOMU) remains mid-cycle with strong earnings. The single best entry right now is UBA at ₦42–46 with a 12-month target of ₦70–76.</p>`;
+    }
   }
 
-  btn.disabled = false;
-  btn.textContent = '⟳ Run AI Scan';
-  bar.classList.remove('visible');
+  if (scanBtn) { scanBtn.disabled = false; scanBtn.textContent = '⟳ Run AI Scan'; }
+  if (bar) bar.classList.remove('visible');
 }
 
 // ============================================
