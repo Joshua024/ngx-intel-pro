@@ -1357,6 +1357,10 @@ async function callGemini(prompt, model) {
           generationConfig: { temperature: 0.7, maxOutputTokens: 4096 }
         })
       });
+      if (resp.status === 429) {
+        showToast('Gemini rate limited — wait 60s');
+        return null;
+      }
       if (!resp.ok) continue;
       const data = await resp.json();
       return data?.candidates?.[0]?.content?.parts?.[0]?.text || null;
@@ -1365,83 +1369,155 @@ async function callGemini(prompt, model) {
   return null;
 }
 
-async function fetchLivePrice(ticker, type) {
+// ============================================
+// LIVE PRICE FETCHING — FREE APIs (no key needed)
+// Crypto: CoinGecko | Stocks: Yahoo Finance
+// ============================================
+
+const COINGECKO_IDS = {
+  BTC: 'bitcoin', ETH: 'ethereum', SOL: 'solana', XRP: 'ripple', BNB: 'binancecoin'
+};
+
+async function fetchCryptoPrices() {
+  const ids = Object.values(COINGECKO_IDS).join(',');
+  try {
+    const resp = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`);
+    if (!resp.ok) return null;
+    const data = await resp.json();
+    const result = {};
+    for (const [ticker, cgId] of Object.entries(COINGECKO_IDS)) {
+      if (data[cgId]) {
+        result[ticker] = {
+          price: data[cgId].usd,
+          changePct: data[cgId].usd_24h_change || 0
+        };
+      }
+    }
+    return result;
+  } catch(e) { return null; }
+}
+
+async function fetchStockPrice(ticker) {
   const cacheKey = `global_price_${ticker}`;
   const cached = localStorage.getItem(cacheKey);
   if (cached) {
-    const { price, time } = JSON.parse(cached);
-    if (Date.now() - time < 300000) return price;
+    const d = JSON.parse(cached);
+    if (Date.now() - d.time < 1800000) return d; // 30-min cache
   }
-  const assetType = type === 'crypto' ? 'cryptocurrency' : 'stock';
-  const prompt = `What is the current live price of ${ticker} (${assetType}) in US dollars right now? Reply with ONLY the number, no symbols, commas ok. Example: 185.42`;
-  const result = await callGemini(prompt, 'gemini-2.0-flash');
-  if (result) {
-    const price = parseFloat(result.replace(/[^0-9.]/g, ''));
-    if (!isNaN(price) && price > 0) {
-      localStorage.setItem(cacheKey, JSON.stringify({ price, time: Date.now() }));
-      return price;
-    }
+  try {
+    // Yahoo Finance v8 chart endpoint
+    const resp = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=1d&range=2d`);
+    if (!resp.ok) throw new Error('Yahoo failed');
+    const data = await resp.json();
+    const meta = data.chart.result[0].meta;
+    const price = meta.regularMarketPrice;
+    const prevClose = meta.chartPreviousClose || meta.previousClose;
+    const change = +(price - prevClose).toFixed(2);
+    const changePct = +((change / prevClose) * 100).toFixed(2);
+    const result = { price, change, changePct, time: Date.now() };
+    localStorage.setItem(cacheKey, JSON.stringify(result));
+    return result;
+  } catch(e) {
+    // Fallback: try via AllOrigins CORS proxy
+    try {
+      const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=1d&range=2d`;
+      const resp = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
+      if (!resp.ok) throw new Error('Proxy failed');
+      const data = await resp.json();
+      const meta = data.chart.result[0].meta;
+      const price = meta.regularMarketPrice;
+      const prevClose = meta.chartPreviousClose || meta.previousClose;
+      const change = +(price - prevClose).toFixed(2);
+      const changePct = +((change / prevClose) * 100).toFixed(2);
+      const result = { price, change, changePct, time: Date.now() };
+      localStorage.setItem(cacheKey, JSON.stringify(result));
+      return result;
+    } catch(e2) { return null; }
   }
-  return null;
 }
 
 async function refreshCurrentPrice() {
   if (!currentAsset) return;
-  showLoading(true, `Fetching live price for ${currentAsset.ticker}...`);
-  const price = await fetchLivePrice(currentAsset.ticker, currentAsset.type);
-  showLoading(false);
-  if (price) {
-    currentAsset.price = price;
-    document.getElementById('dPrice').textContent = '$' + price.toLocaleString();
-    document.getElementById('priceSourceBadge').textContent = 'LIVE via Gemini • ' + new Date().toLocaleTimeString();
-    showToast(`${currentAsset.ticker}: $${price.toLocaleString()}`);
+  const s = currentAsset;
+  const isCrypto = s.type === 'crypto';
+
+  showLoading(true, `Fetching live price for ${s.ticker}...`);
+
+  let updated = false;
+  if (isCrypto) {
+    const prices = await fetchCryptoPrices();
+    if (prices && prices[s.ticker]) {
+      const d = prices[s.ticker];
+      const oldPrice = s.price;
+      s.price = d.price;
+      s.changePct = +d.changePct.toFixed(2);
+      s.change = +(s.price * s.changePct / 100).toFixed(2);
+      updated = true;
+    }
   } else {
-    showToast('Could not fetch price — check API key');
+    const d = await fetchStockPrice(s.ticker);
+    if (d) {
+      s.price = d.price;
+      s.change = d.change;
+      s.changePct = d.changePct;
+      updated = true;
+    }
+  }
+
+  showLoading(false);
+
+  if (updated) {
+    renderStockDetail(s);
+    renderSidebar();
+    renderQuickChips();
+    const src = isCrypto ? 'CoinGecko' : 'Yahoo Finance';
+    document.getElementById('priceSourceBadge').innerHTML = `<span style="color:var(--green)">● LIVE</span> via ${src} • ${new Date().toLocaleTimeString()}`;
+    showToast(`${s.ticker}: $${s.price.toLocaleString()}`);
+  } else {
+    showToast('Could not fetch price — try again in a moment');
   }
 }
 
-// ============================================
-// SELL / HOLD ADVISOR
-// ============================================
-
 async function refreshAllPrices() {
-  const key = getApiKey();
-  if (!key) { showToast('Set your Gemini API key in Settings ⚙'); return; }
   const statusEl = document.getElementById('statusText');
   statusEl.textContent = 'REFRESHING...';
 
-  const tickers = ALL_GLOBAL_ASSETS.map(a => `${a.ticker} (${a.type})`).join(', ');
-  const prompt = `What are the current live prices in USD for each of these assets: ${tickers}? Reply in this exact format, one per line: TICKER:PRICE (just the number, no $ sign). Example:\nAAPL:227.48\nBTC:83814`;
+  let updated = 0;
 
-  const result = await callGemini(prompt, 'gemini-2.0-flash');
-  if (result) {
-    const lines = result.split('\n').filter(l => l.includes(':'));
-    let updated = 0;
-    for (const line of lines) {
-      const parts = line.split(':');
-      const ticker = parts[0].trim().toUpperCase();
-      const priceStr = parts.slice(1).join(':').trim();
-      const price = parseFloat(priceStr.replace(/[^0-9.]/g, ''));
-      if (ticker && !isNaN(price) && price > 0) {
-        const asset = ALL_GLOBAL_ASSETS.find(a => a.ticker === ticker);
-        if (asset) {
-          const oldPrice = asset.price;
-          asset.price = price;
-          asset.change = +(price - oldPrice).toFixed(2);
-          asset.changePct = +((price - oldPrice) / oldPrice * 100).toFixed(2);
-          localStorage.setItem(`global_price_${asset.ticker}`, JSON.stringify({ price, time: Date.now() }));
-          updated++;
-        }
+  // 1. Fetch all crypto prices in one call (CoinGecko)
+  const cryptoPrices = await fetchCryptoPrices();
+  if (cryptoPrices) {
+    for (const asset of GLOBAL_CRYPTO) {
+      if (cryptoPrices[asset.ticker]) {
+        const d = cryptoPrices[asset.ticker];
+        asset.price = d.price;
+        asset.changePct = +d.changePct.toFixed(2);
+        asset.change = +(asset.price * asset.changePct / 100).toFixed(2);
+        localStorage.setItem(`global_price_${asset.ticker}`, JSON.stringify({ price: d.price, time: Date.now() }));
+        updated++;
       }
     }
-    renderSidebar();
-    if (currentAsset) renderStockDetail(currentAsset);
-    renderQuickChips();
-    statusEl.textContent = 'LIVE';
-    showToast(`${updated} prices refreshed via Gemini`);
+  }
+
+  // 2. Fetch stock prices (Yahoo Finance, sequential to avoid rate limits)
+  for (const asset of GLOBAL_STOCKS) {
+    const d = await fetchStockPrice(asset.ticker);
+    if (d) {
+      asset.price = d.price;
+      asset.change = d.change;
+      asset.changePct = d.changePct;
+      updated++;
+    }
+  }
+
+  renderSidebar();
+  if (currentAsset) renderStockDetail(currentAsset);
+  renderQuickChips();
+  statusEl.textContent = updated > 0 ? 'LIVE' : 'READY';
+  if (updated > 0) {
+    showToast(`${updated} prices refreshed (CoinGecko + Yahoo Finance)`);
   } else {
-    statusEl.textContent = 'READY';
-    showToast('Could not refresh — check API key');
+    showToast('Could not refresh prices — try again shortly');
   }
 }
 
